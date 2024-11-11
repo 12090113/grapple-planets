@@ -4,6 +4,8 @@ using System;
 
 public partial class Grapple : PinJoint2D
 {
+	[Export]
+	private float maxdist = 1000;
 	Player player;
 	Line2D line = null;
 	bool attached = false;
@@ -30,7 +32,7 @@ public partial class Grapple : PinJoint2D
 				if (mouseEvent.Pressed) {
 					Vector2 mousepos = GetGlobalMousePosition();
 					PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
-					PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(GlobalPosition, mousepos);
+					PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition+(mousepos-GlobalPosition).Normalized()*maxdist);
 					query.Exclude = new Array<Rid> { GetRid() };
 					Dictionary result = spaceState.IntersectRay(query);
 					if (result.Count > 0) {

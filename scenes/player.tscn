@@ -1,13 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://ovdm2aqqrnlg"]
+[gd_scene load_steps=6 format=3 uid="uid://ovdm2aqqrnlg"]
 
 [ext_resource type="Texture2D" uid="uid://q6bs6cmwd66j" path="res://textures/icon.svg" id="1_gu378"]
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_s42la"]
 [ext_resource type="PackedScene" uid="uid://dp4g26lilp5vx" path="res://scenes/grapple.tscn" id="3_1sqtw"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ctt12"]
+bounce = 1.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kn5l7"]
 size = Vector2(128, 128)
 
 [node name="Player" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_ctt12")
 can_sleep = false
 continuous_cd = 1
 linear_damp = 0.01
