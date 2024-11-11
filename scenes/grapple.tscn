@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dp4g26lilp5vx"]
+
+[ext_resource type="Script" path="res://scripts/Grapple.cs" id="1_ykikc"]
+[ext_resource type="Texture2D" uid="uid://jyhxrdsha600" path="res://textures/hook.png" id="2_d5u7x"]
+
+[node name="Grapple" type="DampedSpringJoint2D"]
+node_a = NodePath("..")
+disable_collision = false
+length = 1.0
+script = ExtResource("1_ykikc")
+
+[node name="Line2D" type="Line2D" parent="."]
+
+[node name="Hook" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = -1.5708
+texture = ExtResource("2_d5u7x")
