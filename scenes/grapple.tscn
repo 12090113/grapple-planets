@@ -3,10 +3,9 @@
 [ext_resource type="Script" path="res://scripts/Grapple.cs" id="1_ykikc"]
 [ext_resource type="Texture2D" uid="uid://jyhxrdsha600" path="res://textures/hook.png" id="2_d5u7x"]
 
-[node name="Grapple" type="DampedSpringJoint2D"]
+[node name="Grapple" type="PinJoint2D"]
 node_a = NodePath("..")
 disable_collision = false
-length = 1.0
 script = ExtResource("1_ykikc")
 
 [node name="Line2D" type="Line2D" parent="."]

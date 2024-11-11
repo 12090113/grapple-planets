@@ -2,7 +2,7 @@ using Godot;
 using Godot.Collections;
 using System;
 
-public partial class Grapple : DampedSpringJoint2D
+public partial class Grapple : PinJoint2D
 {
 	Player player;
 	Line2D line = null;
@@ -18,11 +18,17 @@ public partial class Grapple : DampedSpringJoint2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
 	{
-		if (Input.IsMouseButtonPressed(MouseButton.Left)) {
+		if (Input.IsMouseButtonPressed(MouseButton.Left) && attached != null) {
 			//Position = ToLocal(attached.GlobalPosition + atchoffset);
 			Vector2[] points = {ToLocal(player.GlobalPosition), Vector2.Zero};
 			line.Points = points;
-			GD.Print(RestLength);
+			//GD.Print("Should be: " + ToLocal(player.GlobalPosition) + ", " + Vector2.Zero);
+			//GD.Print("Is:        " + points[0] + ", " + points[1]);
+			//if (player.LinearVelocity.Dot(points[1] - points[0]) > 0) {
+			//	NodeB = null;
+			//} else {
+			//	NodeB = attached.GetPath();
+			//}
 		}
 	}
 
@@ -52,6 +58,7 @@ public partial class Grapple : DampedSpringJoint2D
 				} else {
 					NodeB = null;
 					line.Points = null;
+					attached = null;
 					Reparent(player);
 					GlobalPosition = player.GlobalPosition;
 				}
