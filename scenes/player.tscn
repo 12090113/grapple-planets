@@ -20,4 +20,3 @@ texture = ExtResource("1_gu378")
 shape = SubResource("RectangleShape2D_kn5l7")
 
 [node name="Grapple" parent="." instance=ExtResource("3_1sqtw")]
-bias = 0.9

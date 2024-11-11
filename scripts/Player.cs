@@ -15,11 +15,6 @@ public partial class Player : RigidBody2D
 
     public override void _IntegrateForces(PhysicsDirectBodyState2D state)
     {
-		//if (Input.IsMouseButtonPressed(MouseButton.Left)) {
-		//	Vector2 mousepos = GetViewport().GetMousePosition();
-		//	state.ApplyForce((mousepos-Position).Normalized() * _thrust.Length());
-		//}
-
         if (Input.IsActionPressed("ui_up"))
             state.ApplyForce(_thrust.Rotated(Rotation));
         else
