@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://di0axiltwax50"]
+
+[ext_resource type="Script" path="res://scripts/Planet.cs" id="1_ylde5"]
+[ext_resource type="Texture2D" uid="uid://df05mn4f2yrw1" path="res://textures/2d_lights_and_shadows_neutral_point_light.webp" id="2_hxmhi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oy5i0"]
+radius = 200.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1p6u4"]
+radius = 1000.0
+
+[node name="Star" type="StaticBody2D"]
+script = ExtResource("1_ylde5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_oy5i0")
+
+[node name="Area2D" type="Area2D" parent="."]
+gravity_space_override = 1
+gravity_point = true
+gravity_point_unit_distance = 200.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_1p6u4")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+shadow_enabled = true
+texture = ExtResource("2_hxmhi")
+texture_scale = 20.37

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://db3gs2h4m2pj8"]
+[gd_scene load_steps=5 format=3 uid="uid://db3gs2h4m2pj8"]
 
 [ext_resource type="Script" path="res://scripts/Planet.cs" id="1_b0eyr"]
 
@@ -7,6 +7,10 @@ radius = 100.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1p6u4"]
 radius = 1000.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ylnbo"]
+cull_mode = 2
+polygon = PackedVector2Array(0, -100, 26, -97, 50, -87, 70.7, -70.7, 87, -50, 97, -26, 100, 0, 97, 26, 87, 50, 71, 71, 50, 87, 26, 97, 0, 100, -26, 97, -50, 87, -70.7, 70.7, -87, 50, -97, 26, -100, 0, -97, -26, -87, -50, -70.7, -70.7, -50, -87, -26, -97)
 
 [node name="Planet" type="StaticBody2D"]
 script = ExtResource("1_b0eyr")
@@ -22,3 +26,7 @@ gravity_point_unit_distance = 100.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_1p6u4")
 debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+scale = Vector2(1, 1)
+occluder = SubResource("OccluderPolygon2D_ylnbo")
