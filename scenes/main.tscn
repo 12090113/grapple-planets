@@ -2,9 +2,21 @@
 
 [ext_resource type="PackedScene" uid="uid://ovdm2aqqrnlg" path="res://scenes/player.tscn" id="1_4sfis"]
 [ext_resource type="PackedScene" uid="uid://db3gs2h4m2pj8" path="res://scenes/planet.tscn" id="2_0e11l"]
-[ext_resource type="PackedScene" uid="uid://di0axiltwax50" path="res://scenes/star.tscn" id="3_n8fbu"]
+[ext_resource type="Texture2D" uid="uid://cijv0r1bbqagq" path="res://textures/space-bg.png" id="3_oa4yp"]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(3200, 2400)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture_filter = 1
+texture_repeat = 3
+scale = Vector2(2, 2)
+texture = ExtResource("3_oa4yp")
+centered = false
 
 [node name="Player" parent="." instance=ExtResource("1_4sfis")]
 position = Vector2(540, 302)
@@ -13,15 +25,6 @@ position = Vector2(540, 302)
 zoom = Vector2(0.5, 0.5)
 process_callback = 0
 position_smoothing_enabled = true
-
-[node name="ColorRect" type="ColorRect" parent="Player/Camera2D"]
-show_behind_parent = true
-z_index = -1000
-offset_left = -3000.0
-offset_top = -3000.0
-offset_right = 3000.0
-offset_bottom = 3000.0
-color = Color(0.122252, 0.122252, 0.122252, 1)
 
 [node name="Planet" parent="." instance=ExtResource("2_0e11l")]
 position = Vector2(121, 118)
@@ -37,9 +40,3 @@ position = Vector2(1950, 309)
 
 [node name="Planet5" parent="." instance=ExtResource("2_0e11l")]
 position = Vector2(1582, 896)
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.244776, 0.244776, 0.244776, 1)
-
-[node name="Star" parent="." instance=ExtResource("3_n8fbu")]
-position = Vector2(914, -151)
