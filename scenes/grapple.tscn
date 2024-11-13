@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dp4g26lilp5vx"]
+[gd_scene load_steps=3 format=3 uid="uid://dp4g26lilp5vx"]
 
 [ext_resource type="Script" path="res://scripts/Grapple.cs" id="1_ykikc"]
+[ext_resource type="Script" path="res://scripts/GrappleRope.cs" id="2_m1x8u"]
 
 [node name="Grapple" type="Node2D"]
 script = ExtResource("1_ykikc")
 
-[node name="Line2D" type="Line2D" parent="."]
+[node name="GrappleRope" type="Line2D" parent="."]
+script = ExtResource("2_m1x8u")

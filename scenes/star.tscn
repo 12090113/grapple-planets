@@ -7,7 +7,7 @@
 radius = 200.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1p6u4"]
-radius = 1000.0
+radius = 2000.0
 
 [node name="Star" type="StaticBody2D"]
 script = ExtResource("1_ylde5")
@@ -25,6 +25,7 @@ shape = SubResource("CircleShape2D_1p6u4")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+range_layer_min = -100
 shadow_enabled = true
 texture = ExtResource("2_hxmhi")
 texture_scale = 20.37

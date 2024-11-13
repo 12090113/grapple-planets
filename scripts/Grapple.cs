@@ -1,19 +1,18 @@
 using Godot;
 using Godot.Collections;
-using System;
 
 public partial class Grapple : Node2D
 {
 	[Export]
 	private float maxdist = 1000;
 	Player player;
-	Line2D line = null;
+	GrappleRope rope = null;
 	public bool attached = false;
 	public float length = 0;
 
 	public override void _Ready()
 	{
-		line = GetNode<Line2D>("Line2D");
+		rope = GetNode<GrappleRope>("GrappleRope");
 		player = GetParent<Player>();
 	}
 
@@ -21,7 +20,7 @@ public partial class Grapple : Node2D
 	{
 		if (Input.IsMouseButtonPressed(MouseButton.Left) && attached) {
 			Vector2[] points = {ToLocal(player.GlobalPosition), Vector2.Zero};
-			line.Points = points;
+			rope.setPoints(points);
 		}
 	}
 
@@ -58,7 +57,7 @@ public partial class Grapple : Node2D
 				} else {
 					//GD.Print("Pin vel: " + player.LinearVelocity.Length());
 					//NodeB = null;
-					line.Points = null;
+					rope.setPoints(null);
 					attached = false;
 					Reparent(player);
 					GlobalPosition = player.GlobalPosition;

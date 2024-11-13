@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c20gyjtiyfemt"]
+[gd_scene load_steps=5 format=3 uid="uid://c20gyjtiyfemt"]
 
 [ext_resource type="PackedScene" uid="uid://ovdm2aqqrnlg" path="res://scenes/player.tscn" id="1_4sfis"]
 [ext_resource type="PackedScene" uid="uid://db3gs2h4m2pj8" path="res://scenes/planet.tscn" id="2_0e11l"]
 [ext_resource type="Texture2D" uid="uid://cijv0r1bbqagq" path="res://textures/space-bg.png" id="3_oa4yp"]
+[ext_resource type="PackedScene" uid="uid://di0axiltwax50" path="res://scenes/star.tscn" id="4_gej76"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -41,3 +42,9 @@ position = Vector2(1950, 309)
 
 [node name="Planet5" parent="." instance=ExtResource("2_0e11l")]
 position = Vector2(1582, 896)
+
+[node name="Star" parent="." instance=ExtResource("4_gej76")]
+position = Vector2(1160, -55)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.233925, 0.233925, 0.233925, 1)
