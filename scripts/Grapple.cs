@@ -2,13 +2,14 @@ using Godot;
 using Godot.Collections;
 using System;
 
-public partial class Grapple : PinJoint2D
+public partial class Grapple : Node2D
 {
 	[Export]
 	private float maxdist = 1000;
 	Player player;
 	Line2D line = null;
-	bool attached = false;
+	public bool attached = false;
+	public float length = 0;
 
 	public override void _Ready()
 	{
@@ -33,7 +34,7 @@ public partial class Grapple : PinJoint2D
 					Vector2 mousepos = GetGlobalMousePosition();
 					PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
 					PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition+(mousepos-GlobalPosition).Normalized()*maxdist);
-					query.Exclude = new Array<Rid> { GetRid() };
+					query.Exclude = new Array<Rid> { player.GetRid() };
 					Dictionary result = spaceState.IntersectRay(query);
 					if (result.Count > 0) {
 						attached = true;
@@ -41,17 +42,22 @@ public partial class Grapple : PinJoint2D
 						GlobalPosition = (Vector2)result["position"];
 						GlobalRotation = ((Vector2)result["normal"]).Angle();
 
-						Vector2 dir = (GlobalPosition - player.GlobalPosition).Normalized().Rotated(Mathf.Pi/2);
-						if (player.LinearVelocity.Dot(dir) < 0) {
-							dir = -dir;
-						}
-            			player.LinearVelocity = dir * player.LinearVelocity.Length();
+						Vector2 dist = GlobalPosition - player.GlobalPosition;
+						length = dist.Length();
+						//Vector2 dir = (dist).Normalized().Rotated(Mathf.Pi/2);
+						//if (player.LinearVelocity.Dot(dir) < 0) {
+						//	dir = -dir;
+						//}
+						//GD.Print("Old vel: " + player.LinearVelocity.Length());
+            			//player.LinearVelocity = dir * player.LinearVelocity.Length();
+						//GD.Print("New vel: " + player.LinearVelocity.Length());
 
-						NodeA = player.GetPath();
-						NodeB = GetParent().GetPath();
+						//NodeA = player.GetPath();
+						//NodeB = GetParent().GetPath();
 					}
 				} else {
-					NodeB = null;
+					//GD.Print("Pin vel: " + player.LinearVelocity.Length());
+					//NodeB = null;
 					line.Points = null;
 					attached = false;
 					Reparent(player);

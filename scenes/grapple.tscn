@@ -2,9 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/Grapple.cs" id="1_ykikc"]
 
-[node name="Grapple" type="PinJoint2D"]
-node_a = NodePath("..")
-disable_collision = false
+[node name="Grapple" type="Node2D"]
 script = ExtResource("1_ykikc")
 
 [node name="Line2D" type="Line2D" parent="."]
