@@ -42,7 +42,5 @@ public partial class Player : RigidBody2D
                 }
 			}
 		}
-
-		GD.Print(state.LinearVelocity.Length());
 	}
 }

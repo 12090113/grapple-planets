@@ -4,7 +4,7 @@ using Godot.Collections;
 public partial class Grapple : Node2D
 {
 	[Export]
-	private float maxdist = 1000;
+	private float maxdist = 1250;
 	Player player;
 	GrappleRope rope = null;
 	public bool attached = false;
