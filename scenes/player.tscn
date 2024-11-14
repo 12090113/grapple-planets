@@ -11,6 +11,7 @@ bounce = 1.0
 size = Vector2(128, 128)
 
 [node name="Player" type="RigidBody2D"]
+physics_interpolation_mode = 1
 physics_material_override = SubResource("PhysicsMaterial_ctt12")
 can_sleep = false
 continuous_cd = 1
