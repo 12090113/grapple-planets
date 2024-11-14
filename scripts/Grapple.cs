@@ -21,10 +21,8 @@ public partial class Grapple : Node2D
 	public override void _PhysicsProcess(double delta)
 	{
 		if (attached) {
-			if (Input.IsMouseButtonPressed(MouseButton.Left)) {
-				Vector2[] points = {Vector2.Zero, ToLocal(player.GlobalPosition)};
-				rope.setPoints(points);
-			}
+			Vector2[] points = {Vector2.Zero, ToLocal(player.GlobalPosition)};
+			rope.setPoints(points);
 			if (Input.IsActionPressed("grapple_pull")) {
 				PullPlayer();
 			}
