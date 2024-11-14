@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dp4g26lilp5vx"]
 
 [ext_resource type="Script" path="res://scripts/Grapple.cs" id="1_ykikc"]
-[ext_resource type="Texture2D" uid="uid://81lp3fr7gf03" path="res://textures/link.png" id="2_2ov07"]
+[ext_resource type="Texture2D" uid="uid://bvsw5mpchq0ll" path="res://textures/grapple/grapple-chain.png" id="2_lub3a"]
 [ext_resource type="Script" path="res://scripts/GrappleRope.cs" id="2_m1x8u"]
 
 [node name="Grapple" type="Node2D"]
@@ -9,7 +9,7 @@ script = ExtResource("1_ykikc")
 
 [node name="GrappleRope" type="Line2D" parent="."]
 texture_repeat = 2
-width = 30.0
-texture = ExtResource("2_2ov07")
+width = 70.0
+texture = ExtResource("2_lub3a")
 texture_mode = 1
 script = ExtResource("2_m1x8u")
