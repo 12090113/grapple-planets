@@ -5,7 +5,9 @@ public partial class Grapple : Node2D
 {
 	[Export]
 	private float maxdist = 1250;
-	Player player;
+    [Export]
+    float pullSpeed = 500;
+    Player player;
 	GrappleRope rope = null;
 	public bool attached = false;
 	public float length = 0;
@@ -26,6 +28,19 @@ public partial class Grapple : Node2D
 
 	public override void _Input(InputEvent @event)
 	{
+		if (@event is InputEventKey keyEvent && keyEvent.Pressed)
+		{
+			if (keyEvent.Keycode == Key.E && attached)
+			{
+				GD.Print("a");
+				PullPlayer();
+			}
+            if (keyEvent.Keycode == Key.Q && attached)
+            {
+                GD.Print("b");
+                PushPlayer();
+            }
+        }
 		if (@event is InputEventMouseButton mouseEvent)
 		{
 			if (mouseEvent.ButtonIndex == MouseButton.Left) {
@@ -40,7 +55,6 @@ public partial class Grapple : Node2D
 						Reparent((PhysicsBody2D)result["collider"]);
 						GlobalPosition = (Vector2)result["position"];
 						GlobalRotation = ((Vector2)result["normal"]).Angle();
-
 						Vector2 dist = GlobalPosition - player.GlobalPosition;
 						length = dist.Length();
 						//Vector2 dir = (dist).Normalized().Rotated(Mathf.Pi/2);
@@ -65,4 +79,17 @@ public partial class Grapple : Node2D
 			}
 		}
 	}
+
+	private void PullPlayer()
+	{
+		Vector2 direction = (GlobalPosition - player.GlobalPosition).Normalized();
+    player.LinearVelocity = direction * pullSpeed;
+	}
+
+    private void PushPlayer()
+    {
+        Vector2 direction = (player.GlobalPosition - GlobalPosition).Normalized();
+        player.LinearVelocity = direction * pullSpeed;
+		length += 100;
+    }
 }
