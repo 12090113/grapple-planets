@@ -6,7 +6,13 @@ public partial class Grapple : Node2D
 	[Export]
 	private float maxLength = 1250;
 	[Export]
-	float pullSpeed = 5;
+	private float minLength = 65;
+	[Export]
+	float pullSpeed = 300;
+	[Export]
+	public float acceleration = 100;
+	[Export]
+	public float maxSpeed = 1000;
 	Player player;
 	GrappleRope rope = null;
 	public bool attached = false;
@@ -24,10 +30,10 @@ public partial class Grapple : Node2D
 			Vector2[] points = {Vector2.Zero, ToLocal(player.GlobalPosition)};
 			rope.setPoints(points);
 			if (Input.IsActionPressed("grapple_pull")) {
-				PullPlayer();
+				PullPlayer((float)delta);
 			}
 			if (Input.IsActionPressed("grapple_push")) {
-				PushPlayer();
+				PushPlayer((float)delta);
 			}
 		}
 	}
@@ -60,14 +66,17 @@ public partial class Grapple : Node2D
 		}
 	}
 
-	private void PullPlayer()
+	private void PullPlayer(float delta)
 	{
-		length -= pullSpeed;
+		length -= pullSpeed * delta;
+		if (length < minLength) {
+			length = minLength;
+		}
 	}
 
-	private void PushPlayer()
+	private void PushPlayer(float delta)
 	{
-		length += pullSpeed;
+		length += pullSpeed * delta;
 		if (length > maxLength) {
 			length = maxLength;
 		}

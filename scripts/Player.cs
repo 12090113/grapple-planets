@@ -35,6 +35,9 @@ public partial class Player : RigidBody2D
 			if (state.LinearVelocity.Dot(perpdir) < 0) {
 				perpdir = -perpdir;
 			}
+			if (state.LinearVelocity.Length() < grapple.maxSpeed) {
+				state.LinearVelocity += perpdir * grapple.acceleration * state.Step;
+			}
 			if (dist.Length() >= grapple.length && state.LinearVelocity.Dot(dir) <= 0) {
 				state.LinearVelocity = perpdir * state.LinearVelocity.Length();
                 if (dist.Length() > grapple.length) {
