@@ -1,14 +1,56 @@
-[gd_scene load_steps=6 format=3 uid="uid://ovdm2aqqrnlg"]
+[gd_scene load_steps=12 format=3 uid="uid://ovdm2aqqrnlg"]
 
-[ext_resource type="Texture2D" uid="uid://q6bs6cmwd66j" path="res://textures/icon.svg" id="1_gu378"]
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_s42la"]
 [ext_resource type="PackedScene" uid="uid://dp4g26lilp5vx" path="res://scenes/grapple.tscn" id="3_1sqtw"]
+[ext_resource type="Texture2D" uid="uid://2h3i56x76yv6" path="res://textures/astronaut/astronaut_swing1.png" id="4_bpkfx"]
+[ext_resource type="Texture2D" uid="uid://cb5bgs47uk6tm" path="res://textures/astronaut/astronaut_swing2.png" id="5_p3aif"]
+[ext_resource type="Texture2D" uid="uid://c22tigkubpu8u" path="res://textures/astronaut/astronaut_outline_swing1.png" id="6_jyjvg"]
+[ext_resource type="Script" path="res://scripts/Swing.cs" id="6_trqve"]
+[ext_resource type="Texture2D" uid="uid://carfa1y6xekvd" path="res://textures/astronaut/astronaut_outline_swing2.png" id="7_x40lu"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ctt12"]
 bounce = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kn5l7"]
 size = Vector2(128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m3kcb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_bpkfx")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_p3aif")
+}],
+"loop": true,
+"name": &"swinging",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ooruu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_jyjvg")
+}],
+"loop": true,
+"name": &"idle2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_x40lu")
+}],
+"loop": true,
+"name": &"swinging2",
+"speed": 5.0
+}]
 
 [node name="Player" type="RigidBody2D"]
 physics_interpolation_mode = 1
@@ -19,10 +61,18 @@ lock_rotation = true
 continuous_cd = 1
 script = ExtResource("1_s42la")
 
-[node name="Icon" type="Sprite2D" parent="."]
-texture = ExtResource("1_gu378")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_kn5l7")
 
 [node name="Grapple" parent="." instance=ExtResource("3_1sqtw")]
+
+[node name="Swing" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_m3kcb")
+animation = &"swinging"
+script = ExtResource("6_trqve")
+
+[node name="Outline" type="AnimatedSprite2D" parent="Swing"]
+z_index = -50
+sprite_frames = SubResource("SpriteFrames_ooruu")
+animation = &"swinging2"
