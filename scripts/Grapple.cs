@@ -32,12 +32,10 @@ public partial class Grapple : Node2D
 		{
 			if (keyEvent.Keycode == Key.E && attached)
 			{
-				GD.Print("a");
 				PullPlayer();
 			}
             if (keyEvent.Keycode == Key.Q && attached)
             {
-                GD.Print("b");
                 PushPlayer();
             }
         }
