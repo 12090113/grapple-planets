@@ -4,7 +4,7 @@ using Godot.Collections;
 public partial class Grapple : Node2D
 {
 	[Export]
-	private float maxLength = 1250;
+	public float maxLength = 1250;
 	[Export]
 	private float minLength = 65;
 	[Export]
@@ -24,11 +24,15 @@ public partial class Grapple : Node2D
 		player = GetParent<Player>();
 	}
 
-	public override void _PhysicsProcess(double delta)
+    public override void _Process(double delta)
+    {
+		Vector2[] points = {Vector2.Zero, ToLocal(player.GlobalPosition)};
+		rope.UpdatePoints(points, (float)delta);
+    }
+
+    public override void _PhysicsProcess(double delta)
 	{
 		if (attached) {
-			Vector2[] points = {Vector2.Zero, ToLocal(player.GlobalPosition)};
-			rope.setPoints(points);
 			if (Input.IsActionPressed("grapple_pull")) {
 				PullPlayer((float)delta);
 			}
@@ -43,9 +47,12 @@ public partial class Grapple : Node2D
 		if (@event is InputEventMouseButton mouseEvent) {
 			if (mouseEvent.ButtonIndex == MouseButton.Left) {
 				if (mouseEvent.Pressed) {
+					Reparent(player);
+					GlobalPosition = player.GlobalPosition;
 					Vector2 mousepos = GetGlobalMousePosition();
+					Vector2 target = (mousepos-GlobalPosition).Normalized()*maxLength;
 					PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
-					PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition+(mousepos-GlobalPosition).Normalized()*maxLength);
+					PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition+target);
 					query.Exclude = new Array<Rid> { player.GetRid() };
 					Dictionary result = spaceState.IntersectRay(query);
 					if (result.Count > 0) {
@@ -55,12 +62,14 @@ public partial class Grapple : Node2D
 						GlobalRotation = ((Vector2)result["normal"]).Angle();
 						Vector2 dist = GlobalPosition - player.GlobalPosition;
 						length = dist.Length();
+						rope.ExtendSuccess();
+					} else {
+						GlobalPosition = player.GlobalPosition + target/2f;
+						rope.ExtendFail();
 					}
-				} else {
-					rope.setPoints(null);
+				} else if (attached) {
+					rope.Retract();
 					attached = false;
-					Reparent(player);
-					GlobalPosition = player.GlobalPosition;
 				}
 			}
 		}

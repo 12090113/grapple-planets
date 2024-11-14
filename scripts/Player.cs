@@ -10,23 +10,18 @@ public partial class Player : RigidBody2D
 	}
 
 	[Export]
-	private Vector2 _thrust = new Vector2(0, -250);
-	[Export]
-	private float _torque = 20000;
+	private float thrust = 250f;
 
 	public override void _IntegrateForces(PhysicsDirectBodyState2D state)
 	{
 		if (Input.IsActionPressed("ui_up"))
-			state.ApplyForce(_thrust.Rotated(Rotation));
-		else
-			state.ApplyForce(new Vector2());
-
-		var rotationDir = 0;
+			state.ApplyForce(Vector2.Up*thrust);
+		if (Input.IsActionPressed("ui_down"))
+			state.ApplyForce(Vector2.Down*thrust);
 		if (Input.IsActionPressed("ui_right"))
-			rotationDir += 1;
+			state.ApplyForce(Vector2.Right*thrust);
 		if (Input.IsActionPressed("ui_left"))
-			rotationDir -= 1;
-		state.ApplyTorque(rotationDir * _torque);
+			state.ApplyForce(Vector2.Left*thrust);
 
 		if (grapple.attached) {
 			Vector2 dist = grapple.GlobalPosition - GlobalPosition;
