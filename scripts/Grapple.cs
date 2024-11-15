@@ -6,15 +6,16 @@ public partial class Grapple : Node2D
 	[Export]
 	public float maxLength = 1250;
 	[Export]
-	private float minLength = 65;
+	private float minLength = 80;
 	[Export]
 	float pullSpeed = 300;
 	[Export]
 	public float acceleration = 100;
 	[Export]
 	public float maxSpeed = 1000;
-	Player player;
-	GrappleRope rope = null;
+	Player player = null;
+	public GrappleRope rope = null;
+	public Sprite2D gun = null;
 	public bool attached = false;
 	public float length = 0;
 
@@ -22,11 +23,12 @@ public partial class Grapple : Node2D
 	{
 		rope = GetNode<GrappleRope>("GrappleRope");
 		player = GetParent<Player>();
+		gun = GetNode<Sprite2D>("../Body/RightArm/GrappleGun");
 	}
 
     public override void _Process(double delta)
     {
-		Vector2[] points = {Vector2.Zero, ToLocal(player.GlobalPosition)};
+		Vector2[] points = {Vector2.Zero, ToLocal(gun.GlobalPosition)};
 		rope.UpdatePoints(points, (float)delta);
     }
 
@@ -59,12 +61,13 @@ public partial class Grapple : Node2D
 						attached = true;
 						Reparent((PhysicsBody2D)result["collider"]);
 						GlobalPosition = (Vector2)result["position"];
-						GlobalRotation = ((Vector2)result["normal"]).Angle();
+						GlobalRotation = (-(Vector2)result["normal"]).Angle();
 						Vector2 dist = GlobalPosition - player.GlobalPosition;
 						length = dist.Length();
 						rope.ExtendSuccess();
 					} else {
 						GlobalPosition = player.GlobalPosition + target/2f;
+						GlobalRotation = target.Angle();
 						rope.ExtendFail();
 					}
 				} else if (attached) {

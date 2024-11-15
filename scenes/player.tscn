@@ -1,12 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://ovdm2aqqrnlg"]
+[gd_scene load_steps=16 format=3 uid="uid://ovdm2aqqrnlg"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_s42la"]
 [ext_resource type="PackedScene" uid="uid://dp4g26lilp5vx" path="res://scenes/grapple.tscn" id="3_1sqtw"]
 [ext_resource type="Texture2D" uid="uid://2h3i56x76yv6" path="res://textures/astronaut/astronaut_swing1.png" id="4_bpkfx"]
 [ext_resource type="Texture2D" uid="uid://cb5bgs47uk6tm" path="res://textures/astronaut/astronaut_swing2.png" id="5_p3aif"]
 [ext_resource type="Texture2D" uid="uid://c22tigkubpu8u" path="res://textures/astronaut/astronaut_outline_swing1.png" id="6_jyjvg"]
-[ext_resource type="Script" path="res://scripts/Swing.cs" id="6_trqve"]
+[ext_resource type="Script" path="res://scripts/PlayerAnimation.cs" id="6_trqve"]
 [ext_resource type="Texture2D" uid="uid://carfa1y6xekvd" path="res://textures/astronaut/astronaut_outline_swing2.png" id="7_x40lu"]
+[ext_resource type="Texture2D" uid="uid://c64frfwlh7hrt" path="res://textures/astronaut/astronaut_arm-right.png" id="8_a6tdc"]
+[ext_resource type="Texture2D" uid="uid://c66rayqeiyhxc" path="res://textures/astronaut/astronaut_outline_arm-right.png" id="9_6xbve"]
+[ext_resource type="Texture2D" uid="uid://em8lvduo3y7y" path="res://textures/grapple/grapple-gun.png" id="10_rlppf"]
+[ext_resource type="Texture2D" uid="uid://dx4c0q2kfwrym" path="res://textures/grapple/grapple-gun_outline.png" id="11_as2ks"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ctt12"]
 bounce = 1.0
@@ -67,14 +71,39 @@ shape = SubResource("CapsuleShape2D_c4rw0")
 
 [node name="Grapple" parent="." instance=ExtResource("3_1sqtw")]
 
-[node name="Swing" type="AnimatedSprite2D" parent="."]
+[node name="Body" type="AnimatedSprite2D" parent="."]
 position = Vector2(3, 12)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_m3kcb")
 animation = &"swinging"
 script = ExtResource("6_trqve")
 
-[node name="Outline" type="AnimatedSprite2D" parent="Swing"]
+[node name="Outline" type="AnimatedSprite2D" parent="Body"]
 z_index = -50
 sprite_frames = SubResource("SpriteFrames_ooruu")
 animation = &"swinging2"
+
+[node name="RightArm" type="Sprite2D" parent="Body"]
+position = Vector2(52, -4)
+texture = ExtResource("8_a6tdc")
+offset = Vector2(92, -1)
+
+[node name="Outline" type="Sprite2D" parent="Body/RightArm"]
+show_behind_parent = true
+z_index = -50
+texture = ExtResource("9_6xbve")
+offset = Vector2(92, -1)
+
+[node name="GrappleGun" type="Sprite2D" parent="Body/RightArm"]
+position = Vector2(368, -32)
+rotation = 0.0785398
+texture = ExtResource("10_rlppf")
+offset = Vector2(-123.64, 32.735)
+flip_h = true
+
+[node name="Outline" type="Sprite2D" parent="Body/RightArm/GrappleGun"]
+show_behind_parent = true
+z_index = -50
+texture = ExtResource("11_as2ks")
+offset = Vector2(-123.64, 32.735)
+flip_h = true

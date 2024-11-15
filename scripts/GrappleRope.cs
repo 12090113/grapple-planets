@@ -16,20 +16,24 @@ public partial class GrappleRope : Line2D
 	float maxAmplitude = 400f;
 	[Export]
 	int precision = 100;
-	
-	Grapple grapple;
+	Line2D outline = null;
+	Sprite2D hook = null;
+	Grapple grapple = null;
 	Vector2[] grapplePoints;
 	float extend = 0;
 	float straighten = 0;
-	float retract = 0;
+	public float retract = 0;
 	bool fail = false;
 
 	public override void _Ready()
 	{
 		grapple = GetParent<Grapple>();
+		outline = GetNode<Line2D>("Outline");
+		hook = GetNode<Sprite2D>("Hook");
 	}
 
 	public void ExtendSuccess() {
+		hook.Reparent(this);
 		grapplePoints = null;
 		retract = 0f;
 		straighten = 0f;
@@ -38,6 +42,7 @@ public partial class GrappleRope : Line2D
 	}
 
 	public void ExtendFail() {
+		hook.Reparent(this);
 		grapplePoints = null;
 		retract = 0f;
 		straighten = 0f;
@@ -94,6 +99,11 @@ public partial class GrappleRope : Line2D
 					grapplePoints = null;
 					Points = null;
 					straighten = 0;
+					hook.Reparent(grapple.gun);
+					hook.Position = Vector2.Zero;
+					hook.Rotation = 0;
+					outline.Points = Points;
+					return;
 				}
 				straighten -= 1f/straightenTime*delta;
 			} else if (straighten > 0) {
@@ -104,10 +114,15 @@ public partial class GrappleRope : Line2D
 				straighten -= 1f/straightenTime*delta;
 			}
 			Points = sinpoints;
+			hook.Visible = true;
+			hook.Position = Points[0];
 		} else if (grapple.attached) {
 			Points = grapplePoints;
+			hook.Visible = true;
+			hook.Position = Points[0];
 		} else {
 			Points = null;
 		}
+		outline.Points = Points;
 	}
 }
