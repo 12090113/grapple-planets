@@ -17,7 +17,7 @@ public partial class GrappleRope : Line2D
 	[Export]
 	int precision = 100;
 	Line2D outline = null;
-	public Sprite2D hook = null;
+	public Hook hook = null;
 	Grapple grapple = null;
 	Vector2[] grapplePoints;
 	float extend = 0;
@@ -33,6 +33,7 @@ public partial class GrappleRope : Line2D
 
 	public void ExtendSuccess() {
 		hook.Reparent(this);
+		hook.parent = this;
 		grapplePoints = null;
 		retract = 0f;
 		straighten = 0f;
@@ -42,6 +43,7 @@ public partial class GrappleRope : Line2D
 
 	public void ExtendFail() {
 		hook.Reparent(this);
+		hook.parent = this;
 		grapplePoints = null;
 		retract = 0f;
 		straighten = 0f;
@@ -99,6 +101,7 @@ public partial class GrappleRope : Line2D
 					Points = null;
 					straighten = 0;
 					hook.Reparent(grapple.gun);
+					hook.parent = grapple.gun;
 					hook.Position = Vector2.Zero;
 					hook.Rotation = 0;
 					outline.Points = Points;

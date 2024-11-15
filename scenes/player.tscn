@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ovdm2aqqrnlg"]
+[gd_scene load_steps=23 format=3 uid="uid://ovdm2aqqrnlg"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_s42la"]
 [ext_resource type="PackedScene" uid="uid://dp4g26lilp5vx" path="res://scenes/grapple.tscn" id="3_1sqtw"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://i8e4s47tc682" path="res://textures/astronaut/astronaut_arm-left.png" id="12_ekkd3"]
 [ext_resource type="Texture2D" uid="uid://c076qrl2yyn7p" path="res://textures/astronaut/astronaut_outline_arm-left.png" id="13_ipokh"]
 [ext_resource type="Texture2D" uid="uid://c7kn3cufh5vne" path="res://textures/grapple/grapple-hook_outline.png" id="13_pki1i"]
+[ext_resource type="Script" path="res://scripts/Hook.cs" id="13_vnden"]
 [ext_resource type="Texture2D" uid="uid://ci8jh70udhtm8" path="res://textures/weapon/laser-gun.png" id="14_47jg3"]
 [ext_resource type="Texture2D" uid="uid://djdhawvhbhjkr" path="res://textures/weapon/laser-gun_outline.png" id="15_mnyop"]
 
@@ -120,6 +121,7 @@ rotation = -0.0785398
 scale = Vector2(1.8, 1.8)
 texture = ExtResource("12_6nm2h")
 offset = Vector2(52, 0)
+script = ExtResource("13_vnden")
 
 [node name="Outline" type="Sprite2D" parent="Body/RightArm/GrappleGun/Hook"]
 show_behind_parent = true
