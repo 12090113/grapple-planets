@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ovdm2aqqrnlg"]
+[gd_scene load_steps=20 format=3 uid="uid://ovdm2aqqrnlg"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_s42la"]
 [ext_resource type="PackedScene" uid="uid://dp4g26lilp5vx" path="res://scenes/grapple.tscn" id="3_1sqtw"]
@@ -11,6 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://c66rayqeiyhxc" path="res://textures/astronaut/astronaut_outline_arm-right.png" id="9_6xbve"]
 [ext_resource type="Texture2D" uid="uid://em8lvduo3y7y" path="res://textures/grapple/grapple-gun.png" id="10_rlppf"]
 [ext_resource type="Texture2D" uid="uid://dx4c0q2kfwrym" path="res://textures/grapple/grapple-gun_outline.png" id="11_as2ks"]
+[ext_resource type="Texture2D" uid="uid://i8e4s47tc682" path="res://textures/astronaut/astronaut_arm-left.png" id="12_ekkd3"]
+[ext_resource type="Texture2D" uid="uid://c076qrl2yyn7p" path="res://textures/astronaut/astronaut_outline_arm-left.png" id="13_ipokh"]
+[ext_resource type="Texture2D" uid="uid://ci8jh70udhtm8" path="res://textures/weapon/laser-gun.png" id="14_47jg3"]
+[ext_resource type="Texture2D" uid="uid://djdhawvhbhjkr" path="res://textures/weapon/laser-gun_outline.png" id="15_mnyop"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ctt12"]
 bounce = 1.0
@@ -107,3 +111,25 @@ z_index = -50
 texture = ExtResource("11_as2ks")
 offset = Vector2(-123.64, 32.735)
 flip_h = true
+
+[node name="LeftArm" type="Sprite2D" parent="Body"]
+position = Vector2(-92, -8)
+texture = ExtResource("12_ekkd3")
+offset = Vector2(92, -1)
+
+[node name="Outline" type="Sprite2D" parent="Body/LeftArm"]
+show_behind_parent = true
+z_index = -50
+texture = ExtResource("13_ipokh")
+offset = Vector2(92, -1)
+
+[node name="LaserGun" type="Sprite2D" parent="Body/LeftArm"]
+position = Vector2(320, -76)
+texture = ExtResource("14_47jg3")
+offset = Vector2(-92, 28)
+
+[node name="Outline" type="Sprite2D" parent="Body/LeftArm/LaserGun"]
+show_behind_parent = true
+z_index = -50
+texture = ExtResource("15_mnyop")
+offset = Vector2(-92, 28)
