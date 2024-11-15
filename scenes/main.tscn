@@ -1,16 +1,9 @@
-<<<<<<< HEAD
-[gd_scene load_steps=6 format=3 uid="uid://c20gyjtiyfemt"]
-=======
 [gd_scene load_steps=14 format=3 uid="uid://c20gyjtiyfemt"]
->>>>>>> 95b34997b77514dbe0222d9a6995ab46c7092d7f
 
 [ext_resource type="PackedScene" uid="uid://ovdm2aqqrnlg" path="res://scenes/player.tscn" id="1_4sfis"]
 [ext_resource type="PackedScene" uid="uid://db3gs2h4m2pj8" path="res://scenes/planet.tscn" id="2_0e11l"]
 [ext_resource type="Texture2D" uid="uid://cijv0r1bbqagq" path="res://textures/space-bg.png" id="3_oa4yp"]
 [ext_resource type="PackedScene" uid="uid://di0axiltwax50" path="res://scenes/star.tscn" id="4_gej76"]
-<<<<<<< HEAD
-[ext_resource type="PackedScene" uid="uid://cscafoxo1oito" path="res://scenes/enemy.tscn" id="5_rahvf"]
-=======
 [ext_resource type="Texture2D" uid="uid://8kboneemhgmu" path="res://textures/planets/planet1.png" id="4_x2y7n"]
 [ext_resource type="Texture2D" uid="uid://b4f0gwjncdehl" path="res://textures/planets/planet1_outline.png" id="5_i8ik0"]
 [ext_resource type="Texture2D" uid="uid://cxuc4edjq8oux" path="res://textures/planets/planet3.png" id="6_bu2qa"]
@@ -20,7 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://cqy4tmeqvxodt" path="res://textures/planets/planet6.png" id="10_7i0i8"]
 [ext_resource type="Texture2D" uid="uid://jjnnbeeu1su2" path="res://textures/planets/planet7.png" id="11_i4n03"]
 [ext_resource type="Texture2D" uid="uid://bg2athwps8p1i" path="res://textures/planets/planet7_outline.png" id="12_8i6fk"]
->>>>>>> 95b34997b77514dbe0222d9a6995ab46c7092d7f
 
 [node name="Node2D" type="Node2D"]
 
@@ -79,6 +71,3 @@ position = Vector2(1160, -55)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.233925, 0.233925, 0.233925, 1)
-
-[node name="Enemy" parent="." instance=ExtResource("5_rahvf")]
-position = Vector2(1140, 846)

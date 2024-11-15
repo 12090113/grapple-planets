@@ -1,5 +1,4 @@
 [gd_scene load_steps=22 format=3 uid="uid://ovdm2aqqrnlg"]
-[gd_scene load_steps=22 format=3 uid="uid://ovdm2aqqrnlg"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_s42la"]
 [ext_resource type="PackedScene" uid="uid://dp4g26lilp5vx" path="res://scenes/grapple.tscn" id="3_1sqtw"]
@@ -7,18 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cb5bgs47uk6tm" path="res://textures/astronaut/astronaut_swing2.png" id="5_p3aif"]
 [ext_resource type="Texture2D" uid="uid://c22tigkubpu8u" path="res://textures/astronaut/astronaut_outline_swing1.png" id="6_jyjvg"]
 [ext_resource type="Script" path="res://scripts/PlayerAnimation.cs" id="6_trqve"]
-[ext_resource type="Script" path="res://scripts/PlayerAnimation.cs" id="6_trqve"]
 [ext_resource type="Texture2D" uid="uid://carfa1y6xekvd" path="res://textures/astronaut/astronaut_outline_swing2.png" id="7_x40lu"]
-[ext_resource type="Texture2D" uid="uid://c64frfwlh7hrt" path="res://textures/astronaut/astronaut_arm-right.png" id="8_a6tdc"]
-[ext_resource type="Texture2D" uid="uid://c66rayqeiyhxc" path="res://textures/astronaut/astronaut_outline_arm-right.png" id="9_6xbve"]
-[ext_resource type="Texture2D" uid="uid://em8lvduo3y7y" path="res://textures/grapple/grapple-gun.png" id="10_rlppf"]
-[ext_resource type="Texture2D" uid="uid://dx4c0q2kfwrym" path="res://textures/grapple/grapple-gun_outline.png" id="11_as2ks"]
-[ext_resource type="Texture2D" uid="uid://bcxw5w5jcaew1" path="res://textures/grapple/grapple-hook.png" id="12_6nm2h"]
-[ext_resource type="Texture2D" uid="uid://i8e4s47tc682" path="res://textures/astronaut/astronaut_arm-left.png" id="12_ekkd3"]
-[ext_resource type="Texture2D" uid="uid://c076qrl2yyn7p" path="res://textures/astronaut/astronaut_outline_arm-left.png" id="13_ipokh"]
-[ext_resource type="Texture2D" uid="uid://c7kn3cufh5vne" path="res://textures/grapple/grapple-hook_outline.png" id="13_pki1i"]
-[ext_resource type="Texture2D" uid="uid://ci8jh70udhtm8" path="res://textures/weapon/laser-gun.png" id="14_47jg3"]
-[ext_resource type="Texture2D" uid="uid://djdhawvhbhjkr" path="res://textures/weapon/laser-gun_outline.png" id="15_mnyop"]
 [ext_resource type="Texture2D" uid="uid://c64frfwlh7hrt" path="res://textures/astronaut/astronaut_arm-right.png" id="8_a6tdc"]
 [ext_resource type="Texture2D" uid="uid://c66rayqeiyhxc" path="res://textures/astronaut/astronaut_outline_arm-right.png" id="9_6xbve"]
 [ext_resource type="Texture2D" uid="uid://em8lvduo3y7y" path="res://textures/grapple/grapple-gun.png" id="10_rlppf"]
@@ -33,14 +21,9 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ctt12"]
 bounce = 1.0
 
-<<<<<<< HEAD
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1vkrh"]
-size = Vector2(111, 152)
-=======
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c4rw0"]
 radius = 48.0
 height = 166.0
->>>>>>> 95b34997b77514dbe0222d9a6995ab46c7092d7f
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m3kcb"]
 animations = [{
@@ -91,14 +74,7 @@ continuous_cd = 1
 script = ExtResource("1_s42la")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-<<<<<<< HEAD
-position = Vector2(-0.500001, -18)
-rotation = -3.14159
-scale = Vector2(1, -1)
-shape = SubResource("RectangleShape2D_1vkrh")
-=======
 shape = SubResource("CapsuleShape2D_c4rw0")
->>>>>>> 95b34997b77514dbe0222d9a6995ab46c7092d7f
 
 [node name="Grapple" parent="." instance=ExtResource("3_1sqtw")]
 
