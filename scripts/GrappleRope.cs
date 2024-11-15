@@ -17,7 +17,7 @@ public partial class GrappleRope : Line2D
 	[Export]
 	int precision = 100;
 	Line2D outline = null;
-	Sprite2D hook = null;
+	public Sprite2D hook = null;
 	Grapple grapple = null;
 	Vector2[] grapplePoints;
 	float extend = 0;
@@ -29,7 +29,6 @@ public partial class GrappleRope : Line2D
 	{
 		grapple = GetParent<Grapple>();
 		outline = GetNode<Line2D>("Outline");
-		hook = GetNode<Sprite2D>("Hook");
 	}
 
 	public void ExtendSuccess() {

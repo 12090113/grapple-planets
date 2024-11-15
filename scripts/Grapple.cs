@@ -24,6 +24,7 @@ public partial class Grapple : Node2D
 		rope = GetNode<GrappleRope>("GrappleRope");
 		player = GetParent<Player>();
 		gun = GetNode<Sprite2D>("../Body/RightArm/GrappleGun");
+		rope.hook = gun.GetNode<Sprite2D>("Hook");
 	}
 
     public override void _Process(double delta)

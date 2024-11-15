@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://ovdm2aqqrnlg"]
+[gd_scene load_steps=22 format=3 uid="uid://ovdm2aqqrnlg"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_s42la"]
 [ext_resource type="PackedScene" uid="uid://dp4g26lilp5vx" path="res://scenes/grapple.tscn" id="3_1sqtw"]
@@ -11,8 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://c66rayqeiyhxc" path="res://textures/astronaut/astronaut_outline_arm-right.png" id="9_6xbve"]
 [ext_resource type="Texture2D" uid="uid://em8lvduo3y7y" path="res://textures/grapple/grapple-gun.png" id="10_rlppf"]
 [ext_resource type="Texture2D" uid="uid://dx4c0q2kfwrym" path="res://textures/grapple/grapple-gun_outline.png" id="11_as2ks"]
+[ext_resource type="Texture2D" uid="uid://bcxw5w5jcaew1" path="res://textures/grapple/grapple-hook.png" id="12_6nm2h"]
 [ext_resource type="Texture2D" uid="uid://i8e4s47tc682" path="res://textures/astronaut/astronaut_arm-left.png" id="12_ekkd3"]
 [ext_resource type="Texture2D" uid="uid://c076qrl2yyn7p" path="res://textures/astronaut/astronaut_outline_arm-left.png" id="13_ipokh"]
+[ext_resource type="Texture2D" uid="uid://c7kn3cufh5vne" path="res://textures/grapple/grapple-hook_outline.png" id="13_pki1i"]
 [ext_resource type="Texture2D" uid="uid://ci8jh70udhtm8" path="res://textures/weapon/laser-gun.png" id="14_47jg3"]
 [ext_resource type="Texture2D" uid="uid://djdhawvhbhjkr" path="res://textures/weapon/laser-gun_outline.png" id="15_mnyop"]
 
@@ -63,6 +65,7 @@ animations = [{
 
 [node name="Player" type="RigidBody2D"]
 physics_interpolation_mode = 1
+z_index = 100
 physics_material_override = SubResource("PhysicsMaterial_ctt12")
 gravity_scale = 0.0
 can_sleep = false
@@ -111,6 +114,18 @@ z_index = -50
 texture = ExtResource("11_as2ks")
 offset = Vector2(-123.64, 32.735)
 flip_h = true
+
+[node name="Hook" type="Sprite2D" parent="Body/RightArm/GrappleGun"]
+rotation = -0.0785398
+scale = Vector2(1.8, 1.8)
+texture = ExtResource("12_6nm2h")
+offset = Vector2(52, 0)
+
+[node name="Outline" type="Sprite2D" parent="Body/RightArm/GrappleGun/Hook"]
+show_behind_parent = true
+z_index = -50
+texture = ExtResource("13_pki1i")
+offset = Vector2(52, 0)
 
 [node name="LeftArm" type="Sprite2D" parent="Body"]
 position = Vector2(-92, -8)
