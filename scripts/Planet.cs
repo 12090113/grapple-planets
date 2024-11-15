@@ -13,7 +13,8 @@ public partial class Planet : StaticBody2D
 		set
 		{
 			texture = value;
-			GetNode<Sprite2D>("Sprite2D").Texture = texture;
+			Sprite2D sprite = GetNodeOrNull<Sprite2D>("Sprite2D");
+			if (sprite != null) sprite.Texture = texture;
 		}
 	}
 	
@@ -24,7 +25,8 @@ public partial class Planet : StaticBody2D
 		set
 		{
 			outline = value;
-			GetNode<Sprite2D>("Sprite2D/Outline").Texture = outline;
+			Sprite2D sprite = GetNodeOrNull<Sprite2D>("Sprite2D/Outline");
+			if (sprite != null) sprite.Texture = texture;
 		}
 	}
 }
