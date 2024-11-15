@@ -26,7 +26,7 @@ public partial class Planet : StaticBody2D
 		{
 			outline = value;
 			Sprite2D sprite = GetNodeOrNull<Sprite2D>("Sprite2D/Outline");
-			if (sprite != null) sprite.Texture = texture;
+			if (sprite != null) sprite.Texture = outline;
 		}
 	}
 }
