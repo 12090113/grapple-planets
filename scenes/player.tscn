@@ -11,8 +11,9 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ctt12"]
 bounce = 1.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kn5l7"]
-size = Vector2(128, 128)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c4rw0"]
+radius = 48.0
+height = 166.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m3kcb"]
 animations = [{
@@ -62,11 +63,12 @@ continuous_cd = 1
 script = ExtResource("1_s42la")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_kn5l7")
+shape = SubResource("CapsuleShape2D_c4rw0")
 
 [node name="Grapple" parent="." instance=ExtResource("3_1sqtw")]
 
 [node name="Swing" type="AnimatedSprite2D" parent="."]
+position = Vector2(3, 12)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_m3kcb")
 animation = &"swinging"
