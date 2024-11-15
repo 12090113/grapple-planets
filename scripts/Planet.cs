@@ -1,16 +1,30 @@
 using Godot;
 
+[Tool]
 public partial class Planet : StaticBody2D
 {
-	CircleShape2D collider = null;
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		collider = (CircleShape2D)GetNode<CollisionShape2D>("CollisionShape2D").Shape;
-	}
+	Texture2D texture;
+	Texture2D outline;
 
-	public override void _Draw()
+	[Export]
+	public Texture2D Texture
 	{
-		DrawCircle(new Vector2(0,0), collider.Radius, new Color(1,1,1));
+		get => texture;
+		set
+		{
+			texture = value;
+			GetNode<Sprite2D>("Sprite2D").Texture = texture;
+		}
+	}
+	
+	[Export]
+	public Texture2D Outline
+	{
+		get => outline;
+		set
+		{
+			outline = value;
+			GetNode<Sprite2D>("Sprite2D/Outline").Texture = outline;
+		}
 	}
 }

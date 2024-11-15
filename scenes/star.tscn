@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://di0axiltwax50"]
+[gd_scene load_steps=6 format=3 uid="uid://di0axiltwax50"]
 
-[ext_resource type="Script" path="res://scripts/Planet.cs" id="1_ylde5"]
 [ext_resource type="Texture2D" uid="uid://df05mn4f2yrw1" path="res://textures/2d_lights_and_shadows_neutral_point_light.webp" id="2_hxmhi"]
+[ext_resource type="Texture2D" uid="uid://dg8omlplt8tjs" path="res://textures/planets/sun.png" id="2_w20lu"]
+[ext_resource type="Texture2D" uid="uid://blo8o1g2mwg32" path="res://textures/planets/sun_outline.png" id="3_sxlwt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oy5i0"]
 radius = 200.0
@@ -10,7 +11,6 @@ radius = 200.0
 radius = 2000.0
 
 [node name="Star" type="StaticBody2D"]
-script = ExtResource("1_ylde5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_oy5i0")
@@ -29,3 +29,12 @@ range_layer_min = -100
 shadow_enabled = true
 texture = ExtResource("2_hxmhi")
 texture_scale = 20.37
+
+[node name="Sun" type="Sprite2D" parent="."]
+scale = Vector2(0.698, 0.698)
+texture = ExtResource("2_w20lu")
+
+[node name="SunOutline" type="Sprite2D" parent="Sun"]
+show_behind_parent = true
+z_index = -50
+texture = ExtResource("3_sxlwt")

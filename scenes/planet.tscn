@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://db3gs2h4m2pj8"]
+[gd_scene load_steps=7 format=3 uid="uid://db3gs2h4m2pj8"]
 
 [ext_resource type="Script" path="res://scripts/Planet.cs" id="1_b0eyr"]
+[ext_resource type="Texture2D" uid="uid://dnspmty5kf8vt" path="res://textures/planets/planet2.png" id="2_c6na0"]
+[ext_resource type="Texture2D" uid="uid://c0oswu6jub64c" path="res://textures/planets/planet_outline.png" id="3_lqt66"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oy5i0"]
 radius = 100.0
@@ -14,6 +16,8 @@ polygon = PackedVector2Array(0, -100, 26, -97, 50, -87, 70.7, -70.7, 87, -50, 97
 
 [node name="Planet" type="StaticBody2D"]
 script = ExtResource("1_b0eyr")
+Texture = ExtResource("2_c6na0")
+Outline = ExtResource("3_lqt66")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_oy5i0")
@@ -29,3 +33,12 @@ debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_ylnbo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.353, 0.353)
+texture = ExtResource("2_c6na0")
+
+[node name="Outline" type="Sprite2D" parent="Sprite2D"]
+show_behind_parent = true
+z_index = -50
+texture = ExtResource("3_lqt66")

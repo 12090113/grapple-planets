@@ -22,6 +22,8 @@ public partial class Player : RigidBody2D
 			state.ApplyForce(Vector2.Right*thrust);
 		if (Input.IsActionPressed("ui_left"))
 			state.ApplyForce(Vector2.Left*thrust);
+		if (Input.IsActionPressed("ui_accept"))
+			GlobalPosition = Vector2.Zero;
 
 		if (grapple.attached) {
 			Vector2 dist = grapple.GlobalPosition - GlobalPosition;
@@ -35,9 +37,9 @@ public partial class Player : RigidBody2D
 			}
 			if (dist.Length() >= grapple.length && state.LinearVelocity.Dot(dir) <= 0) {
 				state.LinearVelocity = perpdir * state.LinearVelocity.Length();
-                if (dist.Length() > grapple.length) {
-                    GlobalPosition += -dir * (grapple.length-dist.Length());
-                }
+				if (dist.Length() > grapple.length) {
+					GlobalPosition += -dir * (grapple.length-dist.Length());
+				}
 			}
 		}
 	}
