@@ -23,6 +23,27 @@ public partial class PlayerAnimation : AnimatedSprite2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		    float targetScaleX;
+
+    if (player.LinearVelocity.X > 0.25f) 
+    {
+        targetScaleX = 0.25f; 
+    }
+    else if (player.LinearVelocity.X < -0.25f) 
+    {
+        targetScaleX = -0.25f; 
+    }
+    else
+    {
+        targetScaleX = Mathf.Lerp(this.Scale.X, Mathf.Sign(player.LinearVelocity.X) * 0.1f, 0.1f);
+    }
+    this.Scale = new Vector2(Mathf.Lerp(this.Scale.X, targetScaleX, 0.05f), this.Scale.Y);
+
+	if (player.LinearVelocity.X == 0)
+	{
+		this.Scale = new Vector2(0.25f,0.25f);
+	}
+
 		Vector2 mousepos = GetGlobalMousePosition();
 		if (grapple.attached)
 		{
