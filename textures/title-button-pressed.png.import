@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://w4lf5jr7ijb6"
-path="res://.godot/imported/Temp_Enemy.png-42ea8adf7099786e7fa842fcc09eaabc.ctex"
+uid="uid://de87004crjkrd"
+path="res://.godot/imported/title-button-pressed.png-45e0f6edd66488bc43838681696c80cc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/Temp_Enemy.png"
-dest_files=["res://.godot/imported/Temp_Enemy.png-42ea8adf7099786e7fa842fcc09eaabc.ctex"]
+source_file="res://textures/title-button-pressed.png"
+dest_files=["res://.godot/imported/title-button-pressed.png-45e0f6edd66488bc43838681696c80cc.ctex"]
 
 [params]
 
