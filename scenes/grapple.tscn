@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://dp4g26lilp5vx"]
+[gd_scene load_steps=7 format=3 uid="uid://dp4g26lilp5vx"]
 
 [ext_resource type="Script" path="res://scripts/Grapple.cs" id="1_ykikc"]
 [ext_resource type="Texture2D" uid="uid://bvsw5mpchq0ll" path="res://textures/grapple/grapple-chain.png" id="2_lub3a"]
 [ext_resource type="Script" path="res://scripts/GrappleRope.cs" id="2_m1x8u"]
 [ext_resource type="Texture2D" uid="uid://ctlcswcmtbp7g" path="res://textures/grapple/grapple-chain_outline.png" id="4_8gux5"]
+[ext_resource type="Texture2D" uid="uid://bcxw5w5jcaew1" path="res://textures/grapple/grapple-hook.png" id="5_2kevb"]
+[ext_resource type="Texture2D" uid="uid://c7kn3cufh5vne" path="res://textures/grapple/grapple-hook_outline.png" id="6_vaum3"]
 
 [node name="Grapple" type="Node2D"]
 z_index = 101
@@ -23,3 +25,15 @@ texture_repeat = 2
 width = 50.0
 texture = ExtResource("4_8gux5")
 texture_mode = 1
+
+[node name="Hook" type="Sprite2D" parent="GrappleRope"]
+visible = false
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("5_2kevb")
+offset = Vector2(52, 0)
+
+[node name="Outline" type="Sprite2D" parent="GrappleRope/Hook"]
+show_behind_parent = true
+z_index = -50
+texture = ExtResource("6_vaum3")
+offset = Vector2(52, 0)
