@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bhqnw6d65ivdb"]
+[gd_scene load_steps=16 format=3 uid="uid://bhqnw6d65ivdb"]
 
 [ext_resource type="PackedScene" uid="uid://ovdm2aqqrnlg" path="res://scenes/player.tscn" id="1_4sfis"]
 [ext_resource type="PackedScene" uid="uid://db3gs2h4m2pj8" path="res://scenes/planet.tscn" id="2_0e11l"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://jjnnbeeu1su2" path="res://textures/planets/planet7.png" id="11_i4n03"]
 [ext_resource type="Texture2D" uid="uid://bg2athwps8p1i" path="res://textures/planets/planet7_outline.png" id="12_8i6fk"]
 [ext_resource type="PackedScene" uid="uid://cscafoxo1oito" path="res://scenes/enemy.tscn" id="14_qq7d7"]
+[ext_resource type="PackedScene" uid="uid://baiqgofainvs6" path="res://scenes/little_enemy.tscn" id="15_5dule"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -31,6 +32,7 @@ texture = ExtResource("3_oa4yp")
 centered = false
 
 [node name="Player" parent="." instance=ExtResource("1_4sfis")]
+collision_layer = 16
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(0.5, 0.5)
@@ -75,3 +77,4 @@ color = Color(0.233925, 0.233925, 0.233925, 1)
 
 [node name="Enemy" parent="." instance=ExtResource("14_qq7d7")]
 position = Vector2(1552, 885)
+tinyEnemyScn = ExtResource("15_5dule")

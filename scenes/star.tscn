@@ -10,7 +10,7 @@ radius = 200.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_1p6u4"]
 radius = 2000.0
 
-[node name="Star" type="StaticBody2D"]
+[node name="Star" type="StaticBody2D" groups=["other"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_oy5i0")

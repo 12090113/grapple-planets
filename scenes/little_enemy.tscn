@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://baiqgofainvs6"]
+
+[ext_resource type="Texture2D" uid="uid://bbkaie0wa6kyp" path="res://textures/alien/alien2.png" id="2_mnn7v"]
+[ext_resource type="Texture2D" uid="uid://d3ruytbjnpna0" path="res://textures/alien/alien2_outline.png" id="3_cl3nn"]
+[ext_resource type="Texture2D" uid="uid://wip136n3rs17" path="res://textures/alien/alien2-arm.png" id="4_h575s"]
+[ext_resource type="Texture2D" uid="uid://bb1pputhr816v" path="res://textures/alien/alien2-arm_outline.png" id="5_syvbe"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w5n6j"]
+radius = 62.0
+height = 160.0
+
+[node name="Enemy" type="RigidBody2D"]
+position = Vector2(406, 329)
+gravity_scale = 0.0
+lock_rotation = true
+contact_monitor = true
+max_contacts_reported = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 0)
+shape = SubResource("CapsuleShape2D_w5n6j")
+
+[node name="Body" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_mnn7v")
+
+[node name="Outline" type="Sprite2D" parent="Body"]
+z_index = -50
+texture = ExtResource("3_cl3nn")
+
+[node name="Arm" type="Sprite2D" parent="Body"]
+position = Vector2(-53, 101)
+rotation = -0.453786
+texture = ExtResource("4_h575s")
+
+[node name="Outline" type="Sprite2D" parent="Body/Arm"]
+z_index = -1
+texture = ExtResource("5_syvbe")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

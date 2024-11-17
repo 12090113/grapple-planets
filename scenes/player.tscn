@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ovdm2aqqrnlg"]
+[gd_scene load_steps=24 format=3 uid="uid://ovdm2aqqrnlg"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_s42la"]
 [ext_resource type="PackedScene" uid="uid://dp4g26lilp5vx" path="res://scenes/grapple.tscn" id="3_1sqtw"]
@@ -17,6 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://c7kn3cufh5vne" path="res://textures/grapple/grapple-hook_outline.png" id="13_pki1i"]
 [ext_resource type="Texture2D" uid="uid://ci8jh70udhtm8" path="res://textures/weapon/laser-gun.png" id="14_47jg3"]
 [ext_resource type="Texture2D" uid="uid://djdhawvhbhjkr" path="res://textures/weapon/laser-gun_outline.png" id="15_mnyop"]
+[ext_resource type="Script" path="res://scripts/PlayerBullet.cs" id="17_180qu"]
+[ext_resource type="PackedScene" uid="uid://c400vkdgmc7ko" path="res://scenes/player_bullet.tscn" id="18_ayxbp"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ctt12"]
 bounce = 1.0
@@ -142,6 +144,8 @@ offset = Vector2(92, -1)
 position = Vector2(320, -76)
 texture = ExtResource("14_47jg3")
 offset = Vector2(-92, 28)
+script = ExtResource("17_180qu")
+bulletScn = ExtResource("18_ayxbp")
 
 [node name="Outline" type="Sprite2D" parent="Body/LeftArm/LaserGun"]
 show_behind_parent = true
