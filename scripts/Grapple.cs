@@ -25,6 +25,7 @@ public partial class Grapple : Node2D
 		player = GetParent<Player>();
 		gun = GetNode<Sprite2D>("../Body/RightArm/GrappleGun");
 		rope.playerHook = gun.GetNode<Sprite2D>("Hook");
+		Callable.From(() => Reparent(player.GetParent())).CallDeferred();
 	}
 
     public override void _Process(double delta)
@@ -50,7 +51,7 @@ public partial class Grapple : Node2D
 		if (@event is InputEventMouseButton mouseEvent) {
 			if (mouseEvent.ButtonIndex == MouseButton.Left) {
 				if (mouseEvent.Pressed) {
-					Reparent(player);
+					Reparent(player.GetParent());
 					GlobalPosition = player.GlobalPosition;
 					Vector2 mousepos = GetGlobalMousePosition();
 					Vector2 target = (mousepos-GlobalPosition).Normalized()*maxLength;
@@ -72,11 +73,16 @@ public partial class Grapple : Node2D
 						rope.ExtendFail();
 					}
 				} else if (attached) {
-					rope.Retract();
-					attached = false;
+					Retract();
 				}
 			}
 		}
+	}
+
+	public void Retract() {
+		rope.Retract();
+		attached = false;
+		Reparent(player.GetParent());
 	}
 
 	private void PullPlayer(float delta)

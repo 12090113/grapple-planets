@@ -10,8 +10,7 @@ public partial class PlayerAnimation : AnimatedSprite2D
 	private Sprite2D leftArm;
 	private float rightArmRotationSpeed = 0.2f;
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		outline = GetNode<AnimatedSprite2D>("Outline");
 		this.Play("swinging");
 		grapple = GetParent().GetNode<Grapple>("Grapple");
@@ -21,38 +20,13 @@ public partial class PlayerAnimation : AnimatedSprite2D
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		    float targetScaleX;
-
-    if (player.LinearVelocity.X > 0.25f) 
-    {
-        targetScaleX = 0.25f; 
-    }
-    else if (player.LinearVelocity.X < -0.25f) 
-    {
-        targetScaleX = -0.25f; 
-    }
-    else
-    {
-        targetScaleX = Mathf.Lerp(this.Scale.X, Mathf.Sign(player.LinearVelocity.X) * 0.1f, 0.1f);
-    }
-    this.Scale = new Vector2(Mathf.Lerp(this.Scale.X, targetScaleX, 0.05f), this.Scale.Y);
-
-	if (player.LinearVelocity.X == 0)
-	{
-		this.Scale = new Vector2(0.25f,0.25f);
-	}
-
+	public override void _Process(double delta) {
 		Vector2 mousepos = GetGlobalMousePosition();
-		if (grapple.attached)
-		{
+		if (grapple.attached) {
 			this.Play("swinging");
 			outline.Play("swinging2");
 			rightArm.GlobalRotation = Mathf.LerpAngle(rightArm.GlobalRotation, (grapple.GlobalPosition-rightArm.GlobalPosition).Angle(), rightArmRotationSpeed);
-		}
-		else
-		{
+		} else {
 			this.Play("idle");
 			outline.Play("idle2");
 			Vector2 target = (mousepos-player.GlobalPosition).Normalized()*grapple.maxLength;
@@ -67,20 +41,17 @@ public partial class PlayerAnimation : AnimatedSprite2D
 			}
 		}
 		leftArm.GlobalRotation = Mathf.LerpAngle(leftArm.GlobalRotation, (mousepos-leftArm.GlobalPosition).Angle(), rightArmRotationSpeed);
-		if (Mathf.Cos(rightArm.GlobalRotation) < 0 && Mathf.Cos(leftArm.GlobalRotation) < 0)
+		if (Mathf.Cos(rightArm.GlobalRotation) < 0 && Mathf.Cos(leftArm.GlobalRotation) < 0 && player.Scale.X < 0)
 			rightArm.ZIndex = 1;
 		else
 			rightArm.ZIndex = 0;
 		
-		if (Mathf.Cos(leftArm.GlobalRotation) < 0)
-		{
-			this.FlipH = true;
-			outline.FlipH = true;
+		float targetScaleX;
+		if ((mousepos-GlobalPosition).X >= 0) {
+			targetScaleX = 0.25f;
+		} else {
+			targetScaleX = -0.25f;
 		}
-		else
-		{
-			this.FlipH = false;
-			outline.FlipH = false;
-		}
+		Scale = new Vector2(Mathf.Lerp(Scale.X, targetScaleX, 0.05f), Scale.Y);
 	}
 }
