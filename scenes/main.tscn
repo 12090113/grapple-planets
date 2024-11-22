@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://bhqnw6d65ivdb"]
+[gd_scene load_steps=16 format=3 uid="uid://bhqnw6d65ivdb"]
 
 [ext_resource type="PackedScene" uid="uid://ovdm2aqqrnlg" path="res://scenes/player.tscn" id="1_4sfis"]
 [ext_resource type="PackedScene" uid="uid://db3gs2h4m2pj8" path="res://scenes/planet.tscn" id="2_0e11l"]
+[ext_resource type="Script" path="res://scripts/Camera.cs" id="3_f21ni"]
 [ext_resource type="Texture2D" uid="uid://cijv0r1bbqagq" path="res://textures/space-bg.png" id="3_oa4yp"]
 [ext_resource type="PackedScene" uid="uid://di0axiltwax50" path="res://scenes/star.tscn" id="4_gej76"]
 [ext_resource type="Texture2D" uid="uid://8kboneemhgmu" path="res://textures/planets/planet1.png" id="4_x2y7n"]
@@ -37,6 +38,7 @@ collision_layer = 16
 zoom = Vector2(0.5, 0.5)
 process_callback = 0
 position_smoothing_enabled = true
+script = ExtResource("3_f21ni")
 
 [node name="Planet" parent="." instance=ExtResource("2_0e11l")]
 position = Vector2(442, 88)

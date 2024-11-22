@@ -14,12 +14,12 @@ public partial class Bullet : RigidBody2D
 	}
 
 	public void _on_body_entered(Node body)
-    {
-        if (body.IsInGroup("other"))
-        {
-            QueueFree();
-        }
-    }
+	{
+		if (body.IsInGroup("other"))
+		{
+			QueueFree();
+		}
+	}
 	
 	public void  OnVisibleOnScreenNotifier2DScreenExited()
 	{

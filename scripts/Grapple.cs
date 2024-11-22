@@ -28,13 +28,13 @@ public partial class Grapple : Node2D
 		Callable.From(() => Reparent(player.GetParent())).CallDeferred();
 	}
 
-    public override void _Process(double delta)
-    {
+	public override void _Process(double delta)
+	{
 		Vector2[] points = {Vector2.Zero, ToLocal(gun.GlobalPosition)};
 		rope.UpdatePoints(points, (float)delta);
-    }
+	}
 
-    public override void _PhysicsProcess(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		if (attached) {
 			if (Input.IsActionPressed("grapple_pull")) {
