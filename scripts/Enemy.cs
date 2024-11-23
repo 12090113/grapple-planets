@@ -39,7 +39,7 @@ public partial class Enemy : RigidBody2D
 				enemy.Rotation = GlobalRotation;
 				enemy.GlobalPosition = GlobalPosition;
 
-				Callable.From(() => GetTree().Root.AddChild(enemy)).CallDeferred();
+				Callable.From(() => GetParent().AddChild(enemy)).CallDeferred();
 			}
 			GetNodeOrNull<Grapple>("Grapple")?.Retract();
 			body.QueueFree();
