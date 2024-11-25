@@ -20,6 +20,7 @@ point_count = 2
 [node name="Bullet" type="RigidBody2D" groups=["bullet"]]
 z_index = 90
 collision_layer = 2
+collision_mask = 5
 gravity_scale = 20.0
 continuous_cd = 1
 contact_monitor = true

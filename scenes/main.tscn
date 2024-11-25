@@ -19,7 +19,7 @@
 [ext_resource type="Script" path="res://scripts/EnemySpawner.cs" id="16_opixs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nop4c"]
-size = Vector2(5520, 185)
+size = Vector2(13243, 185)
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_nujf7")
@@ -160,7 +160,6 @@ color = Color(0.233925, 0.233925, 0.233925, 1)
 
 [node name="EnemySpawner" type="Timer" parent="."]
 process_callback = 0
-wait_time = 10.0
 autostart = true
 script = ExtResource("16_opixs")
 enemyScene = ExtResource("14_qq7d7")
@@ -168,20 +167,20 @@ enemyScene = ExtResource("14_qq7d7")
 [node name="Border" type="StaticBody2D" parent="." groups=["other"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Border" groups=["other"]]
-position = Vector2(2421, -1660.5)
+position = Vector2(2456, -5321)
 shape = SubResource("RectangleShape2D_nop4c")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Border" groups=["other"]]
-position = Vector2(2489, 3747)
+position = Vector2(2453, 7624)
 shape = SubResource("RectangleShape2D_nop4c")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Border" groups=["other"]]
-position = Vector2(5133, 1036)
+position = Vector2(9010, 1180)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_nop4c")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Border" groups=["other"]]
-position = Vector2(-320, 1036)
+position = Vector2(-4114, 1180)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_nop4c")
 

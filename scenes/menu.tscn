@@ -128,7 +128,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 80
 text = "Start"
 
-[node name="OptionsButton" type="TextureButton" parent="TextureRect"]
+[node name="HelpButton" type="TextureButton" parent="TextureRect"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 357.0
@@ -138,7 +138,7 @@ texture_normal = ExtResource("6_r162g")
 texture_pressed = ExtResource("7_5i0ti")
 texture_hover = ExtResource("8_d5624")
 
-[node name="Label" type="Label" parent="TextureRect/OptionsButton"]
+[node name="Label" type="Label" parent="TextureRect/HelpButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -153,6 +153,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 80
-text = "Options"
+text = "Help"
 
 [connection signal="pressed" from="TextureRect/StartButton" to="." method="OnStartButtonPressed"]
+[connection signal="pressed" from="TextureRect/HelpButton" to="." method="OnHelpButtonPressed"]

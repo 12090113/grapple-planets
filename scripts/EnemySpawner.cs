@@ -9,7 +9,7 @@ public partial class EnemySpawner : Timer
 	[Export]
 	private float minInterval = 1f;
 	[Export]
-	private int maxEnemies = 100;
+	private int maxEnemies = 30;
 	private Camera2D camera;
 	public override void _Ready()
 	{

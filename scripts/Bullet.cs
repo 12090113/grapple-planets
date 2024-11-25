@@ -37,7 +37,4 @@ public partial class Bullet : RigidBody2D
 			QueueFree();
 		}
 	}
-
-	public override void _PhysicsProcess(double delta) {
-	}
 }
