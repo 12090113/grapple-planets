@@ -73,6 +73,8 @@ gravity_scale = 0.0
 can_sleep = false
 lock_rotation = true
 continuous_cd = 1
+contact_monitor = true
+max_contacts_reported = 10
 script = ExtResource("1_s42la")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -146,10 +148,11 @@ texture = ExtResource("14_47jg3")
 offset = Vector2(-92, 28)
 script = ExtResource("17_180qu")
 bulletScn = ExtResource("18_ayxbp")
-bulletSpeed = 1500.0
 
 [node name="Outline" type="Sprite2D" parent="Body/LeftArm/LaserGun"]
 show_behind_parent = true
 z_index = -50
 texture = ExtResource("15_mnyop")
 offset = Vector2(-92, 28)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -39,7 +39,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Enemy" type="RigidBody2D"]
+[node name="Enemy" type="RigidBody2D" groups=["enemy1"]]
 position = Vector2(406, 329)
 lock_rotation = true
 contact_monitor = true

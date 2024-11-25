@@ -1,18 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://c400vkdgmc7ko"]
+[gd_scene load_steps=8 format=3 uid="uid://c400vkdgmc7ko"]
 
 [ext_resource type="Script" path="res://scripts/Bullet.cs" id="1_r1cnr"]
 [ext_resource type="Texture2D" uid="uid://c54fqglhotaln" path="res://textures/laser-projectile-player.png" id="2_gbvpw"]
 [ext_resource type="Script" path="res://scripts/Trail.cs" id="3_1flyc"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sricj"]
+light_mode = 1
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nqni0"]
 size = Vector2(12, 12)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ceb16"]
+light_mode = 1
 
 [sub_resource type="Curve" id="Curve_nrkey"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="Bullet" type="RigidBody2D" groups=["bullet"]]
-z_index = 50
+z_index = 90
 collision_layer = 2
 gravity_scale = 20.0
 continuous_cd = 1
@@ -21,6 +27,8 @@ max_contacts_reported = 1
 script = ExtResource("1_r1cnr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 0
+material = SubResource("CanvasItemMaterial_sricj")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_gbvpw")
 
@@ -33,7 +41,9 @@ one_shot = true
 autostart = true
 
 [node name="Trail" type="Line2D" parent="."]
+light_mask = 0
 z_index = 100
+material = SubResource("CanvasItemMaterial_ceb16")
 width = 3.0
 width_curve = SubResource("Curve_nrkey")
 default_color = Color(0.152941, 1, 1, 1)

@@ -2,11 +2,15 @@ using Godot;
 
 public partial class Player : RigidBody2D
 {
-	Grapple grapple;
+	[Export]
+	private float maxHealth = 100;
+	private float health = 1;
+	private Grapple grapple;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		grapple = GetNode<Grapple>("Grapple");
+		health = maxHealth;
 	}
 
 	[Export]
@@ -42,5 +46,16 @@ public partial class Player : RigidBody2D
 				}
 			}
 		}
+	}
+
+	public void _on_body_entered(Node2D body) {
+		if (body.IsInGroup("enemy1")) {
+			health -= 15;
+		} else if (body.IsInGroup("enemy2")) {
+			health -= 10;
+		} else {
+			health -= 5;
+		}
+		GD.Print(health);
 	}
 }

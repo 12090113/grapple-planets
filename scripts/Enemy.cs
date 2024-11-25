@@ -17,17 +17,17 @@ public partial class Enemy : RigidBody2D
 	{
 		outline = GetNode<AnimatedSprite2D>("Fly/Outline");
 		fly = GetNode<AnimatedSprite2D>("Fly");
-		_player = GetNode<Node2D>("../Player");
+		_player = GetNode<Node2D>("../../Player");
 		playanimation();
 	}
 
-	public override void _PhysicsProcess(double delta)
+	public override void _IntegrateForces(PhysicsDirectBodyState2D state)
 	{
 		if (_player != null)
 		{
 			Vector2 direction = (_player.GlobalPosition - GlobalPosition).Normalized();
 
-			LinearVelocity = direction * Speed;
+			state.LinearVelocity = direction * Speed;
 		}
 	}
 

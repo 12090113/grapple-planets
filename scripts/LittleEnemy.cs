@@ -11,16 +11,16 @@ public partial class LittleEnemy : RigidBody2D
 	
 	public override void _Ready()
 	{
-		_player = GetNode<Node2D>("../Player");
+		_player = GetNode<Node2D>("../../Player");
 	}
 
-	public override void _PhysicsProcess(double delta)
+	public override void _IntegrateForces(PhysicsDirectBodyState2D state)
 	{
 		if (_player != null)
 		{
 			Vector2 direction = (_player.GlobalPosition - GlobalPosition).Normalized();
 
-			LinearVelocity = direction * Speed;
+			state.LinearVelocity = direction * Speed;
 		}
 	}
 
