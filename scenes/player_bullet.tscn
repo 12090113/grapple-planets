@@ -8,6 +8,7 @@ size = Vector2(98, 12)
 
 [node name="Bullet" type="RigidBody2D" groups=["bullet"]]
 collision_layer = 2
+gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_r1cnr")

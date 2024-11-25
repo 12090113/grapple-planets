@@ -13,15 +13,6 @@ public partial class Bullet : RigidBody2D
 	{
 	}
 
-	public void _on_body_entered(StaticBody2D body)
-	{
-		GD.Print("j");
-		if (body.IsInGroup("other"))
-		{
-			QueueFree();
-		}
-	}
-
 	public override void _PhysicsProcess(double delta)
 {
     var collision = MoveAndCollide(LinearVelocity * (float)delta);

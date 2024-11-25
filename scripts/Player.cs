@@ -43,4 +43,17 @@ public partial class Player : RigidBody2D
 			}
 		}
 	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+    	var collision = MoveAndCollide(LinearVelocity * (float)delta);
+    	if (collision != null)
+    	{
+        	var collider = collision.GetCollider() as Node;
+        	if (collider != null && collider.IsInGroup("Enemy"))
+       		{
+            	GetTree().ChangeSceneToFile("res://scenes/death_menu.tscn");
+        	}
+    	}
+	}
 }

@@ -3,6 +3,11 @@ using Godot;
 public partial class Enemy : RigidBody2D
 {
 	[Export]
+	PackedScene bulletScn;
+	[Export]
+	float bulletSpeed = 1000f;
+
+	[Export]
 	PackedScene tinyEnemyScn;
 	[Export] 
 	public float Speed = 200f;
@@ -10,9 +15,16 @@ public partial class Enemy : RigidBody2D
 
 	private AnimatedSprite2D outline;
 	private AnimatedSprite2D fly;
+
+	float bps = 1f;
+	float fireRate;
+	float timeUntilFire;
+
+	public Vector2 direction;
 	
 	public override void _Ready()
 	{
+		fireRate = 1 / bps;
 		outline = GetNode<AnimatedSprite2D>("Fly/Outline");
 		fly = GetNode<AnimatedSprite2D>("Fly");
 		_player = GetNode<Node2D>("../Player");
@@ -23,9 +35,21 @@ public partial class Enemy : RigidBody2D
 	{
 		if (_player != null)
 		{
-			Vector2 direction = (_player.GlobalPosition - GlobalPosition).Normalized();
+			direction = (_player.GlobalPosition - GlobalPosition).Normalized();
 
 			LinearVelocity = direction * Speed;
+		}
+	}
+
+	public override void _Process(double delta)
+	{
+		if (timeUntilFire > fireRate)
+		{
+			shoot();
+		}
+		else
+		{
+			timeUntilFire += (float)delta;
 		}
 	}
 
@@ -50,5 +74,18 @@ public partial class Enemy : RigidBody2D
 	{
 		outline.CallDeferred("play");
 		fly.CallDeferred("play");
+	}
+
+	public void shoot()
+	{
+		RigidBody2D bullet = bulletScn.Instantiate<RigidBody2D>();
+
+			bullet.GlobalPosition = GlobalPosition;
+			direction = (_player.GlobalPosition - GlobalPosition).Normalized();
+			bullet.Rotation = direction.Angle();
+			bullet.LinearVelocity = direction * bulletSpeed;
+
+			GetTree().Root.AddChild(bullet);
+			timeUntilFire = 0f;
 	}
 }

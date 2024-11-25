@@ -28,6 +28,7 @@ project/assembly_name="grapple-planets"
 
 bullet=""
 other=""
+Enemy=""
 
 [input]
 
