@@ -30,6 +30,7 @@ bullet=""
 other=""
 enemy1=""
 enemy2=""
+enemybullet=""
 
 [input]
 
