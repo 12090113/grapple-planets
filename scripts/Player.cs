@@ -4,6 +4,9 @@ public partial class Player : RigidBody2D
 {
 	[Export]
 	private float maxHealth = 100;
+	[Export]
+	private float invulnTime = 0.2f;
+	private float invuln = 0f;
 	private float health = 1;
 	private Grapple grapple;
 	// Called when the node enters the scene tree for the first time.
@@ -47,9 +50,16 @@ public partial class Player : RigidBody2D
 			}
 		}
 	}
+    public override void _PhysicsProcess(double delta)
+    {
+        //invul
+    }
 
-	public void _on_body_entered(Node2D body) {
-		if (body.IsInGroup("enemy1")) {
+    public void _on_body_entered(Node2D body) {
+		if (body.IsInGroup("enemybullet")) {
+			health -= 5;
+			body.QueueFree();
+		} else if (body.IsInGroup("enemy1")) {
 			health -= 15;
 		} else if (body.IsInGroup("enemy2")) {
 			health -= 10;
@@ -58,7 +68,7 @@ public partial class Player : RigidBody2D
 		}
 		GD.Print(health);
 		if (health < 0) {
-			GetTree().ChangeSceneToFile("res://scenes/death_menu.tscn");
+			Callable.From(() => GetTree().ChangeSceneToFile("res://scenes/death_menu.tscn")).CallDeferred();
 		}
 	}
 }

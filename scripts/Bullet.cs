@@ -32,16 +32,9 @@ public partial class Bullet : RigidBody2D
 		QueueFree();
 	}
 
-	public override void _PhysicsProcess(double delta)
-{
-    var collision = MoveAndCollide(LinearVelocity * (float)delta);
-    if (collision != null)
-    {
-        var collider = collision.GetCollider() as Node;
-        if (collider != null && collider.IsInGroup("other"))
-        {
-            QueueFree();
-        }
+	public void _on_body_entered(Node2D body) {
+		if (body.IsInGroup("other")) {
+			QueueFree();
+		}
 	}
-}
 }
