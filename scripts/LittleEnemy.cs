@@ -28,6 +28,7 @@ public partial class LittleEnemy : RigidBody2D
 	{
 		if (body.IsInGroup("bullet"))
 		{
+			GetNodeOrNull<Grapple>("Grapple")?.Retract();
 			body.QueueFree();
 			QueueFree();
 		}

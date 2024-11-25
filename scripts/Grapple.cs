@@ -58,6 +58,7 @@ public partial class Grapple : Node2D
 					PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
 					PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition+target);
 					query.Exclude = new Array<Rid> { player.GetRid() };
+					query.CollisionMask = player.CollisionMask;
 					Dictionary result = spaceState.IntersectRay(query);
 					if (result.Count > 0) {
 						attached = true;

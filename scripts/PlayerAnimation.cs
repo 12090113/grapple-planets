@@ -33,6 +33,7 @@ public partial class PlayerAnimation : AnimatedSprite2D
 			PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
 			PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition+target);
 			query.Exclude = new Array<Rid> { player.GetRid() };
+			query.CollisionMask = player.CollisionMask;
 			Dictionary result = spaceState.IntersectRay(query);
 			if (result.Count > 0) {
 				rightArm.GlobalRotation = Mathf.LerpAngle(rightArm.GlobalRotation, ((Vector2)result["position"]-rightArm.GlobalPosition).Angle(), grapple.rope.retract <= 0 ? rightArmRotationSpeed : rightArmRotationSpeed/2);

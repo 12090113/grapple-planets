@@ -6,6 +6,8 @@ public partial class Enemy : RigidBody2D
 	PackedScene tinyEnemyScn;
 	[Export] 
 	public float Speed = 200f;
+	[Export]
+	private int childrenCount = 3;
 	private Node2D _player;
 
 	private AnimatedSprite2D outline;
@@ -33,7 +35,7 @@ public partial class Enemy : RigidBody2D
 	{
 		if (body.IsInGroup("bullet"))
 		{
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < childrenCount; i++)
 			{
 				RigidBody2D enemy = tinyEnemyScn.Instantiate<RigidBody2D>();
 				enemy.Rotation = GlobalRotation;
