@@ -58,7 +58,7 @@ public partial class Player : RigidBody2D
 		}
 		GD.Print(health);
 		if (health < 0) {
-			GetTree().ChangeSceneToFile("res://scenes/death_menu.tscn");
+			Callable.From(() => GetTree().ChangeSceneToFile("res://scenes/death_menu.tscn")).CallDeferred();
 		}
 	}
 }
