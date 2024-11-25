@@ -16,5 +16,6 @@ public partial class Menu : Control
 	private void OnStartButtonPressed()
 	{
 		GetTree().ChangeSceneToFile("res://scenes/main.tscn");
+		GetTree().ReloadCurrentScene();
 	}
 }
