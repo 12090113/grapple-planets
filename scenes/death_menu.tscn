@@ -1,0 +1,69 @@
+[gd_scene load_steps=5 format=3 uid="uid://pmu2rgddpwfb"]
+
+[ext_resource type="Script" path="res://scripts/DeathMenu.cs" id="1_at35c"]
+[ext_resource type="Texture2D" uid="uid://ci4het8vhef1r" path="res://textures/title-button.png" id="1_ma01c"]
+[ext_resource type="Texture2D" uid="uid://de87004crjkrd" path="res://textures/title-button-pressed.png" id="2_vuidh"]
+[ext_resource type="Texture2D" uid="uid://bryrdtinfhwfq" path="res://textures/title-button-hover.png" id="3_pgbqi"]
+
+[node name="Death menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_at35c")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.831373, 0, 0, 1)
+
+[node name="TextEdit" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 145.0
+offset_right = -145.0
+offset_bottom = -375.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 200
+text = "You Died"
+
+[node name="Button" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 308.0
+offset_top = 402.48
+offset_right = -308.0
+offset_bottom = -79.52
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("1_ma01c")
+texture_pressed = ExtResource("2_vuidh")
+texture_hover = ExtResource("3_pgbqi")
+
+[node name="Label" type="Label" parent="Button"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.087
+anchor_right = 1.0
+anchor_bottom = 0.913
+offset_left = 70.5
+offset_top = 0.0579996
+offset_right = -70.5
+offset_bottom = -0.0580139
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 100
+text = "Restart?"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
