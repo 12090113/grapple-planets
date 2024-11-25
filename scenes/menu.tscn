@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://by0qm2k23et40"]
+[gd_scene load_steps=11 format=3 uid="uid://by0qm2k23et40"]
 
 [ext_resource type="Texture2D" uid="uid://cijv0r1bbqagq" path="res://textures/space-bg.png" id="1_u81e4"]
 [ext_resource type="Script" path="res://scripts/Menu.cs" id="1_yrq5x"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://ci4het8vhef1r" path="res://textures/title-button.png" id="6_r162g"]
 [ext_resource type="Texture2D" uid="uid://de87004crjkrd" path="res://textures/title-button-pressed.png" id="7_5i0ti"]
 [ext_resource type="Texture2D" uid="uid://bryrdtinfhwfq" path="res://textures/title-button-hover.png" id="8_d5624"]
+[ext_resource type="Texture2D" uid="uid://dn641cnccx4ja" path="res://textures/Tutorial.png" id="10_v6167"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -128,7 +129,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 80
 text = "Start"
 
-[node name="OptionsButton" type="TextureButton" parent="TextureRect"]
+[node name="HelpButton" type="TextureButton" parent="TextureRect"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 357.0
@@ -138,7 +139,7 @@ texture_normal = ExtResource("6_r162g")
 texture_pressed = ExtResource("7_5i0ti")
 texture_hover = ExtResource("8_d5624")
 
-[node name="Label" type="Label" parent="TextureRect/OptionsButton"]
+[node name="Label" type="Label" parent="TextureRect/HelpButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -153,6 +154,33 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 80
-text = "Options"
+text = "Help"
+
+[node name="HelpMenu" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -83.0
+offset_right = 155.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_v6167")
+expand_mode = 1
+
+[node name="CloseButton" type="Button" parent="HelpMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 818.0
+offset_top = 366.0
+offset_right = -309.0
+offset_bottom = -187.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Close"
 
 [connection signal="pressed" from="TextureRect/StartButton" to="." method="OnStartButtonPressed"]
+[connection signal="pressed" from="TextureRect/HelpButton" to="." method="_on_help_button_pressed"]
+[connection signal="pressed" from="HelpMenu/CloseButton" to="." method="_on_close_button_pressed"]
