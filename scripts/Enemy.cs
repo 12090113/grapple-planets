@@ -82,12 +82,12 @@ public partial class Enemy : RigidBody2D
 	{
 		RigidBody2D bullet = bulletScn.Instantiate<RigidBody2D>();
 
-			bullet.GlobalPosition = GlobalPosition;
-			direction = (_player.GlobalPosition - GlobalPosition).Normalized();
-			bullet.Rotation = direction.Angle();
-			bullet.LinearVelocity = direction * bulletSpeed;
+		bullet.GlobalPosition = GlobalPosition;
+		direction = (_player.GlobalPosition - GlobalPosition).Normalized();
+		bullet.Rotation = direction.Angle();
+		bullet.LinearVelocity = direction * bulletSpeed;
 
-			GetTree().Root.AddChild(bullet);
-			timeUntilFire = 0f;
+		GetTree().Root.AddChild(bullet);
+		timeUntilFire = 0f;
 	}
 }

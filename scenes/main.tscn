@@ -165,7 +165,6 @@ autostart = true
 script = ExtResource("16_opixs")
 enemyScene = ExtResource("14_qq7d7")
 
-[connection signal="timeout" from="EnemySpawner" to="EnemySpawner" method="_on_timeout"]
 [node name="Border" type="StaticBody2D" parent="." groups=["other"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Border" groups=["other"]]
@@ -185,3 +184,5 @@ shape = SubResource("RectangleShape2D_nop4c")
 position = Vector2(-320, 1036)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_nop4c")
+
+[connection signal="timeout" from="EnemySpawner" to="EnemySpawner" method="_on_timeout"]
