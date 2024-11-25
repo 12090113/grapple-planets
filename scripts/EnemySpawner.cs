@@ -5,11 +5,11 @@ public partial class EnemySpawner : Timer
 	[Export]
 	private PackedScene enemyScene;
 	[Export]
-	private float intervalDecayRate = 0.9f;
+	private float intervalDecayRate = 0.96f;
 	[Export]
-	private float minInterval = 1f;
+	private float minInterval = 3f;
 	[Export]
-	private int maxEnemies = 30;
+	private int maxEnemies = 10;
 	private Camera2D camera;
 	public override void _Ready()
 	{

@@ -18,7 +18,7 @@ public partial class Enemy : RigidBody2D
 	private AnimatedSprite2D outline;
 	private AnimatedSprite2D fly;
 
-	float bps = 1f;
+	float bps = 0.25f;
 	float fireRate;
 	float timeUntilFire;
 

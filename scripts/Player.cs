@@ -6,6 +6,12 @@ public partial class Player : RigidBody2D
 	private float maxHealth = 100;
 	[Export]
 	private float invulnTime = 0.2f;
+	[Export]
+	private float regenTime = 0.5f;
+	[Export]
+	private float regenRate = 5f;
+	[Export]
+	private ProgressBar healthBar;
 	private float invuln = 0f;
 	private float health = 1;
 	private Grapple grapple;
@@ -52,23 +58,31 @@ public partial class Player : RigidBody2D
 	}
     public override void _PhysicsProcess(double delta)
     {
-        //invul
+        invuln -= (float)delta;
+		if (invuln < -regenTime && health < maxHealth) {
+			health += regenRate * (float)delta;
+		}
+		healthBar.Value = health;
     }
 
     public void _on_body_entered(Node2D body) {
+		float healthchange = 0;
 		if (body.IsInGroup("enemybullet")) {
-			health -= 5;
+			healthchange = 5;
 			body.QueueFree();
 		} else if (body.IsInGroup("enemy1")) {
-			health -= 15;
+			healthchange = 15;
 		} else if (body.IsInGroup("enemy2")) {
-			health -= 10;
+			healthchange = 10;
 		} else {
-			health -= 5;
+			healthchange = 5;
 		}
-		GD.Print(health);
-		if (health < 0) {
-			Callable.From(() => GetTree().ChangeSceneToFile("res://scenes/death_menu.tscn")).CallDeferred();
+		if (invuln <= 0) {
+			health -= healthchange;
+			if (health < 0) {
+				Callable.From(() => GetTree().ChangeSceneToFile("res://scenes/death_menu.tscn")).CallDeferred();
+			}
+			invuln = invulnTime;
 		}
 	}
 }
