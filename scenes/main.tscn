@@ -58,6 +58,7 @@ autoplay = true
 parameters/looping = true
 
 [node name="HealthBar" type="ProgressBar" parent="Player"]
+z_index = 300
 material = SubResource("CanvasItemMaterial_bwwom")
 offset_left = -141.0
 offset_top = 192.0
@@ -68,7 +69,7 @@ value = 100.0
 [node name="Planets" type="Node2D" parent="."]
 
 [node name="Planet" parent="Planets" instance=ExtResource("2_0e11l")]
-position = Vector2(442, 88)
+position = Vector2(410, 101)
 Texture = ExtResource("4_x2y7n")
 Outline = ExtResource("5_i8ik0")
 
@@ -76,16 +77,16 @@ Outline = ExtResource("5_i8ik0")
 position = Vector2(3642, 1992)
 
 [node name="Planet19" parent="Planets" instance=ExtResource("2_0e11l")]
-position = Vector2(3211, 3056)
+position = Vector2(3261, 3113)
 
 [node name="Planet16" parent="Planets" instance=ExtResource("2_0e11l")]
-position = Vector2(1860, 2416)
+position = Vector2(1908, 2290)
 
 [node name="Planet2" parent="Planets" instance=ExtResource("2_0e11l")]
 position = Vector2(1111, 1495)
 
 [node name="Planet3" parent="Planets" instance=ExtResource("2_0e11l")]
-position = Vector2(516, 1200)
+position = Vector2(254, 1109)
 Texture = ExtResource("6_bu2qa")
 
 [node name="Planet23" parent="Planets" instance=ExtResource("2_0e11l")]
@@ -93,15 +94,15 @@ position = Vector2(1597, 3070)
 Texture = ExtResource("6_bu2qa")
 
 [node name="Planet13" parent="Planets" instance=ExtResource("2_0e11l")]
-position = Vector2(3774, 1330)
+position = Vector2(4028, 1235)
 Texture = ExtResource("7_lwwaf")
 
 [node name="Planet4" parent="Planets" instance=ExtResource("2_0e11l")]
-position = Vector2(2461, 212)
+position = Vector2(2461, 91)
 Texture = ExtResource("7_lwwaf")
 
 [node name="Planet5" parent="Planets" instance=ExtResource("2_0e11l")]
-position = Vector2(1682, 456)
+position = Vector2(1662, 591)
 Texture = ExtResource("8_npakg")
 Outline = ExtResource("9_q7s7o")
 
@@ -111,7 +112,7 @@ Texture = ExtResource("8_npakg")
 Outline = ExtResource("9_q7s7o")
 
 [node name="Planet10" parent="Planets" instance=ExtResource("2_0e11l")]
-position = Vector2(2404, 718)
+position = Vector2(2443, 866)
 Texture = ExtResource("8_npakg")
 Outline = ExtResource("9_q7s7o")
 
@@ -125,7 +126,7 @@ position = Vector2(1948, -929)
 Texture = ExtResource("10_7i0i8")
 
 [node name="Planet9" parent="Planets" instance=ExtResource("2_0e11l")]
-position = Vector2(3307, -982)
+position = Vector2(3117, -1065)
 Texture = ExtResource("10_7i0i8")
 
 [node name="Planet21" parent="Planets" instance=ExtResource("2_0e11l")]
@@ -133,37 +134,37 @@ position = Vector2(3412, -282)
 Texture = ExtResource("10_7i0i8")
 
 [node name="Planet20" parent="Planets" instance=ExtResource("2_0e11l")]
-position = Vector2(4611, 375)
+position = Vector2(4483, 332)
 Texture = ExtResource("11_i4n03")
 Outline = ExtResource("12_8i6fk")
 
 [node name="Planet12" parent="Planets" instance=ExtResource("2_0e11l")]
-position = Vector2(4185, 683)
+position = Vector2(4898, 1161)
 Texture = ExtResource("11_i4n03")
 Outline = ExtResource("12_8i6fk")
 
 [node name="Planet14" parent="Planets" instance=ExtResource("2_0e11l")]
-position = Vector2(2668, 1285)
+position = Vector2(2818, 1378)
 Texture = ExtResource("11_i4n03")
 Outline = ExtResource("12_8i6fk")
 
 [node name="Planet8" parent="Planets" instance=ExtResource("2_0e11l")]
-position = Vector2(1514, 1469)
+position = Vector2(1822, 1581)
 Texture = ExtResource("11_i4n03")
 Outline = ExtResource("12_8i6fk")
 
 [node name="Planet15" parent="Planets" instance=ExtResource("2_0e11l")]
-position = Vector2(4159, 1879)
+position = Vector2(4795, 2260)
 Texture = ExtResource("11_i4n03")
 Outline = ExtResource("12_8i6fk")
 
 [node name="Planet17" parent="Planets" instance=ExtResource("2_0e11l")]
-position = Vector2(841, 2738)
+position = Vector2(499, 2524)
 Texture = ExtResource("11_i4n03")
 Outline = ExtResource("12_8i6fk")
 
 [node name="Planet7" parent="Planets" instance=ExtResource("2_0e11l")]
-position = Vector2(885, -678)
+position = Vector2(728, -984)
 Texture = ExtResource("11_i4n03")
 Outline = ExtResource("12_8i6fk")
 

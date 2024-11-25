@@ -7,9 +7,9 @@ public partial class Player : RigidBody2D
 	[Export]
 	private float invulnTime = 0.2f;
 	[Export]
-	private float regenTime = 0.5f;
+	private float regenTime = 3f;
 	[Export]
-	private float regenRate = 5f;
+	private float regenRate = 4f;
 	[Export]
 	private ProgressBar healthBar;
 	private float invuln = 0f;
@@ -27,17 +27,6 @@ public partial class Player : RigidBody2D
 
 	public override void _IntegrateForces(PhysicsDirectBodyState2D state)
 	{
-		if (Input.IsActionPressed("ui_up"))
-			state.ApplyForce(Vector2.Up*thrust);
-		if (Input.IsActionPressed("ui_down"))
-			state.ApplyForce(Vector2.Down*thrust);
-		if (Input.IsActionPressed("ui_right"))
-			state.ApplyForce(Vector2.Right*thrust);
-		if (Input.IsActionPressed("ui_left"))
-			state.ApplyForce(Vector2.Left*thrust);
-		if (Input.IsActionPressed("ui_accept"))
-			GlobalPosition = Vector2.Zero;
-
 		if (grapple.attached) {
 			Vector2 dist = grapple.GlobalPosition - GlobalPosition;
 			Vector2 dir = dist.Normalized();

@@ -10,18 +10,18 @@ public partial class LittleEnemy : RigidBody2D
 	public float Speed = 200f;
 	private Node2D _player;
 
-	private AnimatedSprite2D outline;
-	private AnimatedSprite2D fly;
+	//private AnimatedSprite2D outline;
+	//private AnimatedSprite2D fly;
 
-	float bps = 1f;
+	float bps = 0.5f;
 	float fireRate;
 	float timeUntilFire;
 	
 	public override void _Ready()
 	{
 		fireRate = 1 / bps;
-		outline = GetNode<AnimatedSprite2D>("Fly/Outline");
-		fly = GetNode<AnimatedSprite2D>("Fly");
+		//outline = GetNode<AnimatedSprite2D>("Fly/Outline");
+		//fly = GetNode<AnimatedSprite2D>("Fly");
 		_player = GetNode<Node2D>("../../Player");
 		playanimation();
 	}
@@ -59,8 +59,8 @@ public partial class LittleEnemy : RigidBody2D
 	}
 	public void playanimation()
 	{
-		outline.CallDeferred("play");
-		fly.CallDeferred("play");
+		//outline.CallDeferred("play");
+		//fly.CallDeferred("play");
 	}
 
 	public void shoot()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cscafoxo1oito"]
+[gd_scene load_steps=12 format=3 uid="uid://cscafoxo1oito"]
 
 [ext_resource type="Script" path="res://scripts/Enemy.cs" id="1_no82h"]
 [ext_resource type="Texture2D" uid="uid://dx1msi5exgybd" path="res://textures/alien/alien1-move1.png" id="2_j8lf1"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://bdkhm8t4shs5o" path="res://textures/alien/alien1-move2.png" id="3_kikp3"]
 [ext_resource type="Texture2D" uid="uid://dedrh4hl27hnb" path="res://textures/alien/alien1-move1_outline.png" id="4_mr54t"]
 [ext_resource type="Texture2D" uid="uid://cvwhwt3oosns" path="res://textures/alien/alien1-move2_outline.png" id="5_h7vu2"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2f4xc"]
+friction = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w5n6j"]
 radius = 56.0
@@ -44,6 +47,8 @@ animations = [{
 position = Vector2(406, 329)
 collision_layer = 4
 collision_mask = 5
+physics_material_override = SubResource("PhysicsMaterial_2f4xc")
+gravity_scale = 0.0
 lock_rotation = true
 contact_monitor = true
 max_contacts_reported = 10
