@@ -1,14 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://c400vkdgmc7ko"]
+[gd_scene load_steps=6 format=3 uid="uid://c400vkdgmc7ko"]
 
 [ext_resource type="Script" path="res://scripts/Bullet.cs" id="1_r1cnr"]
 [ext_resource type="Texture2D" uid="uid://c54fqglhotaln" path="res://textures/laser-projectile-player.png" id="2_gbvpw"]
+[ext_resource type="Script" path="res://scripts/Trail.cs" id="3_1flyc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nqni0"]
-size = Vector2(98, 12)
+size = Vector2(12, 12)
+
+[sub_resource type="Curve" id="Curve_nrkey"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="Bullet" type="RigidBody2D" groups=["bullet"]]
+z_index = 50
 collision_layer = 2
-gravity_scale = 0.0
+gravity_scale = 20.0
+continuous_cd = 1
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_r1cnr")
@@ -20,8 +27,17 @@ texture = ExtResource("2_gbvpw")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_nqni0")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(19.5, 0)
-scale = Vector2(2.45, 1)
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
 
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnVisibleOnScreenNotifier2DScreenExited"]
+[node name="Trail" type="Line2D" parent="."]
+z_index = 100
+width = 3.0
+width_curve = SubResource("Curve_nrkey")
+default_color = Color(0.152941, 1, 1, 1)
+script = ExtResource("3_1flyc")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

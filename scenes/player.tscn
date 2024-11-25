@@ -148,6 +148,7 @@ texture = ExtResource("14_47jg3")
 offset = Vector2(-92, 28)
 script = ExtResource("17_180qu")
 bulletScn = ExtResource("18_ayxbp")
+bulletSpeed = 1500.0
 
 [node name="Outline" type="Sprite2D" parent="Body/LeftArm/LaserGun"]
 show_behind_parent = true

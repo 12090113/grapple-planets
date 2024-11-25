@@ -11,8 +11,10 @@ public partial class PlayerBullet : Node2D
 	float bps = 1f;
 	float fireRate;
 	float timeUntilFire;
+	private Player player;
 	public override void _Ready()
 	{
+		player = GetNode<Player>("../../..");
 		fireRate = 1 / bps;
 	}
 
@@ -24,7 +26,7 @@ public partial class PlayerBullet : Node2D
 
 			bullet.Rotation = GlobalRotation;
 			bullet.GlobalPosition = GlobalPosition;
-			bullet.LinearVelocity = bullet.Transform.X * bulletSpeed;
+			bullet.LinearVelocity = bullet.Transform.X * bulletSpeed + player.LinearVelocity;
 
 			GetTree().Root.AddChild(bullet);
 

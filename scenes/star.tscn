@@ -16,6 +16,7 @@ radius = 2000.0
 shape = SubResource("CircleShape2D_oy5i0")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_mask = 3
 gravity_space_override = 1
 gravity_point = true
 gravity_point_unit_distance = 200.0
