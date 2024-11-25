@@ -8,7 +8,7 @@ public partial class PlayerBullet : Node2D
 	[Export]
 	float bulletSpeed = 2000f;
 	[Export]
-	float bps = 1f;
+	float bps = 3f;
 	float fireRate;
 	float timeUntilFire;
 	private Player player;
