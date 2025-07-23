@@ -1,11 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://ovdm2aqqrnlg"]
+[gd_scene load_steps=25 format=3 uid="uid://ovdm2aqqrnlg"]
 
-[ext_resource type="Script" path="res://scripts/Player.cs" id="1_s42la"]
+[ext_resource type="Script" uid="uid://t7bwttjl30d" path="res://scripts/Player.cs" id="1_s42la"]
 [ext_resource type="PackedScene" uid="uid://dp4g26lilp5vx" path="res://scenes/grapple.tscn" id="3_1sqtw"]
 [ext_resource type="Texture2D" uid="uid://2h3i56x76yv6" path="res://textures/astronaut/astronaut_swing1.png" id="4_bpkfx"]
 [ext_resource type="Texture2D" uid="uid://cb5bgs47uk6tm" path="res://textures/astronaut/astronaut_swing2.png" id="5_p3aif"]
 [ext_resource type="Texture2D" uid="uid://c22tigkubpu8u" path="res://textures/astronaut/astronaut_outline_swing1.png" id="6_jyjvg"]
-[ext_resource type="Script" path="res://scripts/PlayerAnimation.cs" id="6_trqve"]
+[ext_resource type="Script" uid="uid://clnstb8e7dmby" path="res://scripts/PlayerAnimation.cs" id="6_trqve"]
 [ext_resource type="Texture2D" uid="uid://carfa1y6xekvd" path="res://textures/astronaut/astronaut_outline_swing2.png" id="7_x40lu"]
 [ext_resource type="Texture2D" uid="uid://c64frfwlh7hrt" path="res://textures/astronaut/astronaut_arm-right.png" id="8_a6tdc"]
 [ext_resource type="Texture2D" uid="uid://c66rayqeiyhxc" path="res://textures/astronaut/astronaut_outline_arm-right.png" id="9_6xbve"]
@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://c7kn3cufh5vne" path="res://textures/grapple/grapple-hook_outline.png" id="13_pki1i"]
 [ext_resource type="Texture2D" uid="uid://ci8jh70udhtm8" path="res://textures/weapon/laser-gun.png" id="14_47jg3"]
 [ext_resource type="Texture2D" uid="uid://djdhawvhbhjkr" path="res://textures/weapon/laser-gun_outline.png" id="15_mnyop"]
-[ext_resource type="Script" path="res://scripts/PlayerBullet.cs" id="17_180qu"]
+[ext_resource type="Script" uid="uid://tk6066yg0otl" path="res://scripts/PlayerBullet.cs" id="17_180qu"]
 [ext_resource type="PackedScene" uid="uid://c400vkdgmc7ko" path="res://scenes/player_bullet.tscn" id="18_ayxbp"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ctt12"]
@@ -65,7 +65,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="RigidBody2D" groups=["player"]]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4r5pv"]
+light_mode = 1
+
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("healthBar") groups=["player"]]
 physics_interpolation_mode = 1
 z_index = 100
 collision_layer = 16
@@ -78,6 +81,7 @@ continuous_cd = 1
 contact_monitor = true
 max_contacts_reported = 10
 script = ExtResource("1_s42la")
+healthBar = NodePath("HealthBar")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_c4rw0")
@@ -156,5 +160,14 @@ show_behind_parent = true
 z_index = -50
 texture = ExtResource("15_mnyop")
 offset = Vector2(-92, 28)
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+z_index = 300
+material = SubResource("CanvasItemMaterial_4r5pv")
+offset_left = -141.0
+offset_top = 192.0
+offset_right = 165.0
+offset_bottom = 241.0
+value = 100.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

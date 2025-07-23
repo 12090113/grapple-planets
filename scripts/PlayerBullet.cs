@@ -20,7 +20,7 @@ public partial class PlayerBullet : Node2D
 
 	public override void _Process(double delta)
 	{
-		if (Input.IsActionJustPressed("click") && timeUntilFire > fireRate)
+		/*if (Input.IsActionJustPressed("attack") && timeUntilFire > fireRate)
 		{
 			RigidBody2D bullet = bulletScn.Instantiate<RigidBody2D>();
 
@@ -35,6 +35,6 @@ public partial class PlayerBullet : Node2D
 		else
 		{
 			timeUntilFire += (float)delta;
-		}
+		}*/
 	}
 }

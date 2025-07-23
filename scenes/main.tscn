@@ -1,9 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://bhqnw6d65ivdb"]
+[gd_scene load_steps=16 format=3 uid="uid://bhqnw6d65ivdb"]
 
-[ext_resource type="PackedScene" uid="uid://ovdm2aqqrnlg" path="res://scenes/player.tscn" id="1_4sfis"]
-[ext_resource type="Script" path="res://scripts/Main.cs" id="1_nujf7"]
 [ext_resource type="PackedScene" uid="uid://db3gs2h4m2pj8" path="res://scenes/planet.tscn" id="2_0e11l"]
-[ext_resource type="Script" path="res://scripts/Camera.cs" id="3_f21ni"]
+[ext_resource type="Script" uid="uid://c12fksrhw4gmx" path="res://scripts/Camera.cs" id="3_f21ni"]
 [ext_resource type="Texture2D" uid="uid://cijv0r1bbqagq" path="res://textures/space-bg.png" id="3_oa4yp"]
 [ext_resource type="PackedScene" uid="uid://di0axiltwax50" path="res://scenes/star.tscn" id="4_gej76"]
 [ext_resource type="Texture2D" uid="uid://8kboneemhgmu" path="res://textures/planets/planet1.png" id="4_x2y7n"]
@@ -15,21 +13,17 @@
 [ext_resource type="Texture2D" uid="uid://cqy4tmeqvxodt" path="res://textures/planets/planet6.png" id="10_7i0i8"]
 [ext_resource type="Texture2D" uid="uid://jjnnbeeu1su2" path="res://textures/planets/planet7.png" id="11_i4n03"]
 [ext_resource type="Texture2D" uid="uid://bg2athwps8p1i" path="res://textures/planets/planet7_outline.png" id="12_8i6fk"]
-[ext_resource type="PackedScene" uid="uid://cscafoxo1oito" path="res://scenes/enemy.tscn" id="14_qq7d7"]
-[ext_resource type="Script" path="res://scripts/EnemySpawner.cs" id="16_opixs"]
 [ext_resource type="AudioStream" uid="uid://d174g7ba38asa" path="res://Sounds/spaceofjazztocome.mp3" id="17_1en26"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bwwom"]
-light_mode = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nop4c"]
 size = Vector2(13243, 185)
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("1_nujf7")
-enemyScn = ExtResource("14_qq7d7")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scale = Vector2(0.5, 0.5)
+transform = Transform2D(0.5, 0, 0, 0.5, 0, 0)
+scroll_ignore_camera_zoom = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.3, 0.3)
@@ -41,30 +35,6 @@ texture_repeat = 3
 scale = Vector2(2, 2)
 texture = ExtResource("3_oa4yp")
 centered = false
-
-[node name="Player" parent="." node_paths=PackedStringArray("healthBar") instance=ExtResource("1_4sfis")]
-healthBar = NodePath("HealthBar")
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(0.5, 0.5)
-process_callback = 0
-position_smoothing_enabled = true
-script = ExtResource("3_f21ni")
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Player"]
-stream = ExtResource("17_1en26")
-volume_db = -10.363
-autoplay = true
-parameters/looping = true
-
-[node name="HealthBar" type="ProgressBar" parent="Player"]
-z_index = 300
-material = SubResource("CanvasItemMaterial_bwwom")
-offset_left = -141.0
-offset_top = 192.0
-offset_right = 165.0
-offset_bottom = 241.0
-value = 100.0
 
 [node name="Planets" type="Node2D" parent="."]
 
@@ -177,12 +147,6 @@ position = Vector2(2837, 2458)
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.233925, 0.233925, 0.233925, 1)
 
-[node name="EnemySpawner" type="Timer" parent="."]
-process_callback = 0
-autostart = true
-script = ExtResource("16_opixs")
-enemyScene = ExtResource("14_qq7d7")
-
 [node name="Border" type="StaticBody2D" parent="." groups=["other"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Border" groups=["other"]]
@@ -203,4 +167,14 @@ position = Vector2(-4114, 1180)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_nop4c")
 
-[connection signal="timeout" from="EnemySpawner" to="EnemySpawner" method="_on_timeout"]
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+process_callback = 0
+position_smoothing_enabled = true
+script = ExtResource("3_f21ni")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Camera2D"]
+stream = ExtResource("17_1en26")
+volume_db = -10.363
+autoplay = true
+parameters/looping = true

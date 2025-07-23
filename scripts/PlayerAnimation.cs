@@ -17,11 +17,18 @@ public partial class PlayerAnimation : AnimatedSprite2D
 		player = GetParent<Player>();
 		rightArm = GetNode<Sprite2D>("RightArm");
 		leftArm = GetNode<Sprite2D>("LeftArm");
+		if (player.input.IsJoypad()) {
+			rightArmRotationSpeed = 1f;
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta) {
-		Vector2 mousepos = GetGlobalMousePosition();
+		Vector2 mousepos;
+		if (player.input.IsKeyboard())
+			mousepos = GetGlobalMousePosition();
+		else
+			mousepos = player.GlobalPosition+player.input.GetVector("grapple_left", "grapple_right", "grapple_up", "grapple_down").Normalized() * grapple.maxLength;
 		if (grapple.attached) {
 			this.Play("swinging");
 			outline.Play("swinging2");

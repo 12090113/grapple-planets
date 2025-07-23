@@ -37,46 +37,47 @@ public partial class Grapple : Node2D
 	public override void _PhysicsProcess(double delta)
 	{
 		if (attached) {
-			if (Input.IsActionPressed("grapple_pull")) {
+			if (player.input.IsActionJustReleased("grapple"))
+			{
+				Retract();
+			}
+			/*if (Input.IsActionPressed("grapple_pull" + player.input)) {
 				PullPlayer((float)delta);
 			}
-			if (Input.IsActionPressed("grapple_push")) {
+			if (Input.IsActionPressed("grapple_push" + player.input)) {
 				PushPlayer((float)delta);
+			}*/
+		} else if (player.input.IsActionPressed("grapple")) {
+			Reparent(player.GetParent());
+			GlobalPosition = player.GlobalPosition;
+			Vector2 target;
+			if (player.input.IsKeyboard()) {
+				Vector2 mousepos = GetGlobalMousePosition();
+				target = (mousepos - GlobalPosition).Normalized() * maxLength;
+			} else {
+				target = player.input.GetVector("grapple_left", "grapple_right", "grapple_up", "grapple_down").Normalized() * maxLength;
 			}
-		}
-	}
-
-	public override void _Input(InputEvent @event)
-	{
-		if (@event is InputEventMouseButton mouseEvent) {
-			if (mouseEvent.ButtonIndex == MouseButton.Left) {
-				if (mouseEvent.Pressed) {
-					Reparent(player.GetParent());
-					GlobalPosition = player.GlobalPosition;
-					Vector2 mousepos = GetGlobalMousePosition();
-					Vector2 target = (mousepos-GlobalPosition).Normalized()*maxLength;
-					PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
-					PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition+target);
-					query.Exclude = new Array<Rid> { player.GetRid() };
-					query.CollisionMask = player.CollisionMask;
-					Dictionary result = spaceState.IntersectRay(query);
-					if (result.Count > 0) {
-						attached = true;
-						Reparent((PhysicsBody2D)result["collider"]);
-						GlobalPosition = (Vector2)result["position"];
-						GlobalRotation = (-(Vector2)result["normal"]).Angle();
-						Vector2 dist = GlobalPosition - player.GlobalPosition;
-						length = dist.Length();
-						rope.ExtendSuccess();
-					} else {
-						GlobalPosition = player.GlobalPosition + target/2f;
-						GlobalRotation = target.Angle();
-						rope.ExtendFail();
-					}
-				} else if (attached) {
-					Retract();
-				}
+			PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
+			PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition + target);
+			query.Exclude = new Array<Rid> { player.GetRid() };
+			query.CollisionMask = player.CollisionMask;
+			Dictionary result = spaceState.IntersectRay(query);
+			if (result.Count > 0)
+			{
+				attached = true;
+				Reparent((PhysicsBody2D)result["collider"]);
+				GlobalPosition = (Vector2)result["position"];
+				GlobalRotation = (-(Vector2)result["normal"]).Angle();
+				Vector2 dist = GlobalPosition - player.GlobalPosition;
+				length = dist.Length();
+				rope.ExtendSuccess();
 			}
+			// else
+			// {
+			// 	GlobalPosition = player.GlobalPosition + target / 2f;
+			// 	GlobalRotation = target.Angle();
+			// 	rope.ExtendFail();
+			// }
 		}
 	}
 

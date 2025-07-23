@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bkhh5jawlt1ff"]
 
-[ext_resource type="Script" path="res://scripts/EnemyBullet.cs" id="1_hee85"]
+[ext_resource type="Script" uid="uid://cp61wwnggnibg" path="res://scripts/EnemyBullet.cs" id="1_hee85"]
 [ext_resource type="Texture2D" uid="uid://c7e2ttxw3dsi7" path="res://textures/laser-projectile-enemy.png" id="2_f4u7u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nqni0"]

@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://dp4g26lilp5vx"]
 
-[ext_resource type="Script" path="res://scripts/Grapple.cs" id="1_ykikc"]
+[ext_resource type="Script" uid="uid://bdnbgib834urf" path="res://scripts/Grapple.cs" id="1_ykikc"]
 [ext_resource type="Texture2D" uid="uid://bvsw5mpchq0ll" path="res://textures/grapple/grapple-chain.png" id="2_lub3a"]
-[ext_resource type="Script" path="res://scripts/GrappleRope.cs" id="2_m1x8u"]
+[ext_resource type="Script" uid="uid://cnubk7vx6txgj" path="res://scripts/GrappleRope.cs" id="2_m1x8u"]
 [ext_resource type="Texture2D" uid="uid://ctlcswcmtbp7g" path="res://textures/grapple/grapple-chain_outline.png" id="4_8gux5"]
 [ext_resource type="Texture2D" uid="uid://bcxw5w5jcaew1" path="res://textures/grapple/grapple-hook.png" id="5_2kevb"]
 [ext_resource type="Texture2D" uid="uid://c7kn3cufh5vne" path="res://textures/grapple/grapple-hook_outline.png" id="6_vaum3"]

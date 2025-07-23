@@ -13,9 +13,10 @@ public partial class EnemySpawner : Timer
 	private Camera2D camera;
 	public override void _Ready()
 	{
-		camera = GetNode<Camera2D>("../Player/Camera2D");
+		//camera = GetNode<Camera2D>("../Player/Camera2D");
 	}
 	public void _on_timeout() {
+		/*
 		if (GetChildCount() < maxEnemies) {
 			RigidBody2D enemy = enemyScene.Instantiate<RigidBody2D>();
 			Vector2 viewportSize = GetViewport().GetVisibleRect().Size;
@@ -28,5 +29,6 @@ public partial class EnemySpawner : Timer
 		if (WaitTime < minInterval) {
 			WaitTime = minInterval;
 		}
+		*/
 	}
 }

@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://c400vkdgmc7ko"]
 
-[ext_resource type="Script" path="res://scripts/Bullet.cs" id="1_r1cnr"]
+[ext_resource type="Script" uid="uid://dxmqpovpycxnm" path="res://scripts/Bullet.cs" id="1_r1cnr"]
 [ext_resource type="Texture2D" uid="uid://c54fqglhotaln" path="res://textures/laser-projectile-player.png" id="2_gbvpw"]
-[ext_resource type="Script" path="res://scripts/Trail.cs" id="3_1flyc"]
+[ext_resource type="Script" uid="uid://ceya1mk0syx8r" path="res://scripts/Trail.cs" id="3_1flyc"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sricj"]
 light_mode = 1

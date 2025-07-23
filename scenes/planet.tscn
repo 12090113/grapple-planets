@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://db3gs2h4m2pj8"]
 
-[ext_resource type="Script" path="res://scripts/Planet.cs" id="1_b0eyr"]
+[ext_resource type="Script" uid="uid://bm7chybwlgkyg" path="res://scripts/Planet.cs" id="1_b0eyr"]
 [ext_resource type="Texture2D" uid="uid://dnspmty5kf8vt" path="res://textures/planets/planet2.png" id="2_c6na0"]
 [ext_resource type="Texture2D" uid="uid://c0oswu6jub64c" path="res://textures/planets/planet_outline.png" id="3_lqt66"]
 

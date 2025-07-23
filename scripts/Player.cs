@@ -1,4 +1,5 @@
 using Godot;
+using MultiplayerInputSharp;
 
 public partial class Player : RigidBody2D
 {
@@ -72,6 +73,38 @@ public partial class Player : RigidBody2D
 				Callable.From(() => GetTree().ChangeSceneToFile("res://scenes/death_menu.tscn")).CallDeferred();
 			}
 			invuln = invulnTime;
+		}
+	}
+
+	// Multiplayer
+
+	[Signal]
+	public delegate void LeaveEventHandler(int player);
+
+	private int _player;
+	public DeviceInput input {get; private set;}
+
+	public void Init(int playerNum, int device) {
+		_player = playerNum;
+
+		// in my project, I got the device integer by accessing the singleton autoload PlayerManager
+		// but for simplicity, it's not an autoload in this demo.
+		// but I recommend making it a singleton so you can access the player data from anywhere.
+		// that would look like the following line, instead of the device function parameter above.
+		//    device = PlayerManager.GetPlayerDevice(_player);
+		input = new DeviceInput(device);
+		GD.Print("input: ", input);
+
+		//GetNode<Label>("Player").Text = playerNum.ToString();
+	}
+
+	public override void _Process(double delta) {
+		// let the player leave by pressing the "join" button
+		if (input.IsActionJustPressed("join")) {
+			// an alternative to this is just call PlayerManager.leave(player)
+			// but that only works if you set up the PlayerManager singleton
+			grapple.QueueFree();
+			EmitSignal(SignalName.Leave, _player);
 		}
 	}
 }
