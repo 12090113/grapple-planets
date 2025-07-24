@@ -3,6 +3,8 @@ using Godot.Collections;
 
 public partial class PlayerAnimation : AnimatedSprite2D
 {
+	[Export]
+	float flipSpeed = 0.05f;
 	private Grapple grapple;
 	private Player player;
 	private AnimatedSprite2D outline;
@@ -26,17 +28,17 @@ public partial class PlayerAnimation : AnimatedSprite2D
 	public override void _Process(double delta) {
 		Vector2 mousepos;
 		if (player.input.IsKeyboard())
-			mousepos = GetGlobalMousePosition();
+			mousepos = player.ToLocal(GetGlobalMousePosition());
 		else
-			mousepos = player.GlobalPosition+player.input.GetVector("grapple_left", "grapple_right", "grapple_up", "grapple_down").Normalized() * grapple.maxLength;
+			mousepos = player.input.GetVector("grapple_left", "grapple_right", "grapple_up", "grapple_down").Normalized() * grapple.maxLength;
 		if (grapple.attached) {
 			this.Play("swinging");
 			outline.Play("swinging2");
 			rightArm.GlobalRotation = Mathf.LerpAngle(rightArm.GlobalRotation, (grapple.GlobalPosition-rightArm.GlobalPosition).Angle(), rightArmRotationSpeed);
-		} else {
+		} else if (mousepos.LengthSquared() > 0f) {
 			this.Play("idle");
 			outline.Play("idle2");
-			Vector2 target = (mousepos-player.GlobalPosition).Normalized()*grapple.maxLength;
+			Vector2 target = mousepos.Normalized()*grapple.maxLength;
 			PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
 			PhysicsRayQueryParameters2D query = PhysicsRayQueryParameters2D.Create(GlobalPosition, GlobalPosition+target);
 			query.Exclude = new Array<Rid> { player.GetRid() };
@@ -48,18 +50,18 @@ public partial class PlayerAnimation : AnimatedSprite2D
 				rightArm.GlobalRotation = Mathf.LerpAngle(rightArm.GlobalRotation, (player.GlobalPosition+target-rightArm.GlobalPosition).Angle(), grapple.rope.retract <= 0 ? rightArmRotationSpeed : rightArmRotationSpeed/2);
 			}
 		}
-		leftArm.GlobalRotation = Mathf.LerpAngle(leftArm.GlobalRotation, (mousepos-leftArm.GlobalPosition).Angle(), rightArmRotationSpeed);
+		leftArm.GlobalRotation = Mathf.LerpAngle(leftArm.GlobalRotation, mousepos.Angle(), rightArmRotationSpeed);
 		if (Mathf.Cos(rightArm.GlobalRotation) < 0 && Mathf.Cos(leftArm.GlobalRotation) < 0 && player.Scale.X < 0)
 			rightArm.ZIndex = 1;
 		else
 			rightArm.ZIndex = 0;
 		
 		float targetScaleX;
-		if ((mousepos-GlobalPosition).X >= 0) {
+		if (mousepos.X >= 0) {
 			targetScaleX = 0.25f;
 		} else {
 			targetScaleX = -0.25f;
 		}
-		Scale = new Vector2(Mathf.Lerp(Scale.X, targetScaleX, 0.05f), Scale.Y);
+		Scale = new Vector2(Mathf.Lerp(Scale.X, targetScaleX, flipSpeed), Scale.Y);
 	}
 }

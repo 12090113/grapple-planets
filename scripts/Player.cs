@@ -81,11 +81,11 @@ public partial class Player : RigidBody2D
 	[Signal]
 	public delegate void LeaveEventHandler(int player);
 
-	private int _player;
+	public int playerNum {get; private set;}
 	public DeviceInput input {get; private set;}
 
-	public void Init(int playerNum, int device) {
-		_player = playerNum;
+	public void Init(int player, int device) {
+		playerNum = player;
 
 		// in my project, I got the device integer by accessing the singleton autoload PlayerManager
 		// but for simplicity, it's not an autoload in this demo.
@@ -104,7 +104,12 @@ public partial class Player : RigidBody2D
 			// an alternative to this is just call PlayerManager.leave(player)
 			// but that only works if you set up the PlayerManager singleton
 			grapple.QueueFree();
-			EmitSignal(SignalName.Leave, _player);
+			EmitSignal(SignalName.Leave, playerNum);
 		}
+		QueueRedraw();
+	}
+
+	public override void _Draw() {
+		DrawLine(Vector2.Zero, input.GetVector("grapple_left", "grapple_right", "grapple_up", "grapple_down").Normalized() * grapple.maxLength, Colors.Red, 5, true);
 	}
 }

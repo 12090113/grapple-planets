@@ -7,6 +7,7 @@ public partial class Bullet : RigidBody2D
 	private Timer timer;
 	private Trail trail;
 	private float startrot = 0;
+	public int player;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
 		timer = GetNode<Timer>("Timer");
