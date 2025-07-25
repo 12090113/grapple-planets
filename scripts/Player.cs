@@ -29,19 +29,47 @@ public partial class Player : RigidBody2D
 	public override void _IntegrateForces(PhysicsDirectBodyState2D state)
 	{
 		if (grapple.attached) {
-			Vector2 dist = grapple.GlobalPosition - GlobalPosition;
-			Vector2 dir = dist.Normalized();
-			Vector2 perpdir = dist.Rotated(Mathf.Pi/2).Normalized();
-			if (state.LinearVelocity.Dot(perpdir) < 0) {
+			Vector2 vel = state.LinearVelocity;
+			RigidBody2D attachedBody = null;
+			float acceleration = grapple.acceleration;
+			bool doubleAttached = false;
+			Vector2 attatchedPos = grapple.GlobalPosition;
+			if (grapple.attachedBody is RigidBody2D) {
+				attachedBody = (RigidBody2D)grapple.attachedBody;
+				vel -= attachedBody.LinearVelocity;
+				acceleration *= Mass / (Mass + attachedBody.Mass);
+				if (attachedBody is Player) {
+					if (((Player)attachedBody).grapple.attachedBody == this) {
+						doubleAttached = true;
+						acceleration /= 2;
+					}
+					attatchedPos = attachedBody.Position;
+				}
+			}
+			Vector2 difference = attatchedPos - GlobalPosition;
+			float dist = difference.Length();
+			Vector2 dir = difference.Normalized();
+			Vector2 perpdir = dir.Rotated(Mathf.Pi/2);
+			
+			if (vel.Dot(perpdir) < 0) {
 				perpdir = -perpdir;
 			}
-			if (state.LinearVelocity.Length() < grapple.maxSpeed) {
-				state.LinearVelocity += perpdir * grapple.acceleration * state.Step;
+			if (vel.Length() < grapple.maxSpeed) {
+				state.LinearVelocity += perpdir * acceleration * state.Step;
+				if (attachedBody != null) {
+					attachedBody.LinearVelocity += -perpdir * ((grapple.acceleration / (doubleAttached ? 2 : 1))-acceleration) * state.Step;
+				}
 			}
-			if (dist.Length() >= grapple.length && state.LinearVelocity.Dot(dir) <= 0) {
+			if (dist >= grapple.length && vel.Dot(dir) <= 0) {
 				state.LinearVelocity = perpdir * state.LinearVelocity.Length();
-				if (dist.Length() > grapple.length) {
-					GlobalPosition += -dir * (grapple.length-dist.Length());
+				if (attachedBody != null) {
+					Vector2 otherdir = -perpdir;
+					if (vel.Dot(otherdir) > 0)
+						otherdir = -otherdir;
+					attachedBody.LinearVelocity = otherdir * attachedBody.LinearVelocity.Length();
+				}
+				if (dist > grapple.length) {
+					GlobalPosition += -dir * (grapple.length-dist);
 				}
 			}
 		}

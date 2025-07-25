@@ -17,6 +17,7 @@ public partial class Grapple : Node2D
 	public GrappleRope rope = null;
 	public Sprite2D gun = null;
 	public bool attached = false;
+	public PhysicsBody2D attachedBody;
 	public float length = 0;
 
 	public override void _Ready()
@@ -65,11 +66,16 @@ public partial class Grapple : Node2D
 			if (result.Count > 0)
 			{
 				attached = true;
-				Reparent((PhysicsBody2D)result["collider"]);
+				attachedBody = (PhysicsBody2D)result["collider"];
+				Reparent(attachedBody);
 				GlobalPosition = (Vector2)result["position"];
 				GlobalRotation = (-(Vector2)result["normal"]).Angle();
 				Vector2 dist = GlobalPosition - player.GlobalPosition;
 				length = dist.Length();
+				if (attachedBody is Player) {
+					//player.SetCollisionMaskValue(5, false);
+					length = (attachedBody.GlobalPosition - player.GlobalPosition).Length();
+				}
 				rope.ExtendSuccess();
 			}
 			// else
@@ -82,8 +88,10 @@ public partial class Grapple : Node2D
 	}
 
 	public void Retract() {
+		//player.SetCollisionMaskValue(5, true);
 		rope.Retract();
 		attached = false;
+		attachedBody = null;
 		Reparent(player.GetParent());
 	}
 
