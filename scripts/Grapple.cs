@@ -72,7 +72,7 @@ public partial class Grapple : Node2D
 				GlobalRotation = (-(Vector2)result["normal"]).Angle();
 				Vector2 dist = GlobalPosition - player.GlobalPosition;
 				length = dist.Length();
-				if (attachedBody is Player) {
+				if (attachedBody is RigidBody2D) {
 					//player.SetCollisionMaskValue(5, false);
 					length = (attachedBody.GlobalPosition - player.GlobalPosition).Length();
 				}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bhqnw6d65ivdb"]
+[gd_scene load_steps=19 format=3 uid="uid://bhqnw6d65ivdb"]
 
 [ext_resource type="PackedScene" uid="uid://db3gs2h4m2pj8" path="res://scenes/planet.tscn" id="2_0e11l"]
 [ext_resource type="Script" uid="uid://c12fksrhw4gmx" path="res://scripts/Camera.cs" id="3_f21ni"]
@@ -13,10 +13,17 @@
 [ext_resource type="Texture2D" uid="uid://cqy4tmeqvxodt" path="res://textures/planets/planet6.png" id="10_7i0i8"]
 [ext_resource type="Texture2D" uid="uid://jjnnbeeu1su2" path="res://textures/planets/planet7.png" id="11_i4n03"]
 [ext_resource type="Texture2D" uid="uid://bg2athwps8p1i" path="res://textures/planets/planet7_outline.png" id="12_8i6fk"]
+[ext_resource type="Texture2D" uid="uid://q6bs6cmwd66j" path="res://textures/icon.svg" id="15_jkv2x"]
 [ext_resource type="AudioStream" uid="uid://d174g7ba38asa" path="res://Sounds/spaceofjazztocome.mp3" id="17_1en26"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nop4c"]
 size = Vector2(13243, 185)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jbj1t"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jkv2x"]
+size = Vector2(64, 64)
 
 [node name="Node2D" type="Node2D"]
 
@@ -179,3 +186,28 @@ ZoomOutMax = 100.0
 stream = ExtResource("17_1en26")
 volume_db = -10.363
 parameters/looping = true
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(0, -200)
+collision_mask = 21
+mass = 10.0
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("RectangleShape2D_jbj1t")
+
+[node name="Icon" type="Sprite2D" parent="RigidBody2D"]
+texture = ExtResource("15_jkv2x")
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="."]
+position = Vector2(-200, 0)
+collision_mask = 21
+mass = 0.1
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
+shape = SubResource("RectangleShape2D_jkv2x")
+
+[node name="Icon" type="Sprite2D" parent="RigidBody2D2"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_jkv2x")

@@ -37,14 +37,14 @@ public partial class Player : RigidBody2D
 			if (grapple.attachedBody is RigidBody2D) {
 				attachedBody = (RigidBody2D)grapple.attachedBody;
 				vel -= attachedBody.LinearVelocity;
-				acceleration *= Mass / (Mass + attachedBody.Mass);
+				acceleration *= attachedBody.Mass / (Mass + attachedBody.Mass);
 				if (attachedBody is Player) {
 					if (((Player)attachedBody).grapple.attachedBody == this) {
 						doubleAttached = true;
 						acceleration /= 2;
 					}
-					attatchedPos = attachedBody.Position;
 				}
+				attatchedPos = attachedBody.Position;
 			}
 			Vector2 difference = attatchedPos - GlobalPosition;
 			float dist = difference.Length();
