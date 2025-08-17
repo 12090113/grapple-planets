@@ -20,7 +20,7 @@ public partial class Grapple : Node2D
 	public PhysicsBody2D attachedBody;
 	public float length = 0;
 	[Export]
-	private Area2D cutArea;
+	public Area2D cutArea {get; private set;}
 	public Vector2[] points;
 	public Vector2[] oldPoints;
 
@@ -81,7 +81,7 @@ public partial class Grapple : Node2D
 					//player.SetCollisionMaskValue(5, false);
 					length = (attachedBody.GlobalPosition - player.GlobalPosition).Length();
 				}
-				cutArea.Monitoring = true;
+				cutArea.Monitorable = true;
 				rope.ExtendSuccess();
 			}
 			// else
@@ -95,7 +95,7 @@ public partial class Grapple : Node2D
 
 	public void Retract() {
 		//player.SetCollisionMaskValue(5, true);
-		cutArea.Monitoring = false;
+		cutArea.Monitorable = false;
 		rope.Retract();
 		attached = false;
 		attachedBody = null;

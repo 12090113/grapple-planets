@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ovdm2aqqrnlg"]
+[gd_scene load_steps=25 format=3 uid="uid://ovdm2aqqrnlg"]
 
 [ext_resource type="Script" uid="uid://t7bwttjl30d" path="res://scripts/Player.cs" id="1_s42la"]
 [ext_resource type="PackedScene" uid="uid://dp4g26lilp5vx" path="res://scenes/grapple.tscn" id="3_1sqtw"]
@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://c7kn3cufh5vne" path="res://textures/grapple/grapple-hook_outline.png" id="13_pki1i"]
 [ext_resource type="Texture2D" uid="uid://ci8jh70udhtm8" path="res://textures/weapon/laser-gun.png" id="14_47jg3"]
 [ext_resource type="Texture2D" uid="uid://djdhawvhbhjkr" path="res://textures/weapon/laser-gun_outline.png" id="15_mnyop"]
-[ext_resource type="Script" uid="uid://byufa8j8f34we" path="res://scripts/PositionStorage.cs" id="17_fulsm"]
+[ext_resource type="Script" uid="uid://k2wd0bj3dna1" path="res://scripts/GrappleCutter.cs" id="18_fulsm"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ctt12"]
 bounce = 0.5
@@ -64,10 +64,13 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_fulsm"]
+radius = 200.0
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4r5pv"]
 light_mode = 1
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("grappleBar", "cutter") groups=["player"]]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("grappleBar") groups=["player"]]
 physics_interpolation_mode = 1
 z_index = 100
 collision_layer = 16
@@ -81,7 +84,7 @@ contact_monitor = true
 max_contacts_reported = 10
 script = ExtResource("1_s42la")
 grappleBar = NodePath("HealthBar")
-cutter = NodePath("Body/LeftArm/LaserGun")
+grappleCutTime = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_c4rw0")
@@ -152,13 +155,21 @@ offset = Vector2(92, -1)
 position = Vector2(320, -76)
 texture = ExtResource("14_47jg3")
 offset = Vector2(-92, 28)
-script = ExtResource("17_fulsm")
 
 [node name="Outline" type="Sprite2D" parent="Body/LeftArm/LaserGun"]
 show_behind_parent = true
 z_index = -50
 texture = ExtResource("15_mnyop")
 offset = Vector2(-92, 28)
+
+[node name="Area2D" type="Area2D" parent="Body/LeftArm/LaserGun" node_paths=PackedStringArray("grapple")]
+collision_layer = 0
+monitorable = false
+script = ExtResource("18_fulsm")
+grapple = NodePath("../../../../Grapple")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/LeftArm/LaserGun/Area2D"]
+shape = SubResource("CircleShape2D_fulsm")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 z_index = 300

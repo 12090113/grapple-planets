@@ -10,7 +10,6 @@ public partial class PlayerAnimation : AnimatedSprite2D
 	private AnimatedSprite2D outline;
 	private Sprite2D rightArm;
 	private Sprite2D leftArm;
-	private PositionStorage cutPos;
 	private float rightArmRotationSpeed = 0.2f;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
@@ -20,7 +19,6 @@ public partial class PlayerAnimation : AnimatedSprite2D
 		player = GetParent<Player>();
 		rightArm = GetNode<Sprite2D>("RightArm");
 		leftArm = GetNode<Sprite2D>("LeftArm");
-		cutPos = leftArm.GetNode<PositionStorage>("LaserGun");
 		if (player.input.IsJoypad()) {
 			rightArmRotationSpeed = 1f;
 		}
@@ -52,7 +50,6 @@ public partial class PlayerAnimation : AnimatedSprite2D
 				rightArm.GlobalRotation = Mathf.LerpAngle(rightArm.GlobalRotation, (player.GlobalPosition+target-rightArm.GlobalPosition).Angle(), grapple.rope.retract <= 0 ? rightArmRotationSpeed : rightArmRotationSpeed/2);
 			}
 		}
-		cutPos.oldPosition = cutPos.GlobalPosition;
 		leftArm.GlobalRotation = Mathf.LerpAngle(leftArm.GlobalRotation, mousepos.Angle(), rightArmRotationSpeed);
 		if (Mathf.Cos(rightArm.GlobalRotation) < 0 && Mathf.Cos(leftArm.GlobalRotation) < 0 && player.Scale.X < 0)
 			rightArm.ZIndex = 1;
@@ -66,5 +63,11 @@ public partial class PlayerAnimation : AnimatedSprite2D
 			targetScaleX = -0.25f;
 		}
 		Scale = new Vector2(Mathf.Lerp(Scale.X, targetScaleX, flipSpeed), Scale.Y);
+
+		if (player.LinearVelocity.Length() < grapple.maxSpeed-2f) {
+			Modulate = new Color(1, 1 - player.LinearVelocity.Length() / grapple.maxSpeed, 1);
+		} else {
+			Modulate = new Color(1,0,0);
+		}
 	}
 }

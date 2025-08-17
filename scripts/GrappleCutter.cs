@@ -6,81 +6,63 @@ using System.Collections.Generic;
 public partial class GrappleCutter : Area2D
 {
     [Export]
-    private float bufferSize = 100;
     private Grapple grapple;
-    private RectangleShape2D collider;
     private Variant cutPoint;
-
+    private Vector2 oldPos;
+    private Vector2 oldCutPos;
     private Vector2 oldPos0;
     private Vector2 oldPos1;
     private Vector2 pos0;
     private Vector2 pos1;
-
-    private Vector2 oldCutPos;
-    private Vector2 cutPos;
-
-    List<Vector2> segments = new();
-
-    public override void _Ready()
-	{
-        grapple = GetParent().GetParent<Grapple>();
-        collider = (RectangleShape2D)GetChild<CollisionShape2D>(0).Shape;
-	}
-
+    [Export]
+    private bool debugLines;
+    private List<Vector2> segments = new();
     public override void _Process(double delta)
     {
-        if (grapple.attached) {
-            Position = grapple.points[0].Lerp(grapple.points[1], 0.5f);
-            Rotation = grapple.points[0].AngleToPoint(grapple.points[1]);
-            collider.Size = new Vector2(grapple.points[0].DistanceTo(grapple.points[1]) + bufferSize, bufferSize);
+        Array<Area2D> bodies = GetOverlappingAreas();
+        foreach (Area2D area in bodies) {
+            if (area is GrappleCutDetector && area != grapple.cutArea) {
+                GrappleCutDetector enemy = (GrappleCutDetector)area;
 
-            Array<Node2D> bodies = GetOverlappingBodies();
+                oldPos0 = enemy.grapple.ToGlobal(enemy.grapple.oldPoints[0]);
+                oldPos1 = enemy.grapple.ToGlobal(enemy.grapple.oldPoints[1]);
 
-            oldPos0 = grapple.ToGlobal(grapple.oldPoints[0]);
-            oldPos1 = grapple.ToGlobal(grapple.oldPoints[1]);
+                pos0 = enemy.grapple.ToGlobal(enemy.grapple.points[0]);
+                pos1 = enemy.grapple.ToGlobal(enemy.grapple.points[1]);
 
-            pos0 = grapple.ToGlobal(grapple.points[0]);
-            pos1 = grapple.ToGlobal(grapple.points[1]);
+                //GD.Print(oldPos1,pos1);
+                oldCutPos = FindTransformedThirdPoint(oldPos0, oldPos1, oldPos, pos0, pos1);
 
-            foreach (Node2D body in bodies) {
-                if (body is Player && body != grapple.player) {
-                    Player enemy = (Player)body;
-
-                    oldCutPos = enemy.cutter.oldPosition;//FindTransformedThirdPoint(oldPos0, oldPos1, enemy.cutter.oldPosition, pos0, pos1);
-                    cutPos = enemy.cutter.GlobalPosition;
-                    GD.Print(oldCutPos,cutPos);
+                if (debugLines) {
                     segments.Add(oldCutPos);
-                    segments.Add(cutPos);
+                    segments.Add(GlobalPosition);
+                }
 
-                    var intersectionResult = Geometry2D.SegmentIntersectsSegment(oldCutPos, enemy.cutter.GlobalPosition, pos0, pos1);
+                var intersectionResult = Geometry2D.SegmentIntersectsSegment(oldCutPos, GlobalPosition, pos0, pos1);
 
-                    if (intersectionResult.VariantType != Variant.Type.Nil) {
-                        cutPoint = intersectionResult;
-                        GD.Print($"Grapple was cut at position: {cutPoint}");
-                        grapple.Retract();
-                        grapple.player.grappleDisabled = grapple.player.grappleCutTime;
-                    }
+                if (intersectionResult.VariantType != Variant.Type.Nil) {
+                    cutPoint = intersectionResult;
+                    enemy.grapple.Retract();
+                    enemy.grapple.player.grappleDisabled = grapple.player.grappleCutTime;
                 }
             }
         }
-        QueueRedraw();
-    }
-
-    public override void _PhysicsProcess(double delta)
-    {
-        if (grapple.attached) {
-        }
+        oldPos = GlobalPosition;
+        if (debugLines)
+            QueueRedraw();
     }
 
     public override void _Draw()
     {
-        if (cutPoint.VariantType != Variant.Type.Nil)
-            DrawCircle(ToLocal(cutPoint.AsVector2()), 10, Colors.AliceBlue);
-        
-        DrawLine(ToLocal(pos0), ToLocal(pos1), Colors.Blue);
-        // DrawLine(ToLocal(oldCutPos), ToLocal(cutPos), Colors.Green, 10);
-        for (int i = 0; i < segments.Count; i += 2) {
-            DrawLine(ToLocal(segments[i]), ToLocal(segments[i+1]), Colors.Green);
+        if (debugLines) {
+            if (cutPoint.VariantType != Variant.Type.Nil) {
+                DrawCircle(ToLocal(cutPoint.AsVector2()), 100, Colors.DarkRed);
+            }
+            
+            DrawLine(ToLocal(pos0), ToLocal(pos1), Colors.Blue);
+            for (int i = 0; i < segments.Count; i += 2) {
+                DrawLine(ToLocal(segments[i]), ToLocal(segments[i+1]), Colors.Green);
+            }
         }
     }
 
