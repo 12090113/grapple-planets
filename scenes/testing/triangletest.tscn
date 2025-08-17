@@ -1,11 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://dif6vg6qu6bn7"]
 
-[ext_resource type="Script" uid="uid://c8c246hrn4cu0" path="res://scripts/TriangleTest.cs" id="1_bl13t"]
-[ext_resource type="Texture2D" uid="uid://q6bs6cmwd66j" path="res://textures/icon.svg" id="1_errlg"]
-[ext_resource type="Script" uid="uid://d4mbxuvgpt6vp" path="res://scripts/DraggableSprite.cs" id="3_iyx0m"]
+[ext_resource type="Script" uid="uid://c8c246hrn4cu0" path="res://scripts/testing/TriangleTest.cs" id="1_xhkjq"]
+[ext_resource type="Texture2D" uid="uid://q6bs6cmwd66j" path="res://textures/icon.svg" id="2_h47jj"]
+[ext_resource type="Script" uid="uid://d4mbxuvgpt6vp" path="res://scripts/testing/DraggableSprite.cs" id="3_die13"]
 
 [node name="Test" type="Node2D" node_paths=PackedStringArray("oldA", "oldB", "oldC", "newA", "newB", "newC", "transformedOldC")]
-script = ExtResource("1_bl13t")
+script = ExtResource("1_xhkjq")
 oldA = NodePath("Icon")
 oldB = NodePath("Icon2")
 oldC = NodePath("Icon5")
@@ -17,8 +17,8 @@ transformedOldC = NodePath("Icon7")
 [node name="Icon" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)
 show_behind_parent = true
-texture = ExtResource("1_errlg")
-script = ExtResource("3_iyx0m")
+texture = ExtResource("2_h47jj")
+script = ExtResource("3_die13")
 
 [node name="Label" type="Label" parent="Icon"]
 offset_left = -18.0
@@ -32,8 +32,8 @@ metadata/_edit_use_anchors_ = true
 modulate = Color(1, 0, 0, 1)
 show_behind_parent = true
 position = Vector2(-2, 280)
-texture = ExtResource("1_errlg")
-script = ExtResource("3_iyx0m")
+texture = ExtResource("2_h47jj")
+script = ExtResource("3_die13")
 
 [node name="Label" type="Label" parent="Icon2"]
 offset_left = -18.0
@@ -46,8 +46,8 @@ text = "Old B"
 modulate = Color(1, 0, 1, 1)
 show_behind_parent = true
 position = Vector2(549, -19)
-texture = ExtResource("1_errlg")
-script = ExtResource("3_iyx0m")
+texture = ExtResource("2_h47jj")
+script = ExtResource("3_die13")
 
 [node name="Label" type="Label" parent="Icon3"]
 offset_left = -18.0
@@ -61,8 +61,8 @@ metadata/_edit_use_anchors_ = true
 modulate = Color(1, 0, 1, 1)
 show_behind_parent = true
 position = Vector2(547, 261)
-texture = ExtResource("1_errlg")
-script = ExtResource("3_iyx0m")
+texture = ExtResource("2_h47jj")
+script = ExtResource("3_die13")
 
 [node name="Label" type="Label" parent="Icon4"]
 offset_left = -18.0
@@ -75,8 +75,8 @@ text = "New B"
 modulate = Color(0, 1, 1, 1)
 show_behind_parent = true
 position = Vector2(165, 126)
-texture = ExtResource("1_errlg")
-script = ExtResource("3_iyx0m")
+texture = ExtResource("2_h47jj")
+script = ExtResource("3_die13")
 
 [node name="Label" type="Label" parent="Icon5"]
 offset_left = -18.0
@@ -89,8 +89,8 @@ text = "Old C"
 modulate = Color(1, 1, 0.0745098, 1)
 show_behind_parent = true
 position = Vector2(335, 108)
-texture = ExtResource("1_errlg")
-script = ExtResource("3_iyx0m")
+texture = ExtResource("2_h47jj")
+script = ExtResource("3_die13")
 
 [node name="Label" type="Label" parent="Icon6"]
 offset_left = -18.0
@@ -102,7 +102,7 @@ text = "New C"
 [node name="Icon7" type="Sprite2D" parent="."]
 show_behind_parent = true
 position = Vector2(-473, -281)
-texture = ExtResource("1_errlg")
+texture = ExtResource("2_h47jj")
 
 [node name="Label" type="Label" parent="Icon7"]
 offset_left = -69.0

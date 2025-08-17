@@ -8,6 +8,8 @@ public partial class Player : RigidBody2D
 	[Export]
 	public float grappleCutTime = 5;
 	public float grappleDisabled = 0;
+	[Export]
+	float speedEquivalency = 2f;
 	public Grapple grapple {get; private set;}
 
 	// Called when the node enters the scene tree for the first time.
