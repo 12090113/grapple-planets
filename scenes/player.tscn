@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ovdm2aqqrnlg"]
+[gd_scene load_steps=24 format=3 uid="uid://ovdm2aqqrnlg"]
 
 [ext_resource type="Script" uid="uid://t7bwttjl30d" path="res://scripts/Player.cs" id="1_s42la"]
 [ext_resource type="PackedScene" uid="uid://dp4g26lilp5vx" path="res://scenes/grapple.tscn" id="3_1sqtw"]
@@ -17,8 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://c7kn3cufh5vne" path="res://textures/grapple/grapple-hook_outline.png" id="13_pki1i"]
 [ext_resource type="Texture2D" uid="uid://ci8jh70udhtm8" path="res://textures/weapon/laser-gun.png" id="14_47jg3"]
 [ext_resource type="Texture2D" uid="uid://djdhawvhbhjkr" path="res://textures/weapon/laser-gun_outline.png" id="15_mnyop"]
-[ext_resource type="Script" uid="uid://tk6066yg0otl" path="res://scripts/PlayerBullet.cs" id="17_180qu"]
-[ext_resource type="PackedScene" uid="uid://c400vkdgmc7ko" path="res://scenes/player_bullet.tscn" id="18_ayxbp"]
+[ext_resource type="Script" uid="uid://byufa8j8f34we" path="res://scripts/PositionStorage.cs" id="17_fulsm"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ctt12"]
 bounce = 0.5
@@ -68,7 +67,7 @@ animations = [{
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4r5pv"]
 light_mode = 1
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("healthBar") groups=["player"]]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("grappleBar", "cutter") groups=["player"]]
 physics_interpolation_mode = 1
 z_index = 100
 collision_layer = 16
@@ -81,7 +80,8 @@ continuous_cd = 1
 contact_monitor = true
 max_contacts_reported = 10
 script = ExtResource("1_s42la")
-healthBar = NodePath("HealthBar")
+grappleBar = NodePath("HealthBar")
+cutter = NodePath("Body/LeftArm/LaserGun")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_c4rw0")
@@ -152,8 +152,7 @@ offset = Vector2(92, -1)
 position = Vector2(320, -76)
 texture = ExtResource("14_47jg3")
 offset = Vector2(-92, 28)
-script = ExtResource("17_180qu")
-bulletScn = ExtResource("18_ayxbp")
+script = ExtResource("17_fulsm")
 
 [node name="Outline" type="Sprite2D" parent="Body/LeftArm/LaserGun"]
 show_behind_parent = true
@@ -168,6 +167,8 @@ offset_left = -141.0
 offset_top = 192.0
 offset_right = 165.0
 offset_bottom = 241.0
-value = 100.0
+max_value = 1.0
+step = 0.0
+show_percentage = false
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

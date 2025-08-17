@@ -1,0 +1,116 @@
+[gd_scene load_steps=4 format=3 uid="uid://dif6vg6qu6bn7"]
+
+[ext_resource type="Script" uid="uid://c8c246hrn4cu0" path="res://scripts/TriangleTest.cs" id="1_bl13t"]
+[ext_resource type="Texture2D" uid="uid://q6bs6cmwd66j" path="res://textures/icon.svg" id="1_errlg"]
+[ext_resource type="Script" uid="uid://d4mbxuvgpt6vp" path="res://scripts/DraggableSprite.cs" id="3_iyx0m"]
+
+[node name="Test" type="Node2D" node_paths=PackedStringArray("oldA", "oldB", "oldC", "newA", "newB", "newC", "transformedOldC")]
+script = ExtResource("1_bl13t")
+oldA = NodePath("Icon")
+oldB = NodePath("Icon2")
+oldC = NodePath("Icon5")
+newA = NodePath("Icon3")
+newB = NodePath("Icon4")
+newC = NodePath("Icon6")
+transformedOldC = NodePath("Icon7")
+
+[node name="Icon" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+show_behind_parent = true
+texture = ExtResource("1_errlg")
+script = ExtResource("3_iyx0m")
+
+[node name="Label" type="Label" parent="Icon"]
+offset_left = -18.0
+offset_top = -87.0
+offset_right = 24.0
+offset_bottom = -64.0
+text = "Old A"
+metadata/_edit_use_anchors_ = true
+
+[node name="Icon2" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+show_behind_parent = true
+position = Vector2(-2, 280)
+texture = ExtResource("1_errlg")
+script = ExtResource("3_iyx0m")
+
+[node name="Label" type="Label" parent="Icon2"]
+offset_left = -18.0
+offset_top = -87.0
+offset_right = 24.0
+offset_bottom = -64.0
+text = "Old B"
+
+[node name="Icon3" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 1, 1)
+show_behind_parent = true
+position = Vector2(549, -19)
+texture = ExtResource("1_errlg")
+script = ExtResource("3_iyx0m")
+
+[node name="Label" type="Label" parent="Icon3"]
+offset_left = -18.0
+offset_top = -87.0
+offset_right = 24.0
+offset_bottom = -64.0
+text = "New A"
+metadata/_edit_use_anchors_ = true
+
+[node name="Icon4" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 1, 1)
+show_behind_parent = true
+position = Vector2(547, 261)
+texture = ExtResource("1_errlg")
+script = ExtResource("3_iyx0m")
+
+[node name="Label" type="Label" parent="Icon4"]
+offset_left = -18.0
+offset_top = -87.0
+offset_right = 24.0
+offset_bottom = -64.0
+text = "New B"
+
+[node name="Icon5" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 1, 1)
+show_behind_parent = true
+position = Vector2(165, 126)
+texture = ExtResource("1_errlg")
+script = ExtResource("3_iyx0m")
+
+[node name="Label" type="Label" parent="Icon5"]
+offset_left = -18.0
+offset_top = -87.0
+offset_right = 24.0
+offset_bottom = -64.0
+text = "Old C"
+
+[node name="Icon6" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0.0745098, 1)
+show_behind_parent = true
+position = Vector2(335, 108)
+texture = ExtResource("1_errlg")
+script = ExtResource("3_iyx0m")
+
+[node name="Label" type="Label" parent="Icon6"]
+offset_left = -18.0
+offset_top = -87.0
+offset_right = 24.0
+offset_bottom = -64.0
+text = "New C"
+
+[node name="Icon7" type="Sprite2D" parent="."]
+show_behind_parent = true
+position = Vector2(-473, -281)
+texture = ExtResource("1_errlg")
+
+[node name="Label" type="Label" parent="Icon7"]
+offset_left = -69.0
+offset_top = -88.0
+offset_right = 77.0
+offset_bottom = -65.0
+text = "Transformed Old C"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(321, 119)
+zoom = Vector2(0.664, 0.664)

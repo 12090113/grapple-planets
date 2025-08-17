@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://gaml03oaf4ag"]
+
+[ext_resource type="Texture2D" uid="uid://cijv0r1bbqagq" path="res://textures/space-bg.png" id="1_6rr6k"]
+[ext_resource type="PackedScene" uid="uid://db3gs2h4m2pj8" path="res://scenes/planet.tscn" id="4_6rr6k"]
+[ext_resource type="AudioStream" uid="uid://d174g7ba38asa" path="res://Sounds/spaceofjazztocome.mp3" id="4_do7hb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_24wbs"]
+size = Vector2(13243, 185)
+
+[node name="Suntest" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scale = Vector2(0.5, 0.5)
+transform = Transform2D(0.5, 0, 0, 0.5, 0, 0)
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(3200, 2400)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture_filter = 1
+texture_repeat = 3
+scale = Vector2(2, 2)
+texture = ExtResource("1_6rr6k")
+centered = false
+
+[node name="Border" type="StaticBody2D" parent="." groups=["other"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border" groups=["other"]]
+position = Vector2(2456, -1117)
+shape = SubResource("RectangleShape2D_24wbs")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Border" groups=["other"]]
+position = Vector2(2453, 1108)
+shape = SubResource("RectangleShape2D_24wbs")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Border" groups=["other"]]
+position = Vector2(2202, 1180)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_24wbs")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Border" groups=["other"]]
+position = Vector2(-1595, 1180)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_24wbs")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(307, 0)
+zoom = Vector2(0.32, 0.32)
+process_callback = 0
+position_smoothing_enabled = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Camera2D"]
+stream = ExtResource("4_do7hb")
+volume_db = -10.363
+parameters/looping = true
+
+[node name="Planet" parent="." instance=ExtResource("4_6rr6k")]
+position = Vector2(310, 0)

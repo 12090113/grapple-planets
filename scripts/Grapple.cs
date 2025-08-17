@@ -13,12 +13,16 @@ public partial class Grapple : Node2D
 	public float acceleration = 100;
 	[Export]
 	public float maxSpeed = 1000;
-	Player player = null;
+	public Player player = null;
 	public GrappleRope rope = null;
 	public Sprite2D gun = null;
 	public bool attached = false;
 	public PhysicsBody2D attachedBody;
 	public float length = 0;
+	[Export]
+	private Area2D cutArea;
+	public Vector2[] points;
+	public Vector2[] oldPoints;
 
 	public override void _Ready()
 	{
@@ -31,7 +35,8 @@ public partial class Grapple : Node2D
 
 	public override void _Process(double delta)
 	{
-		Vector2[] points = {Vector2.Zero, ToLocal(gun.GlobalPosition)};
+		oldPoints = points;
+		points = [Vector2.Zero, ToLocal(gun.GlobalPosition)];
 		rope.UpdatePoints(points, (float)delta);
 	}
 
@@ -48,7 +53,7 @@ public partial class Grapple : Node2D
 			if (Input.IsActionPressed("grapple_push" + player.input)) {
 				PushPlayer((float)delta);
 			}*/
-		} else if (player.input.IsActionPressed("grapple")) {
+		} else if (player.input.IsActionPressed("grapple") && player.grappleDisabled <= 0) {
 			Reparent(player.GetParent());
 			GlobalPosition = player.GlobalPosition;
 			Vector2 target;
@@ -76,6 +81,7 @@ public partial class Grapple : Node2D
 					//player.SetCollisionMaskValue(5, false);
 					length = (attachedBody.GlobalPosition - player.GlobalPosition).Length();
 				}
+				cutArea.Monitoring = true;
 				rope.ExtendSuccess();
 			}
 			// else
@@ -89,6 +95,7 @@ public partial class Grapple : Node2D
 
 	public void Retract() {
 		//player.SetCollisionMaskValue(5, true);
+		cutArea.Monitoring = false;
 		rope.Retract();
 		attached = false;
 		attachedBody = null;

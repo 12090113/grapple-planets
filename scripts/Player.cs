@@ -3,24 +3,29 @@ using MultiplayerInputSharp;
 
 public partial class Player : RigidBody2D
 {
+	// [Export]
+	// private float maxHealth = 100;
+	// [Export]
+	// private float invulnTime = 0.2f;
+	// [Export]
+	// private float regenTime = 3f;
+	// [Export]
+	// private float regenRate = 4f;
 	[Export]
-	private float maxHealth = 100;
+	private ProgressBar grappleBar;
+	// private float invuln = 0f;
+	// private float health = 1;
 	[Export]
-	private float invulnTime = 0.2f;
+	public float grappleCutTime = 5;
+	public float grappleDisabled = 0;
+	public Grapple grapple {get; private set;}
 	[Export]
-	private float regenTime = 3f;
-	[Export]
-	private float regenRate = 4f;
-	[Export]
-	private ProgressBar healthBar;
-	private float invuln = 0f;
-	private float health = 1;
-	private Grapple grapple;
+	public PositionStorage cutter {get; private set;}
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		grapple = GetNode<Grapple>("Grapple");
-		health = maxHealth;
+		//health = maxHealth;
 	}
 
 	[Export]
@@ -74,35 +79,35 @@ public partial class Player : RigidBody2D
 			}
 		}
 	}
-    public override void _PhysicsProcess(double delta)
-    {
-        invuln -= (float)delta;
-		if (invuln < -regenTime && health < maxHealth) {
-			health += regenRate * (float)delta;
-		}
-		healthBar.Value = health;
-    }
+    // public override void _PhysicsProcess(double delta)
+    // {
+    //     invuln -= (float)delta;
+	// 	if (invuln < -regenTime && health < maxHealth) {
+	// 		health += regenRate * (float)delta;
+	// 	}
+	// 	healthBar.Value = health;
+    // }
 
-    public void _on_body_entered(Node2D body) {
-		float healthchange = 0;
-		if (body.IsInGroup("enemybullet")) {
-			healthchange = 5;
-			body.QueueFree();
-		} else if (body.IsInGroup("enemy1")) {
-			healthchange = 15;
-		} else if (body.IsInGroup("enemy2")) {
-			healthchange = 10;
-		} else {
-			healthchange = 5;
-		}
-		if (invuln <= 0) {
-			health -= healthchange;
-			if (health < 0) {
-				Callable.From(() => GetTree().ChangeSceneToFile("res://scenes/death_menu.tscn")).CallDeferred();
-			}
-			invuln = invulnTime;
-		}
-	}
+    // public void _on_body_entered(Node2D body) {
+	// 	float healthchange = 0;
+	// 	if (body.IsInGroup("enemybullet")) {
+	// 		healthchange = 5;
+	// 		body.QueueFree();
+	// 	} else if (body.IsInGroup("enemy1")) {
+	// 		healthchange = 15;
+	// 	} else if (body.IsInGroup("enemy2")) {
+	// 		healthchange = 10;
+	// 	} else {
+	// 		healthchange = 5;
+	// 	}
+	// 	if (invuln <= 0) {
+	// 		health -= healthchange;
+	// 		if (health < 0) {
+	// 			Callable.From(() => GetTree().ChangeSceneToFile("res://scenes/death_menu.tscn")).CallDeferred();
+	// 		}
+	// 		invuln = invulnTime;
+	// 	}
+	// }
 
 	// Multiplayer
 
@@ -135,6 +140,11 @@ public partial class Player : RigidBody2D
 			EmitSignal(SignalName.Leave, playerNum);
 		}
 		QueueRedraw();
+
+		if (grappleDisabled > 0) {
+			grappleDisabled -= (float)delta;
+			grappleBar.Value = grappleDisabled / grappleCutTime;
+		}
 	}
 
 	public override void _Draw() {
