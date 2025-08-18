@@ -81,7 +81,7 @@ public partial class Grapple : Node2D
 					//player.SetCollisionMaskValue(5, false);
 					length = (attachedBody.GlobalPosition - player.GlobalPosition).Length();
 				}
-				cutArea.Monitorable = true;
+				cutArea.SetDeferred(Area2D.PropertyName.Monitorable, true);
 				rope.ExtendSuccess();
 			}
 			// else
@@ -93,13 +93,13 @@ public partial class Grapple : Node2D
 		}
 	}
 
-	public void Retract() {
+	public void Retract(bool visuals = true) {
 		//player.SetCollisionMaskValue(5, true);
-		cutArea.Monitorable = false;
-		rope.Retract();
+		cutArea.SetDeferred(Area2D.PropertyName.Monitorable, false);
+		rope.Retract(visuals);
 		attached = false;
 		attachedBody = null;
-		Reparent(player.GetParent());
+		CallDeferred(Node.MethodName.Reparent, player.GetParent());
 	}
 
 	private void PullPlayer(float delta)

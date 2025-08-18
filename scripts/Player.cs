@@ -23,6 +23,25 @@ public partial class Player : RigidBody2D
 
 	public override void _IntegrateForces(PhysicsDirectBodyState2D state)
 	{
+		for (int i = 0; i < state.GetContactCount(); i++) {
+			GodotObject body = state.GetContactColliderObject(i);
+			if (body is Player) {
+				Player enemy = (Player)body;
+
+				float enemyspeed = state.GetContactColliderVelocityAtPosition(i).Length();//enemy.LinearVelocity.Length();
+				float speed = state.GetContactLocalVelocityAtPosition(i).Length();//state.LinearVelocity.Length();
+
+				if (enemyspeed > speed + speedEquivalency) {
+					GD.Print("Player ", playerNum, " died because its speed ", speed, " was less than ", enemyspeed);
+					Die();
+				} else if (enemyspeed >= speed - speedEquivalency) {
+					grappleDisabled = grappleCutTime;
+					GD.Print("Player ", playerNum, " collided at same speed");
+				}
+			} else if (!(body is StaticBody2D)) {
+				GD.Print("Player ", playerNum, " collided with mysterious object: ", body);
+			}
+		}
 		if (grapple.attached) {
 			Vector2 vel = state.LinearVelocity;
 			RigidBody2D attachedBody = null;
@@ -68,6 +87,31 @@ public partial class Player : RigidBody2D
 				}
 			}
 		}
+	}
+
+	// public void _on_body_entered(Node2D body) {
+	// 	if (body is Player) {
+	// 		Player enemy = (Player)body;
+
+	// 		float enemyspeed = enemy.LinearVelocity.Length();
+	// 		float speed = LinearVelocity.Length();
+
+	// 		if (enemyspeed > speed + speedEquivalency) {
+	// 			GD.Print("Player ", playerNum, " died because its speed ", speed, " was less than ", enemyspeed);
+	// 			CallDeferred(MethodName.Die);
+	// 		} else if (enemyspeed >= speed - speedEquivalency) {
+	// 			grappleDisabled = grappleCutTime;
+	// 			GD.Print("Player ", playerNum, " collided at same speed");
+	// 		}
+	// 	} else if (!(body is StaticBody2D)) {
+	// 		GD.Print("Player ", playerNum, " collided with mysterious object: ", body);
+	// 	}
+	// }
+
+	private void Die() {
+		grapple.Retract(false);
+		GlobalPosition = Vector2.Zero;
+		LinearVelocity = Vector2.Zero;
 	}
 
 	// Multiplayer

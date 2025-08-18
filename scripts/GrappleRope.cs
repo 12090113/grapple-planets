@@ -53,17 +53,23 @@ public partial class GrappleRope : Line2D
 		fail = true;
 	}
 
-	public void Retract() {
-		if (extend > 0f) {
-			retract = 1f-extend;
-			if (straighten < 0)
-				straighten = 0f;
+	public void Retract(bool visuals = true) {
+		if (visuals) {
+			if (extend > 0f) {
+				retract = 1f-extend;
+				if (straighten < 0)
+					straighten = 0f;
+			} else {
+				retract = 1f;
+				if (straighten <= 0)
+					straighten = 1f;
+				else
+					straighten = 1f-straighten;
+			}
 		} else {
-			retract = 1f;
-			if (straighten <= 0)
-				straighten = 1f;
-			else
-				straighten = 1f-straighten;
+			retract = 0;
+			hook.Visible = false;
+			playerHook.Visible = true;
 		}
 		extend = 0f;
 	}

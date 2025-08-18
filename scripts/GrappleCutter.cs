@@ -42,7 +42,7 @@ public partial class GrappleCutter : Area2D
 
                 if (intersectionResult.VariantType != Variant.Type.Nil) {
                     cutPoint = intersectionResult;
-                    enemy.grapple.Retract();
+                    enemy.grapple.Retract(false);
                     enemy.grapple.player.grappleDisabled = grapple.player.grappleCutTime;
                 }
             }
