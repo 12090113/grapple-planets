@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Godot;
+using Godot.Collections;
 using MultiplayerInputSharp;
 
 public partial class Player : RigidBody2D
@@ -11,11 +13,16 @@ public partial class Player : RigidBody2D
 	[Export]
 	float speedEquivalency = 2f;
 	public Grapple grapple {get; private set;}
+	private Area2D enemyDetector;
+	[Export]
+	private float playerBounciness = 0.5f;
+	private List<Player> colliding = new();
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		grapple = GetNode<Grapple>("Grapple");
+		enemyDetector = GetNode<Area2D>("EnemyDetector");
 	}
 
 	[Export]
@@ -23,25 +30,77 @@ public partial class Player : RigidBody2D
 
 	public override void _IntegrateForces(PhysicsDirectBodyState2D state)
 	{
-		for (int i = 0; i < state.GetContactCount(); i++) {
-			GodotObject body = state.GetContactColliderObject(i);
-			if (body is Player) {
+		Array<Node2D> bodies = enemyDetector.GetOverlappingBodies();
+		List<Player> stillColliding = new();
+		foreach (Node2D body in bodies) {
+			if (body is Player && body != this) {
 				Player enemy = (Player)body;
+				if (colliding.Contains(enemy)) {
+					stillColliding.Add(enemy);
+					continue;
+				}
 
-				float enemyspeed = state.GetContactColliderVelocityAtPosition(i).Length();//enemy.LinearVelocity.Length();
-				float speed = state.GetContactLocalVelocityAtPosition(i).Length();//state.LinearVelocity.Length();
+				float enemyspeed = enemy.LinearVelocity.Length();
+				float speed = state.LinearVelocity.Length();
+				
+				float enemyInverseMass = 1/enemy.Mass;
 
-				if (enemyspeed > speed + speedEquivalency) {
+				Vector2 axis = GlobalPosition - enemy.GlobalPosition;
+				Vector2 relativeVelocity = LinearVelocity - enemy.LinearVelocity;
+				Vector2 normal = axis.Normalized();
+				float velocityAlongNormal = relativeVelocity.Dot(normal);
+				
+				if (enemyspeed > speed + speedEquivalency && velocityAlongNormal > 0) {
 					GD.Print("Player ", playerNum, " died because its speed ", speed, " was less than ", enemyspeed);
+					enemy.colliding.Add(this);
 					Die();
 				} else if (enemyspeed >= speed - speedEquivalency) {
+					if (velocityAlongNormal <= 0) {
+						float j = -(1 + playerBounciness) * velocityAlongNormal;
+        				j /= state.InverseMass + enemyInverseMass;
+						Vector2 impulse = normal * j;
+						state.LinearVelocity += impulse * state.InverseMass;
+						enemy.LinearVelocity -= impulse * enemyInverseMass;
+						colliding.Add(enemy);
+						enemy.colliding.Add(this);
+						//SetDeferred(RigidBody2D.PropertyName.LinearVelocity, LinearVelocity + impulse * state.InverseMass);
+						GD.Print("Player ", playerNum, " collided at same speed");
+					} else {
+						//GD.Print("Player ", playerNum, " collided at same speed but velocity is aligned");
+					}
+
 					grappleDisabled = grappleCutTime;
-					GD.Print("Player ", playerNum, " collided at same speed");
+					grapple.Retract(false);
+					enemy.grappleDisabled = grappleCutTime;
+					enemy.grapple.Retract(false);
 				}
-			} else if (!(body is StaticBody2D)) {
-				GD.Print("Player ", playerNum, " collided with mysterious object: ", body);
 			}
 		}
+		for (int i = 0; i < colliding.Count; i++) {
+			if (!stillColliding.Contains(colliding[i])) {
+				colliding.RemoveAt(i);
+				i--;
+			}
+		}
+		// for (int i = 0; i < state.GetContactCount(); i++) {
+		// 	GodotObject body = state.GetContactColliderObject(i);
+		// 	if (body is Player) {
+		// 		Player enemy = (Player)body;
+
+		// 		float enemyspeed = state.GetContactColliderVelocityAtPosition(i).Length();//enemy.LinearVelocity.Length();
+		// 		float speed = state.GetContactLocalVelocityAtPosition(i).Length();//state.LinearVelocity.Length();
+
+		// 		if (enemyspeed > speed + speedEquivalency) {
+		// 			GD.Print("Player ", playerNum, " died because its speed ", speed, " was less than ", enemyspeed);
+		// 			Die();
+		// 		} else if (enemyspeed >= speed - speedEquivalency) {
+		// 			grappleDisabled = grappleCutTime;
+		// 			GD.Print("Player ", playerNum, " collided at same speed");
+		// 		}
+		// 	} else if (!(body is StaticBody2D)) {
+		// 		GD.Print("Player ", playerNum, " collided with mysterious object: ", body);
+		// 	}
+		// }
 		if (grapple.attached) {
 			Vector2 vel = state.LinearVelocity;
 			RigidBody2D attachedBody = null;
@@ -88,25 +147,6 @@ public partial class Player : RigidBody2D
 			}
 		}
 	}
-
-	// public void _on_body_entered(Node2D body) {
-	// 	if (body is Player) {
-	// 		Player enemy = (Player)body;
-
-	// 		float enemyspeed = enemy.LinearVelocity.Length();
-	// 		float speed = LinearVelocity.Length();
-
-	// 		if (enemyspeed > speed + speedEquivalency) {
-	// 			GD.Print("Player ", playerNum, " died because its speed ", speed, " was less than ", enemyspeed);
-	// 			CallDeferred(MethodName.Die);
-	// 		} else if (enemyspeed >= speed - speedEquivalency) {
-	// 			grappleDisabled = grappleCutTime;
-	// 			GD.Print("Player ", playerNum, " collided at same speed");
-	// 		}
-	// 	} else if (!(body is StaticBody2D)) {
-	// 		GD.Print("Player ", playerNum, " collided with mysterious object: ", body);
-	// 	}
-	// }
 
 	private void Die() {
 		grapple.Retract(false);
