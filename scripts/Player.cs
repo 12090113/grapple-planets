@@ -50,12 +50,14 @@ public partial class Player : RigidBody2D
 				Vector2 normal = axis.Normalized();
 				float velocityAlongNormal = relativeVelocity.Dot(normal);
 				
-				if (enemyspeed > speed + speedEquivalency && velocityAlongNormal > 0) {
+				if (enemyspeed > speed + speedEquivalency /*&& velocityAlongNormal >= 0*/) {
 					GD.Print("Player ", playerNum, " died because its speed ", speed, " was less than ", enemyspeed);
+					colliding.Add(this);
 					enemy.colliding.Add(this);
 					Die();
 				} else if (enemyspeed >= speed - speedEquivalency) {
 					if (velocityAlongNormal <= 0) {
+						GD.Print("Player ", playerNum, " collided at same speed : ", speed, " and ", enemyspeed, " because ", enemyspeed, " >= ", speed - speedEquivalency, " and velnorm = ", velocityAlongNormal);
 						float j = -(1 + playerBounciness) * velocityAlongNormal;
         				j /= state.InverseMass + enemyInverseMass;
 						Vector2 impulse = normal * j;
@@ -64,7 +66,6 @@ public partial class Player : RigidBody2D
 						colliding.Add(enemy);
 						enemy.colliding.Add(this);
 						//SetDeferred(RigidBody2D.PropertyName.LinearVelocity, LinearVelocity + impulse * state.InverseMass);
-						GD.Print("Player ", playerNum, " collided at same speed");
 					} else {
 						//GD.Print("Player ", playerNum, " collided at same speed but velocity is aligned");
 					}
@@ -150,6 +151,7 @@ public partial class Player : RigidBody2D
 
 	private void Die() {
 		grapple.Retract(false);
+		LinearVelocity = Vector2.Zero;
 		GlobalPosition = Vector2.Zero;
 		LinearVelocity = Vector2.Zero;
 	}
