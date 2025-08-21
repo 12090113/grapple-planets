@@ -34,6 +34,7 @@ texture_mode = 1
 
 [node name="Hook" type="Sprite2D" parent="GrappleRope"]
 visible = false
+show_behind_parent = true
 scale = Vector2(0.45, 0.45)
 texture = ExtResource("5_2kevb")
 offset = Vector2(52, 0)

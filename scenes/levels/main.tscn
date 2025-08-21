@@ -1,0 +1,213 @@
+[gd_scene load_steps=19 format=3 uid="uid://bhqnw6d65ivdb"]
+
+[ext_resource type="Texture2D" uid="uid://cijv0r1bbqagq" path="res://textures/space-bg.png" id="1_y56qp"]
+[ext_resource type="PackedScene" uid="uid://db3gs2h4m2pj8" path="res://scenes/planet.tscn" id="2_sv52t"]
+[ext_resource type="Texture2D" uid="uid://8kboneemhgmu" path="res://textures/planets/planet1.png" id="3_7exfm"]
+[ext_resource type="Texture2D" uid="uid://b4f0gwjncdehl" path="res://textures/planets/planet1_outline.png" id="4_qgoyv"]
+[ext_resource type="Texture2D" uid="uid://cxuc4edjq8oux" path="res://textures/planets/planet3.png" id="5_px1c8"]
+[ext_resource type="Texture2D" uid="uid://ree6km0b8r4m" path="res://textures/planets/planet4.png" id="6_xgklb"]
+[ext_resource type="Texture2D" uid="uid://7twdtkrfh6gp" path="res://textures/planets/planet5.png" id="7_5wre2"]
+[ext_resource type="Texture2D" uid="uid://cawdj5c1b6ye1" path="res://textures/planets/planet5_outline.png" id="8_qy6q0"]
+[ext_resource type="Texture2D" uid="uid://cqy4tmeqvxodt" path="res://textures/planets/planet6.png" id="9_ykry0"]
+[ext_resource type="Texture2D" uid="uid://jjnnbeeu1su2" path="res://textures/planets/planet7.png" id="10_im81g"]
+[ext_resource type="Texture2D" uid="uid://bg2athwps8p1i" path="res://textures/planets/planet7_outline.png" id="11_ysjpo"]
+[ext_resource type="PackedScene" uid="uid://di0axiltwax50" path="res://scenes/star.tscn" id="12_gexqn"]
+[ext_resource type="Script" uid="uid://c12fksrhw4gmx" path="res://scripts/Camera.cs" id="13_kc8j3"]
+[ext_resource type="AudioStream" uid="uid://d174g7ba38asa" path="res://Sounds/spaceofjazztocome.mp3" id="14_e5eww"]
+[ext_resource type="Texture2D" uid="uid://q6bs6cmwd66j" path="res://textures/icon.svg" id="15_ygu70"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nop4c"]
+size = Vector2(13243, 185)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jbj1t"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jkv2x"]
+size = Vector2(64, 64)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scale = Vector2(0.5, 0.5)
+transform = Transform2D(0.5, 0, 0, 0.5, 0, 0)
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(3200, 2400)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture_filter = 1
+texture_repeat = 3
+scale = Vector2(2, 2)
+texture = ExtResource("1_y56qp")
+centered = false
+
+[node name="Planets" type="Node2D" parent="."]
+
+[node name="Planet" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(410, 101)
+Texture = ExtResource("3_7exfm")
+Outline = ExtResource("4_qgoyv")
+
+[node name="Planet18" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(3642, 1992)
+
+[node name="Planet19" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(3261, 3113)
+
+[node name="Planet16" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(1908, 2290)
+
+[node name="Planet2" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(1111, 1495)
+
+[node name="Planet3" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(254, 1109)
+Texture = ExtResource("5_px1c8")
+
+[node name="Planet23" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(1597, 3070)
+Texture = ExtResource("5_px1c8")
+
+[node name="Planet13" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(4028, 1235)
+Texture = ExtResource("6_xgklb")
+
+[node name="Planet4" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(2461, 91)
+Texture = ExtResource("6_xgklb")
+
+[node name="Planet5" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(1662, 591)
+Texture = ExtResource("7_5wre2")
+Outline = ExtResource("8_qy6q0")
+
+[node name="Planet11" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(3485, 519)
+Texture = ExtResource("7_5wre2")
+Outline = ExtResource("8_qy6q0")
+
+[node name="Planet10" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(2443, 866)
+Texture = ExtResource("7_5wre2")
+Outline = ExtResource("8_qy6q0")
+
+[node name="Planet22" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(4203, -846)
+Texture = ExtResource("7_5wre2")
+Outline = ExtResource("8_qy6q0")
+
+[node name="Planet6" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(1948, -929)
+Texture = ExtResource("9_ykry0")
+
+[node name="Planet9" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(3117, -1065)
+Texture = ExtResource("9_ykry0")
+
+[node name="Planet21" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(3412, -282)
+Texture = ExtResource("9_ykry0")
+
+[node name="Planet20" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(4483, 332)
+Texture = ExtResource("10_im81g")
+Outline = ExtResource("11_ysjpo")
+
+[node name="Planet12" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(4898, 1161)
+Texture = ExtResource("10_im81g")
+Outline = ExtResource("11_ysjpo")
+
+[node name="Planet14" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(2818, 1378)
+Texture = ExtResource("10_im81g")
+Outline = ExtResource("11_ysjpo")
+
+[node name="Planet8" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(1822, 1581)
+Texture = ExtResource("10_im81g")
+Outline = ExtResource("11_ysjpo")
+
+[node name="Planet15" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(4795, 2260)
+Texture = ExtResource("10_im81g")
+Outline = ExtResource("11_ysjpo")
+
+[node name="Planet17" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(499, 2524)
+Texture = ExtResource("10_im81g")
+Outline = ExtResource("11_ysjpo")
+
+[node name="Planet7" parent="Planets" instance=ExtResource("2_sv52t")]
+position = Vector2(728, -984)
+Texture = ExtResource("10_im81g")
+Outline = ExtResource("11_ysjpo")
+
+[node name="Star" parent="." instance=ExtResource("12_gexqn")]
+position = Vector2(1160, -55)
+
+[node name="Star2" parent="." instance=ExtResource("12_gexqn")]
+position = Vector2(2837, 2458)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.233925, 0.233925, 0.233925, 1)
+
+[node name="Border" type="StaticBody2D" parent="." groups=["other"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border" groups=["other"]]
+position = Vector2(2456, -5321)
+shape = SubResource("RectangleShape2D_nop4c")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Border" groups=["other"]]
+position = Vector2(2453, 7624)
+shape = SubResource("RectangleShape2D_nop4c")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Border" groups=["other"]]
+position = Vector2(9010, 1180)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_nop4c")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Border" groups=["other"]]
+position = Vector2(-4114, 1180)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_nop4c")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+process_callback = 0
+position_smoothing_enabled = true
+script = ExtResource("13_kc8j3")
+PaddingSize = 2000.0
+ZoomOutMax = 100.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Camera2D"]
+stream = ExtResource("14_e5eww")
+volume_db = -10.363
+parameters/looping = true
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(0, -200)
+collision_mask = 21
+mass = 10.0
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("RectangleShape2D_jbj1t")
+
+[node name="Icon" type="Sprite2D" parent="RigidBody2D"]
+texture = ExtResource("15_ygu70")
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="."]
+position = Vector2(-200, 0)
+collision_mask = 21
+mass = 0.1
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
+shape = SubResource("RectangleShape2D_jkv2x")
+
+[node name="Icon" type="Sprite2D" parent="RigidBody2D2"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_ygu70")

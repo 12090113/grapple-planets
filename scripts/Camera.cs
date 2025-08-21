@@ -3,7 +3,7 @@ using Godot.Collections;
 
 public partial class Camera : Camera2D
 {
-	private Dictionary<int, Node2D> _players;
+	private Dictionary<int, Player> _players;
 
     [Export] public float PaddingSize { get; set; } = 1000f;
     [Export] public float CameraSpeed { get; set; } = 20f;

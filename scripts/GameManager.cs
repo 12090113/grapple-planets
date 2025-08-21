@@ -9,7 +9,7 @@ public partial class GameManager : Node {
 	private PlayerManager _playerManager;
 
 	/// <summary>map from player integer to the player node</summary>
-	public Dictionary<int, Node2D>playerNodes { get; private set; } = new ();
+	public Dictionary<int, Player>playerNodes { get; private set; } = new ();
 
 	public override void _Ready() {
 		_playerManager = GetNode<PlayerManager>("/root/PlayerManager");

@@ -84,7 +84,7 @@ contact_monitor = true
 max_contacts_reported = 10
 script = ExtResource("1_s42la")
 grappleBar = NodePath("HealthBar")
-grappleCutTime = 1.0
+grappleCutTime = 3.0
 speedEquivalency = 10.0
 playerBounciness = 1.0
 

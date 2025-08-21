@@ -18,7 +18,7 @@ public partial class Menu : Control
 
 	private void OnStartButtonPressed()
 	{
-		Callable.From(() => GetTree().ChangeSceneToFile("res://scenes/main.tscn")).CallDeferred();
+		Callable.From(() => GetTree().ChangeSceneToFile("res://scenes/levels/arena.tscn")).CallDeferred();
 	}
 
 	private void _on_help_button_pressed()

@@ -11,6 +11,7 @@ public partial class PlayerAnimation : AnimatedSprite2D
 	private Sprite2D rightArm;
 	private Sprite2D leftArm;
 	private float rightArmRotationSpeed = 0.2f;
+	private float invulTime;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
 		outline = GetNode<AnimatedSprite2D>("Outline");
@@ -64,10 +65,17 @@ public partial class PlayerAnimation : AnimatedSprite2D
 		}
 		Scale = new Vector2(Mathf.Lerp(Scale.X, targetScaleX, flipSpeed), Scale.Y);
 
-		if (player.LinearVelocity.Length() < grapple.maxSpeed-2f) {
-			Modulate = new Color(1, 1 - player.LinearVelocity.Length() / grapple.maxSpeed, 1);
+		float alpha = 1f;
+		if (player.invulTime > 0) {
+			invulTime += (float)delta;
+			alpha = (Mathf.Sin(Mathf.Pi*(2f*invulTime-0.5f))+2f)/3f;
 		} else {
-			Modulate = new Color(1,0,0);
+			invulTime = 0;
+		}
+		if (player.LinearVelocity.Length() < grapple.maxSpeed-player.speedEquivalency) {
+			Modulate = new Color(1, 1 - player.LinearVelocity.Length() / grapple.maxSpeed, 1, alpha);
+		} else {
+			Modulate = new Color(1,0,0, alpha);
 		}
 	}
 }

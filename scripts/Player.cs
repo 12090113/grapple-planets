@@ -9,14 +9,19 @@ public partial class Player : RigidBody2D
 	private ProgressBar grappleBar;
 	[Export]
 	public float grappleCutTime = 5;
+	[Export]
+	public float grappleBumpTime = 1;
 	public float grappleDisabled = 0;
 	[Export]
-	float speedEquivalency = 2f;
+	public float speedEquivalency = 2f;
 	public Grapple grapple {get; private set;}
 	private Area2D enemyDetector;
 	[Export]
 	private float playerBounciness = 0.5f;
 	private List<Player> colliding = new();
+	[Export]
+	public float invulnerableSpawnTime = 5;
+	public float invulTime = float.MaxValue;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -30,79 +35,65 @@ public partial class Player : RigidBody2D
 
 	public override void _IntegrateForces(PhysicsDirectBodyState2D state)
 	{
-		Array<Node2D> bodies = enemyDetector.GetOverlappingBodies();
-		List<Player> stillColliding = new();
-		foreach (Node2D body in bodies) {
-			if (body is Player && body != this) {
-				Player enemy = (Player)body;
-				if (colliding.Contains(enemy)) {
-					stillColliding.Add(enemy);
-					continue;
-				}
-
-				float enemyspeed = enemy.LinearVelocity.Length();
-				float speed = state.LinearVelocity.Length();
-				
-				float enemyInverseMass = 1/enemy.Mass;
-
-				Vector2 axis = GlobalPosition - enemy.GlobalPosition;
-				Vector2 relativeVelocity = LinearVelocity - enemy.LinearVelocity;
-				Vector2 normal = axis.Normalized();
-				float velocityAlongNormal = relativeVelocity.Dot(normal);
-				
-				if (enemyspeed > speed + speedEquivalency /*&& velocityAlongNormal >= 0*/) {
-					GD.Print("Player ", playerNum, " died because its speed ", speed, " was less than ", enemyspeed);
-					colliding.Add(this);
-					enemy.colliding.Add(this);
-					Die();
-				} else if (enemyspeed >= speed - speedEquivalency) {
-					if (velocityAlongNormal <= 0) {
-						GD.Print("Player ", playerNum, " collided at same speed : ", speed, " and ", enemyspeed, " because ", enemyspeed, " >= ", speed - speedEquivalency, " and velnorm = ", velocityAlongNormal);
-						float j = -(1 + playerBounciness) * velocityAlongNormal;
-        				j /= state.InverseMass + enemyInverseMass;
-						Vector2 impulse = normal * j;
-						state.LinearVelocity += impulse * state.InverseMass;
-						enemy.LinearVelocity -= impulse * enemyInverseMass;
-						colliding.Add(enemy);
-						enemy.colliding.Add(this);
-						//SetDeferred(RigidBody2D.PropertyName.LinearVelocity, LinearVelocity + impulse * state.InverseMass);
-					} else {
-						//GD.Print("Player ", playerNum, " collided at same speed but velocity is aligned");
+		if (invulTime > 0) {
+			Array<Node2D> bodies = enemyDetector.GetOverlappingBodies();
+			List<Player> stillColliding = new();
+			foreach (Node2D body in bodies) {
+				if (body is Player && body != this) {
+					Player enemy = (Player)body;
+					if (enemy.invulTime > 0) {
+						continue;
+					} else if (colliding.Contains(enemy)) {
+						stillColliding.Add(enemy);
+						continue;
 					}
 
-					grappleDisabled = grappleCutTime;
-					grapple.Retract(false);
-					enemy.grappleDisabled = grappleCutTime;
-					enemy.grapple.Retract(false);
+					float enemyspeed = enemy.LinearVelocity.Length();
+					float speed = state.LinearVelocity.Length();
+					
+					float enemyInverseMass = 1/enemy.Mass;
+
+					Vector2 axis = GlobalPosition - enemy.GlobalPosition;
+					Vector2 relativeVelocity = LinearVelocity - enemy.LinearVelocity;
+					Vector2 normal = axis.Normalized();
+					float velocityAlongNormal = relativeVelocity.Dot(normal);
+					
+					if (enemyspeed > speed + speedEquivalency ) {
+						GD.Print("Player ", playerNum, " died because its speed ", speed, " was less than ", enemyspeed);
+						colliding.Add(this);
+						enemy.colliding.Add(this);
+						Die();
+					} else if (enemyspeed >= speed - speedEquivalency) {
+						if (velocityAlongNormal <= 0) {
+							GD.Print("Player ", playerNum, " collided at same speed : ", speed, " and ", enemyspeed, " because ", enemyspeed, " >= ", speed - speedEquivalency, " and velnorm = ", velocityAlongNormal);
+							float j = -(1 + playerBounciness) * velocityAlongNormal;
+							j /= state.InverseMass + enemyInverseMass;
+							Vector2 impulse = normal * j;
+							state.LinearVelocity += impulse * state.InverseMass;
+							enemy.LinearVelocity -= impulse * enemyInverseMass;
+							colliding.Add(enemy);
+							enemy.colliding.Add(this);
+						}
+
+						grappleDisabled = grappleBumpTime;
+						grapple.Retract(false);
+						enemy.grappleDisabled = grappleBumpTime;
+						enemy.grapple.Retract(false);
+					}
+				}
+			}
+			for (int i = 0; i < colliding.Count; i++) {
+				if (!stillColliding.Contains(colliding[i])) {
+					colliding.RemoveAt(i);
+					i--;
 				}
 			}
 		}
-		for (int i = 0; i < colliding.Count; i++) {
-			if (!stillColliding.Contains(colliding[i])) {
-				colliding.RemoveAt(i);
-				i--;
-			}
-		}
-		// for (int i = 0; i < state.GetContactCount(); i++) {
-		// 	GodotObject body = state.GetContactColliderObject(i);
-		// 	if (body is Player) {
-		// 		Player enemy = (Player)body;
 
-		// 		float enemyspeed = state.GetContactColliderVelocityAtPosition(i).Length();//enemy.LinearVelocity.Length();
-		// 		float speed = state.GetContactLocalVelocityAtPosition(i).Length();//state.LinearVelocity.Length();
-
-		// 		if (enemyspeed > speed + speedEquivalency) {
-		// 			GD.Print("Player ", playerNum, " died because its speed ", speed, " was less than ", enemyspeed);
-		// 			Die();
-		// 		} else if (enemyspeed >= speed - speedEquivalency) {
-		// 			grappleDisabled = grappleCutTime;
-		// 			GD.Print("Player ", playerNum, " collided at same speed");
-		// 		}
-		// 	} else if (!(body is StaticBody2D)) {
-		// 		GD.Print("Player ", playerNum, " collided with mysterious object: ", body);
-		// 	}
-		// }
 		if (grapple.attached) {
+			if (invulTime == float.MaxValue) {
+				invulTime = invulnerableSpawnTime;
+			}
 			Vector2 vel = state.LinearVelocity;
 			RigidBody2D attachedBody = null;
 			float acceleration = grapple.acceleration;
@@ -149,11 +140,13 @@ public partial class Player : RigidBody2D
 		}
 	}
 
-	private void Die() {
+	public void Die() {
 		grapple.Retract(false);
 		LinearVelocity = Vector2.Zero;
 		GlobalPosition = Vector2.Zero;
 		LinearVelocity = Vector2.Zero;
+		invulTime = float.MaxValue;
+		grappleDisabled = 0;
 	}
 
 	// Multiplayer
@@ -189,8 +182,14 @@ public partial class Player : RigidBody2D
 		QueueRedraw();
 
 		if (grappleDisabled > 0) {
+			grappleBar.Visible = true;
 			grappleDisabled -= (float)delta;
 			grappleBar.Value = grappleDisabled / grappleCutTime;
+		} else {
+			grappleBar.Visible = false;
+		}
+		if (invulTime > 0 && invulTime < float.MaxValue) {
+			invulTime -= (float) delta;
 		}
 	}
 
