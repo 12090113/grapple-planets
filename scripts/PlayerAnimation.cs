@@ -6,7 +6,7 @@ public partial class PlayerAnimation : AnimatedSprite2D
 	[Export]
 	float flipSpeed = 0.05f;
 	private Grapple grapple;
-	private Player player;
+	public Player player;
 	private AnimatedSprite2D outline;
 	private Sprite2D rightArm;
 	private Sprite2D leftArm;

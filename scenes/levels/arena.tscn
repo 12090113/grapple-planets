@@ -15,12 +15,6 @@ radius = 1998.84
 
 [node name="Arena" type="Node2D"]
 
-[node name="SunOutline" type="Sprite2D" parent="."]
-modulate = Color(0, 1, 1, 0.0823529)
-position = Vector2(800, 0)
-scale = Vector2(6.79551, 6.79551)
-texture = ExtResource("8_fb61o")
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(800, 0)
 zoom = Vector2(0.181, 0.181)
@@ -65,6 +59,12 @@ script = ExtResource("5_wh3gv")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Border"]
 shape = SubResource("CircleShape2D_d30w0")
 debug_color = Color(0, 0.6, 0.701961, 0.133333)
+
+[node name="SunOutline" type="Sprite2D" parent="Border"]
+modulate = Color(0, 1, 1, 0.0823529)
+z_index = -1000
+scale = Vector2(6.79551, 6.79551)
+texture = ExtResource("8_fb61o")
 
 [node name="Node2D" type="Node2D" parent="."]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bhqnw6d65ivdb"]
+[gd_scene load_steps=22 format=3 uid="uid://bhqnw6d65ivdb"]
 
 [ext_resource type="Texture2D" uid="uid://cijv0r1bbqagq" path="res://textures/space-bg.png" id="1_y56qp"]
 [ext_resource type="PackedScene" uid="uid://db3gs2h4m2pj8" path="res://scenes/planet.tscn" id="2_sv52t"]
@@ -15,6 +15,8 @@
 [ext_resource type="Script" uid="uid://c12fksrhw4gmx" path="res://scripts/Camera.cs" id="13_kc8j3"]
 [ext_resource type="AudioStream" uid="uid://d174g7ba38asa" path="res://Sounds/spaceofjazztocome.mp3" id="14_e5eww"]
 [ext_resource type="Texture2D" uid="uid://q6bs6cmwd66j" path="res://textures/icon.svg" id="15_ygu70"]
+[ext_resource type="Script" uid="uid://cogkxnfdq2gve" path="res://scripts/Border.cs" id="16_sv52t"]
+[ext_resource type="Texture2D" uid="uid://blo8o1g2mwg32" path="res://textures/planets/sun_outline.png" id="17_7exfm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nop4c"]
 size = Vector2(13243, 185)
@@ -24,6 +26,9 @@ size = Vector2(128, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jkv2x"]
 size = Vector2(64, 64)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7exfm"]
+radius = 3652.18
 
 [node name="Node2D" type="Node2D"]
 
@@ -152,7 +157,7 @@ position = Vector2(1160, -55)
 position = Vector2(2837, 2458)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.233925, 0.233925, 0.233925, 1)
+color = Color(0.349057, 0.349057, 0.349057, 1)
 
 [node name="Border" type="StaticBody2D" parent="." groups=["other"]]
 
@@ -211,3 +216,20 @@ shape = SubResource("RectangleShape2D_jkv2x")
 [node name="Icon" type="Sprite2D" parent="RigidBody2D2"]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("15_ygu70")
+
+[node name="Border2" type="Area2D" parent="." groups=["other"]]
+position = Vector2(2378, 961)
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+script = ExtResource("16_sv52t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border2"]
+shape = SubResource("CircleShape2D_7exfm")
+debug_color = Color(0, 0.6, 0.701961, 0.133333)
+
+[node name="SunOutline" type="Sprite2D" parent="Border2"]
+modulate = Color(0, 1, 1, 0.145098)
+z_index = -1000
+scale = Vector2(12.314, 12.314)
+texture = ExtResource("17_7exfm")

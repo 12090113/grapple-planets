@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ovdm2aqqrnlg"]
+[gd_scene load_steps=27 format=3 uid="uid://ovdm2aqqrnlg"]
 
 [ext_resource type="Script" uid="uid://t7bwttjl30d" path="res://scripts/Player.cs" id="1_s42la"]
 [ext_resource type="PackedScene" uid="uid://dp4g26lilp5vx" path="res://scenes/grapple.tscn" id="3_1sqtw"]
@@ -17,6 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://c7kn3cufh5vne" path="res://textures/grapple/grapple-hook_outline.png" id="13_pki1i"]
 [ext_resource type="Texture2D" uid="uid://ci8jh70udhtm8" path="res://textures/weapon/laser-gun.png" id="14_47jg3"]
 [ext_resource type="Texture2D" uid="uid://djdhawvhbhjkr" path="res://textures/weapon/laser-gun_outline.png" id="15_mnyop"]
+[ext_resource type="Script" uid="uid://dmntj3abaa5iq" path="res://scripts/GooGun.cs" id="17_4r5pv"]
+[ext_resource type="PackedScene" uid="uid://b4owdydi74vng" path="res://scenes/goo.tscn" id="18_60mlk"]
 [ext_resource type="Script" uid="uid://k2wd0bj3dna1" path="res://scripts/GrappleCutter.cs" id="18_fulsm"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ctt12"]
@@ -164,6 +166,8 @@ offset = Vector2(92, -1)
 position = Vector2(320, -76)
 texture = ExtResource("14_47jg3")
 offset = Vector2(-92, 28)
+script = ExtResource("17_4r5pv")
+gooScene = ExtResource("18_60mlk")
 
 [node name="Outline" type="Sprite2D" parent="Body/LeftArm/LaserGun"]
 show_behind_parent = true

@@ -35,7 +35,7 @@ public partial class Player : RigidBody2D
 
 	public override void _IntegrateForces(PhysicsDirectBodyState2D state)
 	{
-		if (invulTime > 0) {
+		if (invulTime <= 0) {
 			Array<Node2D> bodies = enemyDetector.GetOverlappingBodies();
 			List<Player> stillColliding = new();
 			foreach (Node2D body in bodies) {
