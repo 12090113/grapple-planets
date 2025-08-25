@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://ci8jh70udhtm8" path="res://textures/weapon/laser-gun.png" id="14_47jg3"]
 [ext_resource type="Texture2D" uid="uid://djdhawvhbhjkr" path="res://textures/weapon/laser-gun_outline.png" id="15_mnyop"]
 [ext_resource type="Script" uid="uid://dmntj3abaa5iq" path="res://scripts/GooGun.cs" id="17_4r5pv"]
-[ext_resource type="PackedScene" uid="uid://b4owdydi74vng" path="res://scenes/goo.tscn" id="18_60mlk"]
+[ext_resource type="PackedScene" uid="uid://cu23xtm85r68i" path="res://scenes/gooprojectile.tscn" id="18_60mlk"]
 [ext_resource type="Script" uid="uid://k2wd0bj3dna1" path="res://scripts/GrappleCutter.cs" id="18_fulsm"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ctt12"]
@@ -76,7 +76,7 @@ light_mode = 1
 physics_interpolation_mode = 1
 z_index = 100
 collision_layer = 16
-collision_mask = 5
+collision_mask = 7
 physics_material_override = SubResource("PhysicsMaterial_ctt12")
 gravity_scale = 0.0
 can_sleep = false
@@ -87,8 +87,8 @@ max_contacts_reported = 10
 script = ExtResource("1_s42la")
 grappleBar = NodePath("HealthBar")
 grappleCutTime = 3.0
-speedEquivalency = 10.0
-playerBounciness = 1.0
+speedEquivalency = 300.0
+playerBounciness = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_c4rw0")
@@ -167,7 +167,8 @@ position = Vector2(320, -76)
 texture = ExtResource("14_47jg3")
 offset = Vector2(-92, 28)
 script = ExtResource("17_4r5pv")
-gooScene = ExtResource("18_60mlk")
+gooProjectileScene = ExtResource("18_60mlk")
+spawnDist = 65.0
 
 [node name="Outline" type="Sprite2D" parent="Body/LeftArm/LaserGun"]
 show_behind_parent = true

@@ -1,0 +1,84 @@
+[gd_scene load_steps=11 format=3 uid="uid://dmiqqosb4d57j"]
+
+[ext_resource type="AudioStream" uid="uid://d174g7ba38asa" path="res://Sounds/spaceofjazztocome.mp3" id="1_bpfrj"]
+[ext_resource type="Texture2D" uid="uid://cijv0r1bbqagq" path="res://textures/space-bg.png" id="2_mdujl"]
+[ext_resource type="PackedScene" uid="uid://di0axiltwax50" path="res://scenes/star.tscn" id="3_oeocj"]
+[ext_resource type="Script" uid="uid://cogkxnfdq2gve" path="res://scripts/Border.cs" id="4_wvvq3"]
+[ext_resource type="Texture2D" uid="uid://blo8o1g2mwg32" path="res://textures/planets/sun_outline.png" id="5_psby3"]
+[ext_resource type="PackedScene" uid="uid://db3gs2h4m2pj8" path="res://scenes/planet.tscn" id="6_jqioa"]
+[ext_resource type="Texture2D" uid="uid://8kboneemhgmu" path="res://textures/planets/planet1.png" id="7_51mmw"]
+[ext_resource type="Texture2D" uid="uid://b4f0gwjncdehl" path="res://textures/planets/planet1_outline.png" id="8_7e4d5"]
+[ext_resource type="Texture2D" uid="uid://cqy4tmeqvxodt" path="res://textures/planets/planet6.png" id="9_y4q8e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d30w0"]
+radius = 1998.84
+
+[node name="Arena" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(800, 0)
+zoom = Vector2(0.181, 0.181)
+process_callback = 0
+position_smoothing_enabled = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Camera2D"]
+stream = ExtResource("1_bpfrj")
+volume_db = -10.363
+autoplay = true
+parameters/looping = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scale = Vector2(0.5, 0.5)
+transform = Transform2D(0.5, 0, 0, 0.5, 0, 0)
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(3200, 2400)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture_filter = 1
+texture_repeat = 3
+scale = Vector2(2, 2)
+texture = ExtResource("2_mdujl")
+centered = false
+
+[node name="Star" parent="." instance=ExtResource("3_oeocj")]
+position = Vector2(798, 1711)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+position = Vector2(307, 0)
+color = Color(0.233925, 0.233925, 0.233925, 1)
+
+[node name="Border" type="Area2D" parent="." groups=["other"]]
+position = Vector2(800, 0)
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+script = ExtResource("4_wvvq3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border"]
+scale = Vector2(23.1611, 23.1611)
+shape = SubResource("CircleShape2D_d30w0")
+debug_color = Color(0, 0.6, 0.701961, 0.133333)
+
+[node name="SunOutline" type="Sprite2D" parent="Border"]
+modulate = Color(0, 1, 1, 0.0823529)
+z_index = -1000
+scale = Vector2(6.79551, 6.79551)
+texture = ExtResource("5_psby3")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Planet" parent="Node2D" instance=ExtResource("6_jqioa")]
+position = Vector2(-1016, 1024)
+
+[node name="Planet2" parent="Node2D" instance=ExtResource("6_jqioa")]
+position = Vector2(2860, -110)
+Texture = ExtResource("7_51mmw")
+Outline = ExtResource("8_7e4d5")
+
+[node name="Planet3" parent="Node2D" instance=ExtResource("6_jqioa")]
+position = Vector2(-757, -1500)
+scale = Vector2(11.9079, 41.5257)
+Texture = ExtResource("9_y4q8e")

@@ -18,6 +18,7 @@ public partial class Grapple : Node2D
 	public Sprite2D gun = null;
 	public bool attached = false;
 	public PhysicsBody2D attachedBody;
+	public Vector2 attachedPos;
 	public float length = 0;
 	[Export]
 	public Area2D cutArea {get; private set;}
@@ -35,6 +36,13 @@ public partial class Grapple : Node2D
 
 	public override void _Process(double delta)
 	{
+		if (attached) {
+			if (player.input.IsActionJustReleased("grapple") || !IsInstanceValid(attachedBody)) {
+				Retract();
+			} else {
+				GlobalPosition = attachedBody.ToGlobal(attachedPos);
+			}
+		}
 		oldPoints = points;
 		points = [Vector2.Zero, ToLocal(gun.GlobalPosition)];
 		rope.UpdatePoints(points, (float)delta);
@@ -43,9 +51,10 @@ public partial class Grapple : Node2D
 	public override void _PhysicsProcess(double delta)
 	{
 		if (attached) {
-			if (player.input.IsActionJustReleased("grapple"))
-			{
+			if (player.input.IsActionJustReleased("grapple") || !IsInstanceValid(attachedBody)) {
 				Retract();
+			} else {
+				GlobalPosition = attachedBody.ToGlobal(attachedPos);
 			}
 			/*if (Input.IsActionPressed("grapple_pull" + player.input)) {
 				PullPlayer((float)delta);
@@ -72,9 +81,10 @@ public partial class Grapple : Node2D
 			{
 				attached = true;
 				attachedBody = (PhysicsBody2D)result["collider"];
-				Reparent(attachedBody);
+				//Reparent(attachedBody);
 				GlobalPosition = (Vector2)result["position"];
 				GlobalRotation = (-(Vector2)result["normal"]).Angle();
+				attachedPos = attachedBody.ToLocal(GlobalPosition);
 				Vector2 dist = GlobalPosition - player.GlobalPosition;
 				length = dist.Length();
 				if (attachedBody is RigidBody2D) {
@@ -99,7 +109,10 @@ public partial class Grapple : Node2D
 		rope.Retract(visuals);
 		attached = false;
 		attachedBody = null;
-		CallDeferred(Node.MethodName.Reparent, player.GetParent());
+		//GD.Print("before: ", GetParent());
+		//Reparent(player.GetParent());
+		//GD.Print("after: ", GetParent());
+		//CallDeferred(Node.MethodName.Reparent, player.GetParent());
 	}
 
 	private void PullPlayer(float delta)

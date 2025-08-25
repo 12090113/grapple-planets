@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cu23xtm85r68i"]
+
+[ext_resource type="Script" uid="uid://budiybfv81qdy" path="res://scripts/GooProjectile.cs" id="1_4lck8"]
+[ext_resource type="Texture2D" uid="uid://c0oswu6jub64c" path="res://textures/planets/planet_outline.png" id="1_da4t8"]
+[ext_resource type="PackedScene" uid="uid://b4owdydi74vng" path="res://scenes/goo.tscn" id="2_tax6o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_da4t8"]
+radius = 12.0
+
+[node name="Goo" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 23
+gravity_scale = 10.0
+contact_monitor = true
+max_contacts_reported = 10
+script = ExtResource("1_4lck8")
+gooScene = ExtResource("2_tax6o")
+
+[node name="PlanetOutline" type="Sprite2D" parent="."]
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("1_da4t8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_da4t8")

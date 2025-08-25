@@ -90,7 +90,7 @@ public partial class Player : RigidBody2D
 			}
 		}
 
-		if (grapple.attached) {
+		if (grapple.attachedBody != null) {
 			if (invulTime == float.MaxValue) {
 				invulTime = invulnerableSpawnTime;
 			}
