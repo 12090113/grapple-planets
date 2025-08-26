@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4owdydi74vng"]
+[gd_scene load_steps=4 format=3 uid="uid://b4owdydi74vng"]
 
 [ext_resource type="Texture2D" uid="uid://c0oswu6jub64c" path="res://textures/planets/planet_outline.png" id="1_0nhrr"]
+[ext_resource type="Script" uid="uid://bovotd7k5df7o" path="res://scripts/Goo.cs" id="1_elx7s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3fbmu"]
 radius = 50.0
 
 [node name="Goo" type="CollisionShape2D"]
 shape = SubResource("CircleShape2D_3fbmu")
+script = ExtResource("1_elx7s")
 
 [node name="PlanetOutline" type="Sprite2D" parent="."]
 scale = Vector2(0.166876, 0.166876)

@@ -24,11 +24,17 @@ public partial class GrappleCutter : Area2D
             if (area is GrappleCutDetector && area != grapple.cutArea) {
                 GrappleCutDetector enemy = (GrappleCutDetector)area;
 
+                if (enemy.grapple.points == null || enemy.grapple.oldPoints == null)
+                    continue;
+
                 oldPos0 = enemy.grapple.ToGlobal(enemy.grapple.oldPoints[0]);
                 oldPos1 = enemy.grapple.ToGlobal(enemy.grapple.oldPoints[1]);
 
-                pos0 = enemy.grapple.ToGlobal(enemy.grapple.points[0]);
-                pos1 = enemy.grapple.ToGlobal(enemy.grapple.points[1]);
+                if (oldPos0 == oldPos1)
+                    continue;
+
+                pos0 = enemy.grapple.ToGlobal(enemy.grapple.ropePoints[0]);
+                pos1 = enemy.grapple.ToGlobal(enemy.grapple.ropePoints[1]);
 
                 //GD.Print(oldPos1,pos1);
                 oldCutPos = FindTransformedThirdPoint(oldPos0, oldPos1, oldPos, pos0, pos1);

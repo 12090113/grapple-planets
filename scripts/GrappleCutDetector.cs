@@ -15,10 +15,10 @@ public partial class GrappleCutDetector : Area2D
 
     public override void _Process(double delta)
     {
-        if (grapple.attached) {
-            Position = grapple.points[0].Lerp(grapple.points[1], 0.5f);
-            Rotation = grapple.points[0].AngleToPoint(grapple.points[1]);
-            collider.Size = new Vector2(grapple.points[0].DistanceTo(grapple.points[1]) + bufferSize, bufferSize);
+        if (grapple.ropePoints != null) {
+            Position = grapple.ropePoints[0].Lerp(grapple.ropePoints[1], 0.5f);
+            Rotation = grapple.ropePoints[0].AngleToPoint(grapple.ropePoints[1]);
+            collider.Size = new Vector2(grapple.ropePoints[0].DistanceTo(grapple.ropePoints[1]) + bufferSize, bufferSize);
         }
     }
 }

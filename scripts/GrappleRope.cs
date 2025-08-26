@@ -20,7 +20,7 @@ public partial class GrappleRope : Line2D
 	public Sprite2D playerHook = null;
 	private Sprite2D hook = null;
 	Grapple grapple = null;
-	Vector2[] grapplePoints;
+	private Vector2[] grapplePoints;
 	float extend = 0;
 	float straighten = 0;
 	public float retract = 0;
@@ -74,13 +74,13 @@ public partial class GrappleRope : Line2D
 		extend = 0f;
 	}
 
-	public void UpdatePoints(Vector2[] points, float delta) {
+	public Vector2[] UpdatePoints(Vector2[] points, float delta) {
 		if (points != null) {
 			grapplePoints = points;
 		}
 		if (grapplePoints == null) {
 			Points = null;
-			return;
+			return null;
 		}
 		if (extend > 0 || straighten > 0 || retract > 0) {
 			Vector2[] sinpoints = new Vector2[precision];
@@ -111,7 +111,7 @@ public partial class GrappleRope : Line2D
 					hook.Visible = false;
 					playerHook.Visible = true;
 					outline.Points = Points;
-					return;
+					return null;
 				}
 				straighten -= 1f/straightenTime*delta;
 			} else if (straighten > 0) {
@@ -130,5 +130,11 @@ public partial class GrappleRope : Line2D
 			Points = null;
 		}
 		outline.Points = Points;
+
+		if (Points.Length > 1) {
+			return [Points[0], Points[^1]];
+		} else {
+			return null;
+		}
 	}
 }

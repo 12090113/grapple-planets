@@ -23,6 +23,7 @@ public partial class Grapple : Node2D
 	[Export]
 	public Area2D cutArea {get; private set;}
 	public Vector2[] points;
+	public Vector2[] ropePoints;
 	public Vector2[] oldPoints;
 
 	public override void _Ready()
@@ -43,9 +44,9 @@ public partial class Grapple : Node2D
 				GlobalPosition = attachedBody.ToGlobal(attachedPos);
 			}
 		}
-		oldPoints = points;
+		oldPoints = ropePoints;
 		points = [Vector2.Zero, ToLocal(gun.GlobalPosition)];
-		rope.UpdatePoints(points, (float)delta);
+		ropePoints = rope.UpdatePoints(points, (float)delta);
 	}
 
 	public override void _PhysicsProcess(double delta)

@@ -2,13 +2,16 @@ using Godot;
 
 public partial class GooGun : Sprite2D
 {
-	Player player;
+	private Player player;
 	[Export]
-	PackedScene gooProjectileScene;
+	private PackedScene gooProjectileScene;
 	[Export]
-	float spawnDist = 100;
+	private float spawnDist = 100;
     [Export]
-	float fireSpeed = 500;
+	private float fireSpeed = 1000;
+    [Export]
+	private float fireTime = 0.1f;
+	private float fireTimer = 0f;
 	//private float maxRange = 10000f;
 
 	public override void _Ready()
@@ -17,7 +20,10 @@ public partial class GooGun : Sprite2D
 	}
 
 	public override void _Process(double delta) {
-		if (player.input.IsActionJustPressed("attack")) {
+		if (fireTimer > 0) {
+			fireTimer -= (float)delta;
+		} else if (player.input.IsActionPressed("attack")) {
+			fireTimer = fireTime;
 			Vector2 dir;
 			if (player.input.IsKeyboard()) {
 				Vector2 mousepos = GetGlobalMousePosition();

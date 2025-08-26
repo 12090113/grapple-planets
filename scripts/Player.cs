@@ -98,7 +98,7 @@ public partial class Player : RigidBody2D
 			RigidBody2D attachedBody = null;
 			float acceleration = grapple.acceleration;
 			bool doubleAttached = false;
-			Vector2 attatchedPos = grapple.GlobalPosition;
+			Vector2 attachedPos = grapple.GlobalPosition;
 			if (grapple.attachedBody is RigidBody2D) {
 				attachedBody = (RigidBody2D)grapple.attachedBody;
 				vel -= attachedBody.LinearVelocity;
@@ -109,9 +109,9 @@ public partial class Player : RigidBody2D
 						acceleration /= 2;
 					}
 				}
-				attatchedPos = attachedBody.Position;
+				attachedPos = attachedBody.Position;
 			}
-			Vector2 difference = attatchedPos - GlobalPosition;
+			Vector2 difference = attachedPos - GlobalPosition;
 			float dist = difference.Length();
 			Vector2 dir = difference.Normalized();
 			Vector2 perpdir = dir.Rotated(Mathf.Pi/2);
