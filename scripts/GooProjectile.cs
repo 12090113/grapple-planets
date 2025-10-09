@@ -18,7 +18,7 @@ public partial class GooProjectile : RigidBody2D
                 PhysicsDirectSpaceState2D spaceState = GetWorld2D().DirectSpaceState;
                 PhysicsPointQueryParameters2D query = new PhysicsPointQueryParameters2D();
                 query.Position = placePos;
-                //query.Exclude = new Array<Rid> { GetRid() };
+                query.Exclude = new Array<Rid> { GetRid() };
                 query.CollisionMask = CollisionMask;
                 Array<Dictionary> result = spaceState.IntersectPoint(query);
                 if (result.Count == 0) {
